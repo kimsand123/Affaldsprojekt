@@ -9,9 +9,8 @@
 
     <Button
         android:id="@+id/hubstatusButton"
-        android:layout_width="172"
-        android:layout_height="114"
-        android:layout_marginTop="16dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="18dp"
         android:background="@color/colorPrimary"
         android:fontFamily="@font/roboto"
@@ -20,14 +19,15 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/garbageButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/depositButton"
         app:layout_constraintTop_toBottomOf="@+id/txtInfoBox" />
 
     <Button
-        android:id="@+id/hubplaceringButton"
-        android:layout_width="172"
-        android:layout_height="114"
+        android:id="@+id/hubplacementButton"
+
+        android:layout_height="0dp"
         android:layout_marginStart="18dp"
         android:layout_marginBottom="8dp"
         android:background="@color/colorPrimary"
@@ -39,12 +39,13 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/hubstatusButton"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/depositButton" />
 
     <TextView
-        android:id="@+id/coinView"
+        android:id="@+id/txtCoinBox"
         android:layout_width="0dp"
-        android:layout_height="35dp"
+        android:layout_height="42dp"
         android:layout_marginStart="18dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="18dp"
@@ -55,6 +56,7 @@
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/txtInfoBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -62,39 +64,41 @@
     <TextView
         android:id="@+id/txtInfoBox"
         android:layout_width="0dp"
-        android:layout_height="169dp"
+        android:layout_height="0dp"
         android:layout_marginStart="18dp"
-        android:layout_marginTop="46dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="18dp"
         android:background="#1A4F28"
         android:fontFamily="@font/roboto"
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/hubstatusButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/coinView" />
+        app:layout_constraintTop_toBottomOf="@+id/txtCoinBox" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/garbageButton"
         android:layout_width="172dp"
-        android:layout_height="114dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="18dp"
         android:layout_marginBottom="8dp"
         android:background="@color/colorPrimary"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/hubplaceringButton"
+        app:layout_constraintStart_toEndOf="@+id/hubplacementButton"
+        app:layout_constraintTop_toBottomOf="@+id/hubstatusButton"
         app:srcCompat="@drawable/FraktionButton" />
 
     <Button
         android:id="@+id/depositButton"
-        android:layout_width="172"
-        android:layout_height="114"
+
+        android:layout_height="0dp"
         android:layout_marginStart="18dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="40dp"
         android:background="@color/colorPrimary"
         android:fontFamily="@font/roboto"
         android:text="Start Aflevering"
@@ -102,7 +106,9 @@
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/hubplacementButton"
         app:layout_constraintEnd_toStartOf="@+id/hubstatusButton"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtInfoBox" />
 
