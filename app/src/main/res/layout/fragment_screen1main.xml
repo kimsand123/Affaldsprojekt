@@ -1,0 +1,130 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="383dp"
+    android:layout_height="511dp"
+    tools:context=".screen1main"
+    android:background="#000000">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="383dp"
+        android:layout_height="511dp"
+        android:minWidth="383dp"
+        android:minHeight="511dp">
+
+    <Button
+        android:id="@+id/hubstatusButton"
+        android:layout_height="0dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="18dp"
+        android:background="@color/colorPrimary"
+        android:fontFamily="@font/roboto"
+        android:text="Hub Status"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/garbageButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/depositButton"
+        app:layout_constraintTop_toBottomOf="@+id/txtInfoBox" />
+
+    <Button
+        android:id="@+id/hubplacementButton"
+
+        android:layout_height="0dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimary"
+        android:fontFamily="@font/roboto"
+        android:text="Hub Placering"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/hubstatusButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/depositButton" />
+
+    <TextView
+        android:id="@+id/txtCoinBox"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="18dp"
+        android:background="#FFEBA9"
+        android:fontFamily="@font/roboto"
+        android:text="GarbageCoins: "
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/txtInfoBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtInfoBox"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="18dp"
+        android:background="#1A4F28"
+        android:fontFamily="@font/roboto"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/hubstatusButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCoinBox" />
+
+    <ImageButton
+        android:id="@+id/garbageButton"
+        android:layout_width="172dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimary"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/hubplacementButton"
+        app:layout_constraintTop_toBottomOf="@+id/hubstatusButton"
+        app:srcCompat="@drawable/FraktionButton" />
+
+    <Button
+        android:id="@+id/depositButton"
+
+        android:layout_height="0dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/colorPrimary"
+        android:fontFamily="@font/roboto"
+        android:text="Start Aflevering"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/hubplacementButton"
+        app:layout_constraintEnd_toStartOf="@+id/hubstatusButton"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtInfoBox" />
+
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>
+
+
+
+
