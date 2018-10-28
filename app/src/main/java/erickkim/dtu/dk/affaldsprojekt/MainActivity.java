@@ -44,8 +44,13 @@ public class MainActivity extends AppCompatActivity
 
 
         if(savedInstanceState==null){
-
+            screen1main screen1 = new screen1main();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragmentContent, screen1)
+                    .commit();
         }
+
+
     }
 
     @Override

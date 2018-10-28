@@ -4,30 +4,33 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link screen1main.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link screen1main#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class screen1main extends Fragment {
+public class screen1main extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private View root;
+    private Button garbageButton;
+    private Button hubstatusButton;
+    private Button hubplacementButton;
+    private Button depositButton;
+    private TextView txtCoinBox;
+    private TextView txtInfoBox;
+
+
+
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
 
     public screen1main() {
         // Required empty public constructor
@@ -42,6 +45,7 @@ public class screen1main extends Fragment {
      * @return A new instance of fragment screen1main.
      */
     // TODO: Rename and change types and number of parameters
+
     public static screen1main newInstance(String param1, String param2) {
         screen1main fragment = new screen1main();
         Bundle args = new Bundle();
@@ -64,45 +68,48 @@ public class screen1main extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_screen1main, container, false);
+        root = inflater.inflate(R.layout.fragment_screen1main, container, false);
+
+        garbageButton = root.findViewById(R.id.garbageButton);
+        hubstatusButton = root.findViewById(R.id.hubstatusButton);
+        hubplacementButton = root.findViewById(R.id.hubplacementButton);
+        depositButton = root.findViewById(R.id.depositButton);
+        txtCoinBox = root.findViewById(R.id.txtCoinBox);
+        txtInfoBox = root.findViewById(R.id.txtInfoBox);
+
+        garbageButton.setOnClickListener(this);
+        hubstatusButton.setOnClickListener(this);
+        hubplacementButton.setOnClickListener(this);
+        depositButton.setOnClickListener(this);
+
+        //TODO: hent data til de to felter. ligenu laver jeg bare noget tekst
+        txtInfoBox.setText("Vidste du at blablablablabl ablas asdf asd efr r as da sdf  gasd asd fas df sad asdas df");
+        txtCoinBox.setText("GarbageCoins: 2287392");
+
+        return root;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.garbageButton:
+                //TODO: vis pdf i en browser.
+                break;
+            case R.id.hubstatusButton:
+                //TODO: vis et dummy billede af en hubstatus
+                break;
+            case R.id.hubplacementButton:
+                //TODO: vis et googlemaps med et koordinat evt. med en fra til markeret.
+                break;
+            case R.id.depositButton:
+                //TODO: Gå til deposit fragmentet.
+                getFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.fragmentContent, new screen2delivery())
+                        .addToBackStack(null)
+                        .commit();
+                break;
+        }
         }
     }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
-}
