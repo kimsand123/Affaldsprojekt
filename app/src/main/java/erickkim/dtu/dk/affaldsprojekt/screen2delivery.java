@@ -4,12 +4,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 
-public class screen2delivery extends Fragment {
+public class screen2delivery extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -18,7 +21,11 @@ public class screen2delivery extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private View root;
+    private Button doneButton;
+    private Button newIdButton;
+    private TextView txtIdBox;
+    private TextView txtCoinBox2;
 
 
     public screen2delivery() {
@@ -56,7 +63,43 @@ public class screen2delivery extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_screen2delivery, container, false);
+        root = inflater.inflate(R.layout.fragment_screen2delivery, container, false);
+
+        doneButton = root.findViewById(R.id.doneButton);
+        newIdButton = root.findViewById(R.id.newIDButton);
+        txtIdBox = root.findViewById(R.id.txtIdBox);
+        txtCoinBox2 = root.findViewById(R.id.txtCoinBox2);
+
+        //TODO: Hent data til textfelter. Lige nu sætter jeg dem bare til noget fast.
+        txtCoinBox2.setText("GarbageCoins: 2873291");
+        txtIdBox.setText("5 2 4 5");
+
+        doneButton.setOnClickListener(this);
+        newIdButton.setOnClickListener(this);
+        return root;
+
     }
 
+    @Override
+    public void onClick(View v) {
+
+        switch(v.getId()){
+            case R.id.doneButton:
+                //TODO: sæt hent dataflag i preferences, og skift til screen1main fragment
+                getFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.fragmentContent, new screen1main())
+                        .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                        .addToBackStack(null)
+                        .commit();
+                break;
+            case R.id.newIDButton:
+                //TODO: Hent nyt id fra backend.
+                //huske det nok skal foregår i en anden tråd
+                break;
+
+        }
+
+    }
+}
 

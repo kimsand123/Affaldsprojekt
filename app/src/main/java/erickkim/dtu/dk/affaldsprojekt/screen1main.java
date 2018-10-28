@@ -95,18 +95,22 @@ public class screen1main extends Fragment implements View.OnClickListener {
         switch(v.getId()) {
             case R.id.garbageButton:
                 //TODO: vis pdf i en browser.
+                //huske det nok skal foregår i en anden tråd
                 break;
             case R.id.hubstatusButton:
                 //TODO: vis et dummy billede af en hubstatus
+                //huske det nok skal foregår i en anden tråd
                 break;
             case R.id.hubplacementButton:
                 //TODO: vis et googlemaps med et koordinat evt. med en fra til markeret.
+                //huske det nok skal foregår i en anden tråd
                 break;
             case R.id.depositButton:
                 //TODO: Gå til deposit fragmentet.
                 getFragmentManager().beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .replace(R.id.fragmentContent, new screen2delivery())
+                        .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                         .addToBackStack(null)
                         .commit();
                 break;
