@@ -66,7 +66,7 @@ public class screen2delivery extends Fragment implements View.OnClickListener {
         root = inflater.inflate(R.layout.fragment_screen2delivery, container, false);
 
         doneButton = root.findViewById(R.id.doneButton);
-        newIdButton = root.findViewById(R.id.newIDButton);
+        newIdButton = root.findViewById(R.id.newIdButton);
         txtIdBox = root.findViewById(R.id.txtIdBox);
         txtCoinBox2 = root.findViewById(R.id.txtCoinBox2);
 

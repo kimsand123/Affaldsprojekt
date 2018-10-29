@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class screen1main extends Fragment implements View.OnClickListener {
@@ -18,7 +19,7 @@ public class screen1main extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM2 = "param2";
 
     private View root;
-    private Button garbageButton;
+    private ImageButton garbageButton;
     private Button hubstatusButton;
     private Button hubplacementButton;
     private Button depositButton;
