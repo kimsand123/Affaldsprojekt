@@ -8,10 +8,12 @@ public class Data_Background {
     private static Data_Background dataBackgroundInstance = null;
     Data_DAO_deliveryCode dao_deliveryCode;
     Data_DAO_trashCoins dao_trashCoins;
+    Data_DAO_tips dao_tips;
 
     private Data_Background() {
         dao_deliveryCode = new Data_DAO_deliveryCode();
         dao_trashCoins = new Data_DAO_trashCoins();
+        dao_tips = new Data_DAO_tips();
         setDeliveryCode(dao_deliveryCode.getAvailableDeliveryCode());
     }
 
@@ -37,6 +39,10 @@ public class Data_Background {
 
     public void setDeliveryCode(Data_DTO_deliveryCode deliveryCode) {
         this.deliveryCode = deliveryCode;
+    }
+
+    public String getTip() {
+        return dao_tips.getTip();
     }
 
     public int getPersonId() {
