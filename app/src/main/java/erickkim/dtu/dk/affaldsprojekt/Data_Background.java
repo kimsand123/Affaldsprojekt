@@ -3,8 +3,15 @@ package erickkim.dtu.dk.affaldsprojekt;
 public class Data_Background {
 
     private int trashCoins;
-    private int deliveryCode;
+    private Data_DTO_deliveryCode deliveryCode;
     private int personId;
+
+    public Data_Background() {
+        Data_DAO_deliveryCode dao_deliveryCode = new Data_DAO_deliveryCode();
+        Data_DAO_trashCoins dao_trashCoins = new Data_DAO_trashCoins();
+
+        setDeliveryCode(dao_deliveryCode.getAvailableDeliveryCode());
+    }
 
     public int getTrashCoins() {
         return trashCoins;
@@ -14,11 +21,11 @@ public class Data_Background {
         this.trashCoins = trashCoins;
     }
 
-    public int getDeliveryCode() {
+    public Data_DTO_deliveryCode getDeliveryCode() {
         return deliveryCode;
     }
 
-    public void setDeliveryCode(int deliveryCode) {
+    public void setDeliveryCode(Data_DTO_deliveryCode deliveryCode) {
         this.deliveryCode = deliveryCode;
     }
 
