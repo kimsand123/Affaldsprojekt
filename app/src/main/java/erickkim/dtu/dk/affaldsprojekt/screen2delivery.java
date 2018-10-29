@@ -75,7 +75,7 @@ public class screen2delivery extends Fragment implements View.OnClickListener {
         txtCoinBox2 = root.findViewById(R.id.txtCoinBox2);
 
         //TODO: Hent data til textfelter. Lige nu sætter jeg dem bare til noget fast.
-        txtCoinBox2.setText("GarbageCoins: 2873291");
+        txtCoinBox2.setText("GarbageCoins: " +Data_Background.getInstance().getTrashCoins());
 
         txtIdBox.setText("ID: 5 2 4 5");
 

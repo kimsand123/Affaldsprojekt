@@ -83,9 +83,9 @@ public class screen1main extends Fragment implements View.OnClickListener {
 
         //TODO: hent data til de to felter. ligenu laver jeg bare noget tekst
 
-        //txtInfoBox.setText(Data_Background.getInstance().getTip());
+        txtInfoBox.setText(Data_Background.getInstance().getTip());
 
-        //txtCoinBox.setText("GarbageCoins: "+ Data_Background.getInstance().getTrashCoins());
+        txtCoinBox.setText("GarbageCoins: "+ Data_Background.getInstance().getTrashCoins());
 
         return root;
     }
