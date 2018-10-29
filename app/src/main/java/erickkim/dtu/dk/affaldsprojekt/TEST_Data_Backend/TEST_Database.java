@@ -84,9 +84,8 @@ public class TEST_Database {
     }
 
     public static String getTip() {
-        int tipToGet = (int) Math.random() * tips.length;
-        String tipToReturn = tips[tipToGet];
-        return tipToReturn;
+        int tipToGet = (int) (Math.random() * (tips.length + 1));
+        return tips[tipToGet];
     }
 
 
