@@ -23,7 +23,7 @@ public class TEST_Database {
 
     public static int getSomeTrashCoins(int personId) {
         for (int i = 0; i < 10; i++) {
-            if (personCoins[1][i] == personId) {
+            if (personCoins[0][i] == personId) {
                 return personCoins[1][i];
             }
         }
