@@ -37,7 +37,7 @@
         <TextView
             android:id="@+id/txtInfoBox3"
             android:layout_width="0dp"
-            android:layout_height="125"
+            android:layout_height="160sp"
             android:layout_marginStart="18dp"
             android:layout_marginTop="36dp"
             android:layout_marginEnd="18dp"
@@ -62,7 +62,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="89dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="89dp"
             android:background="@drawable/button_roundcorners_dark"
             android:backgroundTint="@color/colorPrimary"
             android:fontFamily="@font/roboto"

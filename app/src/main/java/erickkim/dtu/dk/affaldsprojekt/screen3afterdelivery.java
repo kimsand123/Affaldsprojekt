@@ -63,13 +63,12 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         txtCoinBox3 = root.findViewById(R.id.txtCoinBox3);
         txtInfoBox3 = root.findViewById(R.id.txtInfoBox3);
 
-        //TODO: Hent data til coin og infobox. ligenu er det bare tekst.
         txtInfoBox3.setText(Data_Background.getInstance().getTip());
         txtCoinBox3.setText("GarbageCoins: " + Data_Background.getInstance().getTrashCoins());
 
         //TODO: Hent data til piechart.
 
-        statisticButton.setOnClickListener(this);
+        //statisticButton.setOnClickListener(this);
 
         // Inflate the layout for this fragment
         return root;
