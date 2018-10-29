@@ -14,41 +14,41 @@
         android:minWidth="383dp"
         android:minHeight="511dp">
 
-    <Button
-        android:id="@+id/hubstatusButton"
-        android:layout_width="172dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="18dp"
-        android:background="@color/colorPrimary"
-        android:fontFamily="@font/roboto"
-        android:text="Hub Status"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/garbageButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/depositButton"
-        app:layout_constraintTop_toBottomOf="@+id/txtInfoBox" />
+        <Button
+            android:id="@+id/hubstatusButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="18dp"
+            android:background="@color/colorPrimary"
+            android:fontFamily="@font/roboto"
+            android:text="Hub Status"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/garbageButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/depositButton"
+            app:layout_constraintTop_toBottomOf="@+id/txtInfoBox" />
 
-    <Button
-        android:id="@+id/hubplacementButton"
-        android:layout_width="172dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/colorPrimary"
-        android:fontFamily="@font/roboto"
-        android:text="Hub Placering"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/hubstatusButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/depositButton" />
+        <Button
+            android:id="@+id/hubplacementButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorPrimary"
+            android:fontFamily="@font/roboto"
+            android:text="Hub Placering"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/hubstatusButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/depositButton" />
 
     <TextView
         android:id="@+id/txtCoinBox"
@@ -87,19 +87,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtCoinBox" />
 
-    <ImageButton
-        android:id="@+id/garbageButton"
-        android:layout_width="172dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/colorPrimary"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/hubplacementButton"
-        app:layout_constraintTop_toBottomOf="@+id/hubstatusButton"
-        app:srcCompat="@drawable/fraktionbutton" />
+        <ImageButton
+            android:id="@+id/garbageButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:adjustViewBounds="true"
+            android:background="@color/colorPrimary"
+            android:padding="30dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/hubplacementButton"
+            app:layout_constraintTop_toBottomOf="@+id/hubstatusButton"
+            app:srcCompat="@drawable/fraktionbutton2" />
 
     <Button
         android:id="@+id/depositButton"
