@@ -1,8 +1,6 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
-import android.os.AsyncTask;
-
-public class Data_Background extends AsyncTask {
+public class Data_Background {
 
     private int trashCoins;
     private Data_DTO_deliveryCode deliveryCode;
@@ -15,10 +13,6 @@ public class Data_Background extends AsyncTask {
         setDeliveryCode(dao_deliveryCode.getAvailableDeliveryCode());
     }
 
-    @Override
-    protected Object doInBackground(Object[] objects) {
-        return null;
-    }
 
     public int getTrashCoins() {
         return trashCoins;
