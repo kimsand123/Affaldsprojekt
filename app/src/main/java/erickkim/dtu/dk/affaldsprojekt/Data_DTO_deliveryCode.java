@@ -2,7 +2,7 @@ package erickkim.dtu.dk.affaldsprojekt;
 
 public class Data_DTO_deliveryCode {
     private int code;
-    private int date;
+    private long date;
 
     public int getCode() {
         return code;
@@ -12,11 +12,11 @@ public class Data_DTO_deliveryCode {
         this.code = code;
     }
 
-    public int getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(long date) {
         this.date = date;
     }
 }

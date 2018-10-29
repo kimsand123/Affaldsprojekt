@@ -37,7 +37,7 @@ public class TEST_Database {
         Date dateSetter = new Date();
         do {
             newTempCode.setCode(fabricateNewCode());
-            newTempCode.setDate((int) dateSetter.getTime());
+            newTempCode.setDate(dateSetter.getTime());
         } while (!testCodeValid(newTempCode));
 
         insertCodeIntoData(newTempCode);
