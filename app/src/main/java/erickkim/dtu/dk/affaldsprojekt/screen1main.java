@@ -82,8 +82,10 @@ public class screen1main extends Fragment implements View.OnClickListener {
         depositButton.setOnClickListener(this);
 
         //TODO: hent data til de to felter. ligenu laver jeg bare noget tekst
-        txtInfoBox.setText("Vidste du at blablablablabl ablas asdf asd efr r as da sdf  gasd asd fas df sad asdas df");
-        txtCoinBox.setText("GarbageCoins: 2287392");
+
+        txtInfoBox.setText(Data_Background.getInstance().getTip());
+
+        //txtCoinBox.setText("GarbageCoins: "+ Data_Background.getInstance().getTrashCoins());
 
         return root;
     }

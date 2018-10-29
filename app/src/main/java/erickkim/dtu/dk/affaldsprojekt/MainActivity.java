@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FragmentManager fragmentManager = getSupportFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .add(R.id.fragmentContent, startscreen)
                     .commit();
         //}
+
+
+
+
 
     }
 
