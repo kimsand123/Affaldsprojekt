@@ -16,6 +16,7 @@ public class screen1main extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    //variable instantiering
     private View root;
     private ImageButton garbageButton;
     private Button hubstatusButton;
@@ -69,6 +70,7 @@ public class screen1main extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_screen1main, container, false);
 
+        // initialiser de forskellige views i fragmentet
         garbageButton = root.findViewById(R.id.garbageButton);
         hubstatusButton = root.findViewById(R.id.hubstatusButton);
         hubplacementButton = root.findViewById(R.id.hubplacementButton);
@@ -76,11 +78,13 @@ public class screen1main extends Fragment implements View.OnClickListener {
         txtCoinBox = root.findViewById(R.id.txtCoinBox3);
         txtInfoBox = root.findViewById(R.id.txtInfoBox3);
 
+        // setonclicklisteners for alle knapper.
         garbageButton.setOnClickListener(this);
         hubstatusButton.setOnClickListener(this);
         hubplacementButton.setOnClickListener(this);
         depositButton.setOnClickListener(this);
 
+        // Hent data for TextViews
         txtInfoBox.setText(Data_Background.getInstance().getTip());
         txtCoinBox.setText("GarbageCoins: "+ Data_Background.getInstance().getTrashCoins());
 
@@ -90,21 +94,23 @@ public class screen1main extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+
+        //check view objektet og skift til den tilhørende case.
         switch(v.getId()) {
             case R.id.garbageButton:
                 //TODO: vis pdf i en browser.
-                //huske det nok skal foregår i en anden tråd
+                //huske det nok skal foregå i en anden tråd
                 break;
             case R.id.hubstatusButton:
                 //TODO: vis et dummy billede af en hubstatus
-                //huske det nok skal foregår i en anden tråd
+                //huske det nok skal foregå i en anden tråd
                 break;
             case R.id.hubplacementButton:
                 //TODO: vis et googlemaps med et koordinat evt. med en fra til markeret.
-                //huske det nok skal foregår i en anden tråd
+                //huske det nok skal foregå i en anden tråd
                 break;
             case R.id.depositButton:
-                //TODO: Gå til deposit fragmentet.
+                //kør fragmentet for Screen2delivery.
                 getFragmentManager().beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .replace(R.id.fragmentContent, new screen2delivery())

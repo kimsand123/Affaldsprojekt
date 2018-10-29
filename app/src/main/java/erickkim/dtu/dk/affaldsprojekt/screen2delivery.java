@@ -18,7 +18,7 @@ public class screen2delivery extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+    //instantier variable.
     private String mParam1;
     private String mParam2;
     private View root;
@@ -69,15 +69,15 @@ public class screen2delivery extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_screen2delivery, container, false);
 
+        //initialiser views
         doneButton = root.findViewById(R.id.doneButton);
         newIdButton = root.findViewById(R.id.newIdButton);
         txtIdBox = root.findViewById(R.id.txtIdBox);
         txtCoinBox2 = root.findViewById(R.id.txtCoinBox2);
 
-        //TODO: Hent data til textfelter. Lige nu sætter jeg dem bare til noget fast.
-        txtCoinBox2.setText("GarbageCoins: " +Data_Background.getInstance().getTrashCoins());
-
-        txtIdBox.setText("ID: 5 2 4 5");
+        //Hent data til textfelter.
+        txtCoinBox2.setText("GarbageCoins: " + Data_Background.getInstance().getTrashCoins());
+        txtIdBox.setText("ID: 4 3 2 4");
 
         doneButton.setOnClickListener(this);
         newIdButton.setOnClickListener(this);

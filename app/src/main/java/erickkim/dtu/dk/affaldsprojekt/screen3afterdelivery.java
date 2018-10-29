@@ -12,6 +12,8 @@ import android.widget.TextView;
 public class screen3afterdelivery extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+    //instantier variable
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private View root;
@@ -56,13 +58,15 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_screen3afterdelivery, container, false);
 
+        //initialiser views
         statisticButton = root.findViewById(R.id.statisticButton);
-
         txtCoinBox3 = root.findViewById(R.id.txtCoinBox3);
         txtInfoBox3 = root.findViewById(R.id.txtInfoBox3);
 
+        //Hent data til TextViews.
         txtInfoBox3.setText(Data_Background.getInstance().getTip());
         txtCoinBox3.setText("GarbageCoins: " + Data_Background.getInstance().getTrashCoins());
 
@@ -70,16 +74,16 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
         //statisticButton.setOnClickListener(this);
 
-        // Inflate the layout for this fragment
         return root;
     }
 
     @Override
     public void onClick(View v) {
 
+        //check view objektet, og skift til den tilhørende case
         switch(v.getId()){
             case R.id.statisticButton:
-                //TODO: sæt hent dataflag i preferences, og skift til screen1main fragment
+                //kør fragmentet for Screen4statistik.
                 getFragmentManager().beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         //.replace(R.id.fragmentContent, new screen4statistik())

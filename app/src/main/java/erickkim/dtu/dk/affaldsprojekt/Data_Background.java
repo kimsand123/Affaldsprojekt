@@ -23,7 +23,6 @@ public class Data_Background {
         return dataBackgroundInstance;
     }
 
-
     public int getTrashCoins() {
         trashCoins = dao_trashCoins.getTrashCoins(personId);
         return trashCoins;
