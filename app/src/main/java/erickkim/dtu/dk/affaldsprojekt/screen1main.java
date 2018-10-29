@@ -1,7 +1,5 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -75,8 +73,8 @@ public class screen1main extends Fragment implements View.OnClickListener {
         hubstatusButton = root.findViewById(R.id.hubstatusButton);
         hubplacementButton = root.findViewById(R.id.hubplacementButton);
         depositButton = root.findViewById(R.id.depositButton);
-        txtCoinBox = root.findViewById(R.id.txtCoinBox);
-        txtInfoBox = root.findViewById(R.id.txtInfoBox);
+        txtCoinBox = root.findViewById(R.id.txtCoinBox3);
+        txtInfoBox = root.findViewById(R.id.txtInfoBox3);
 
         garbageButton.setOnClickListener(this);
         hubstatusButton.setOnClickListener(this);
@@ -84,8 +82,10 @@ public class screen1main extends Fragment implements View.OnClickListener {
         depositButton.setOnClickListener(this);
 
         //TODO: hent data til de to felter. ligenu laver jeg bare noget tekst
-        txtInfoBox.setText("Vidste du at blablablablabl ablas asdf asd efr r as da sdf  gasd asd fas df sad asdas df");
-        txtCoinBox.setText("GarbageCoins: 2287392");
+
+        txtInfoBox.setText(Data_Background.getInstance().getTip());
+
+        txtCoinBox.setText("GarbageCoins: "+ Data_Background.getInstance().getTrashCoins());
 
         return root;
     }
