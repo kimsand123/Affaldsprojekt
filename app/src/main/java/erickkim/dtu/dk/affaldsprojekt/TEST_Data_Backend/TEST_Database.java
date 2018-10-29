@@ -1,6 +1,7 @@
 package erickkim.dtu.dk.affaldsprojekt.TEST_Data_Backend;
 
 import java.util.Date;
+import java.util.Random;
 
 import erickkim.dtu.dk.affaldsprojekt.Data_DTO_deliveryCode;
 
@@ -84,7 +85,8 @@ public class TEST_Database {
     }
 
     public static String getTip() {
-        int tipToGet = (int) (Math.random() * (tips.length + 1));
+        Random r = new Random();
+        int tipToGet = r.nextInt(tips.length);
         return tips[tipToGet];
     }
 
