@@ -4,12 +4,14 @@ public class Data_Background {
 
     private int trashCoins;
     private Data_DTO_deliveryCode deliveryCode;
-    private int personId;
+    private int personId = 123; // TODO: implement a way to store a personalized person ID.
     private static Data_Background dataBackgroundInstance = null;
+    Data_DAO_deliveryCode dao_deliveryCode;
+    Data_DAO_trashCoins dao_trashCoins;
 
     private Data_Background() {
-        Data_DAO_deliveryCode dao_deliveryCode = new Data_DAO_deliveryCode();
-        Data_DAO_trashCoins dao_trashCoins = new Data_DAO_trashCoins();
+        dao_deliveryCode = new Data_DAO_deliveryCode();
+        dao_trashCoins = new Data_DAO_trashCoins();
         setDeliveryCode(dao_deliveryCode.getAvailableDeliveryCode());
     }
 
@@ -21,6 +23,7 @@ public class Data_Background {
 
 
     public int getTrashCoins() {
+        trashCoins = dao_trashCoins.getTrashCoins(personId);
         return trashCoins;
     }
 

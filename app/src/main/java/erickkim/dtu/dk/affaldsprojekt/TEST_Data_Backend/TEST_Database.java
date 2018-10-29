@@ -14,7 +14,7 @@ public class TEST_Database {
         return testDatabaseInstance;
     }
 
-    public static int personCoins[][] = { {657, 323, 252, 623, 696, 111, 112, 113, 999, 986},
+    public static int personCoins[][] = { {123, 323, 252, 623, 555, 111, 112, 113, 999, 986},
                             {15555, 55005, 252555, 236110, 0, 10, 623523, 161512, 696969696, 2336 }
     };
 
