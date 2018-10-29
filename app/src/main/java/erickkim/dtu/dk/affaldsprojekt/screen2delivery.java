@@ -27,6 +27,10 @@ public class screen2delivery extends Fragment implements View.OnClickListener {
     private TextView txtIdBox;
     private TextView txtCoinBox2;
 
+    private Data_DAO_deliveryCode getData;
+    private Data_DTO_deliveryCode dataDTO;
+
+
 
     public screen2delivery() {
         // Required empty public constructor
@@ -72,6 +76,7 @@ public class screen2delivery extends Fragment implements View.OnClickListener {
 
         //TODO: Hent data til textfelter. Lige nu sætter jeg dem bare til noget fast.
         txtCoinBox2.setText("GarbageCoins: 2873291");
+
         txtIdBox.setText("ID: 5 2 4 5");
 
         doneButton.setOnClickListener(this);
