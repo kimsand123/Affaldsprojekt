@@ -47,9 +47,13 @@ public class TEST_Database {
 
     private static void insertCodeIntoData(Data_DTO_deliveryCode newTempCode) {
         for (int i = 0; i < usedCodes.length; i++) {
-            if (!tooCloseDates(usedCodes[i], newTempCode)) {
+            if (usedCodes[i] != null) {
+                if (!tooCloseDates(usedCodes[i], newTempCode)) {
+                    usedCodes[i] = newTempCode;
+                    break;
+                }
+            } else {
                 usedCodes[i] = newTempCode;
-                break;
             }
         }
     }
