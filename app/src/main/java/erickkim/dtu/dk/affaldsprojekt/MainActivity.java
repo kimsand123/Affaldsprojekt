@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .commit();
         //}
 
+        // Data_Background is initialized and told to fetch initial data.
+
+
 
     }
 
