@@ -81,10 +81,7 @@ public class screen1main extends Fragment implements View.OnClickListener {
         hubplacementButton.setOnClickListener(this);
         depositButton.setOnClickListener(this);
 
-        //TODO: hent data til de to felter. ligenu laver jeg bare noget tekst
-
         txtInfoBox.setText(Data_Background.getInstance().getTip());
-        // Her er et mellemrum.
         txtCoinBox.setText("GarbageCoins: "+ Data_Background.getInstance().getTrashCoins());
 
         return root;
