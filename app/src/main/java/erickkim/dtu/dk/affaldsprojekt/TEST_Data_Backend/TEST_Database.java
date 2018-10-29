@@ -6,7 +6,7 @@ import erickkim.dtu.dk.affaldsprojekt.Data_DTO_deliveryCode;
 
 public class TEST_Database {
 
-    static int personCoins[][] = { {657, 323, 252, 623, 696, 111, 112, 113, 999, 986},
+    public static int personCoins[][] = { {657, 323, 252, 623, 696, 111, 112, 113, 999, 986},
                             {15555, 55005, 252555, 236110, 0, 10, 623523, 161512, 696969696, 2336 }
     };
 
@@ -19,7 +19,7 @@ public class TEST_Database {
         return -1;
     }
 
-    static Data_DTO_deliveryCode[] usedCodes = new Data_DTO_deliveryCode[1000];
+    public static Data_DTO_deliveryCode[] usedCodes = new Data_DTO_deliveryCode[1000];
 
     public static Data_DTO_deliveryCode getDeliveryCode() {
         Data_DTO_deliveryCode newTempCode = new Data_DTO_deliveryCode();
