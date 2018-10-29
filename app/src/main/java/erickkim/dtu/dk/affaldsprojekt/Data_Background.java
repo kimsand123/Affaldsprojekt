@@ -5,12 +5,18 @@ public class Data_Background {
     private int trashCoins;
     private Data_DTO_deliveryCode deliveryCode;
     private int personId;
+    private static Data_Background dataBackgroundInstance = null;
 
-    public Data_Background() {
+    private Data_Background() {
         Data_DAO_deliveryCode dao_deliveryCode = new Data_DAO_deliveryCode();
         Data_DAO_trashCoins dao_trashCoins = new Data_DAO_trashCoins();
-
         setDeliveryCode(dao_deliveryCode.getAvailableDeliveryCode());
+    }
+
+    public static Data_Background getInstance() {
+        if (dataBackgroundInstance == null)
+            dataBackgroundInstance = new Data_Background();
+        return dataBackgroundInstance;
     }
 
 

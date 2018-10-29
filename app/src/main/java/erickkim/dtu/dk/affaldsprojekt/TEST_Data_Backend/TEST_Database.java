@@ -6,6 +6,14 @@ import erickkim.dtu.dk.affaldsprojekt.Data_DTO_deliveryCode;
 
 public class TEST_Database {
 
+    private static TEST_Database testDatabaseInstance = null;
+
+    public static TEST_Database getInstance() {
+        if (testDatabaseInstance == null)
+            testDatabaseInstance = new TEST_Database();
+        return testDatabaseInstance;
+    }
+
     public static int personCoins[][] = { {657, 323, 252, 623, 696, 111, 112, 113, 999, 986},
                             {15555, 55005, 252555, 236110, 0, 10, 623523, 161512, 696969696, 2336 }
     };
