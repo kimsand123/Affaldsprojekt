@@ -1,5 +1,7 @@
 package erickkim.dtu.dk.affaldsprojekt.TEST_Data_Backend;
 
+import java.util.Date;
+
 import erickkim.dtu.dk.affaldsprojekt.Data_DTO_deliveryCode;
 
 public class TEST_Database {
@@ -19,17 +21,39 @@ public class TEST_Database {
 
     static Data_DTO_deliveryCode[] usedCodes = new Data_DTO_deliveryCode[1000];
 
-    public static int getDeliveryCode() {
+    public static Data_DTO_deliveryCode getDeliveryCode() {
+        Data_DTO_deliveryCode newTempCode = new Data_DTO_deliveryCode();
+        Date dateSetter = new Date();
+        do {
+            newTempCode.setCode(fabricateNewCode());
+            newTempCode.setDate((int) dateSetter.getTime());
+        } while (!testCodeValid(newTempCode));
+
+        return newTempCode;
+    }
+
+    public static boolean testCodeValid(Data_DTO_deliveryCode testCode) {
+        for (int i = 0; i < usedCodes.length; i++) {
+            if (usedCodes[i] != null)
+                if (usedCodes[i].getCode() == testCode.getCode())
+                    if (compareTimeStamps(usedCodes[i], testCode))
+                        return true;
+        }
+        return true;
+    }
+
+    public static boolean compareTimeStamps(Data_DTO_deliveryCode code1, Data_DTO_deliveryCode code2) {
+        if (code1.getDate() > 10 + code2.getDate())
+            return true;
+        else
+            return false;
+    }
+
+    public static int fabricateNewCode() {
         int min = 1;
         int max = 9999;
         int range = (max - min) + 1;
-        double newCode = (int) (Math.random() * range) + min;
-
-        for (int i = 0; i < usedCodes.length; i++) {
-
-        }
-
-
+        return (int) (Math.random() * range) + min;
     }
 
 }
