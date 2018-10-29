@@ -16,11 +16,11 @@
 
         <Button
             android:id="@+id/hubstatusButton"
-            android:layout_width="0dp"
+            android:layout_width="176dp"
             android:layout_height="0dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="18dp"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/button_roundcorners_dark"
             android:fontFamily="@font/roboto"
             android:text="Hub Status"
             android:textAlignment="center"
@@ -38,7 +38,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="18dp"
             android:layout_marginBottom="8dp"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/button_roundcorners_dark"
             android:fontFamily="@font/roboto"
             android:text="Hub Placering"
             android:textAlignment="center"
@@ -57,7 +57,7 @@
         android:layout_marginStart="18dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="18dp"
-        android:background="#FFEBA9"
+        android:background="@drawable/text_roundcorners_beige"
         android:fontFamily="@font/roboto"
         android:text="GarbageCoins: "
         android:textAlignment="center"
@@ -76,7 +76,7 @@
         android:layout_marginStart="18dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="18dp"
-        android:background="#1A4F28"
+        android:background="@drawable/button_roundcorners_dark"
         android:fontFamily="@font/roboto"
         android:textAlignment="center"
         android:textColor="@android:color/black"
@@ -94,33 +94,45 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="8dp"
             android:adjustViewBounds="true"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/button_roundcorners_dark"
             android:padding="30dp"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/hubplacementButton"
             app:layout_constraintTop_toBottomOf="@+id/hubstatusButton"
             app:srcCompat="@drawable/fraktionbutton2" />
 
-    <Button
-        android:id="@+id/depositButton"
-        android:layout_width="172dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="40dp"
-        android:background="@color/colorPrimary"
-        android:fontFamily="@font/roboto"
-        android:text="Start Aflevering"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/hubplacementButton"
-        app:layout_constraintEnd_toStartOf="@+id/hubstatusButton"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtInfoBox" />
+        <Button
+
+            android:id="@+id/depositButton"
+
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="40dp"
+
+            android:background="@drawable/button_roundcorners_dark"
+            android:bottomLeftRadius="30dp"
+            android:bottomRightRadius="1dp"
+            android:fontFamily="@font/roboto"
+
+            android:text="Start Aflevering"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:topLeftRadius="1dp"
+            android:topRightRadius="30dp"
+
+
+            app:layout_constraintBottom_toTopOf="@+id/hubplacementButton"
+            app:layout_constraintEnd_toStartOf="@+id/hubstatusButton"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtInfoBox" />
+
 
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>
