@@ -72,7 +72,7 @@ public class screen1main extends Fragment implements View.OnClickListener {
 
         // initialiser de forskellige views i fragmentet
         garbageButton = root.findViewById(R.id.garbageButton);
-        hubstatusButton = root.findViewById(R.id.becomebetterButton);
+        hubstatusButton = root.findViewById(R.id.sendButton);
         hubplacementButton = root.findViewById(R.id.hubplacementButton);
         depositButton = root.findViewById(R.id.depositButton);
         txtCoinBox = root.findViewById(R.id.txtCoinBox3);
@@ -101,7 +101,7 @@ public class screen1main extends Fragment implements View.OnClickListener {
                 //TODO: vis pdf i en browser.
                 //huske det nok skal foregå i en anden tråd
                 break;
-            case R.id.becomebetterButton:
+            case R.id.sendButton:
                 //TODO: vis et dummy billede af en hubstatus
                 //huske det nok skal foregå i en anden tråd
                 break;

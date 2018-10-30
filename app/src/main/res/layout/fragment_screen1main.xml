@@ -15,7 +15,7 @@
         android:minHeight="511dp">
 
         <Button
-            android:id="@+id/becomebetterButton"
+            android:id="@+id/sendButton"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="2dp"
@@ -52,7 +52,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/becomebetterButton"
+            app:layout_constraintEnd_toStartOf="@+id/sendButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/depositButton" />
 
@@ -112,7 +112,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/hubplacementButton"
-            app:layout_constraintTop_toBottomOf="@+id/becomebetterButton"
+            app:layout_constraintTop_toBottomOf="@+id/sendButton"
             app:srcCompat="@drawable/fraktionbutton2" />
 
         <Button
@@ -142,7 +142,7 @@
             android:topLeftRadius="1dp"
             android:topRightRadius="30dp"
             app:layout_constraintBottom_toTopOf="@+id/hubplacementButton"
-            app:layout_constraintEnd_toStartOf="@+id/becomebetterButton"
+            app:layout_constraintEnd_toStartOf="@+id/sendButton"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtCoinBox4" />

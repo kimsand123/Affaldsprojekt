@@ -97,6 +97,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.competitions:
                 break;
             case R.id.feedback:
+                //kør fragmentet for Screen2delivery.
+                /*getFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.fragmentContent, new screen6feedback())
+                        .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                        .addToBackStack(null)
+                        .commit();*/
                 break;
             case R.id.about:
                 break;
@@ -107,4 +114,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

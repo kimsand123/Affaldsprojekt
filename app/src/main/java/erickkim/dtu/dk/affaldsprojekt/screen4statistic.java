@@ -1,7 +1,6 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,7 +63,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
 
         txtCoinBox4 = root.findViewById(R.id.txtCoinBox4);
-        becomeBetterButton = root.findViewById(R.id.becomebetterButton);
+        becomeBetterButton = root.findViewById(R.id.sendButton);
         statistic = root.findViewById(R.id.statistic);
 
         becomeBetterButton.setOnClickListener(this);
@@ -81,7 +80,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         //check view objektet og skift til den tilhørende case.
         switch(v.getId()) {
-              case R.id.becomebetterButton:
+              case R.id.sendButton:
                 //kør fragmentet for Screen2delivery.
                /*getFragmentManager().beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
