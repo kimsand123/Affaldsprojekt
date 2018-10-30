@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screen1main"
+    tools:context=".screen3afterdelivery"
     android:background="#000000">
 
     <android.support.constraint.ConstraintLayout
@@ -17,14 +17,13 @@
         <TextView
             android:id="@+id/txtCoinBox3"
             android:layout_width="0dp"
-            android:layout_height="42dp"
+            android:layout_height="42sp"
             android:layout_marginStart="18dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="18dp"
             android:background="@drawable/text_roundcorners_beige"
             android:fontFamily="@font/roboto"
             android:gravity="center"
-            android:text="GarbageCoins: "
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="20sp"
@@ -39,8 +38,8 @@
             android:layout_width="0dp"
             android:layout_height="160sp"
             android:layout_marginStart="18dp"
-            android:layout_marginTop="36dp"
             android:layout_marginEnd="18dp"
+            android:layout_marginBottom="268dp"
             android:background="@drawable/text_roundcorners_darkgreen"
             android:fontFamily="@font/roboto"
             android:gravity="center"
@@ -48,19 +47,18 @@
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtCoinBox3" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/statisticButton"
             android:layout_width="wrap_content"
 
-            android:layout_height="92dp"
+            android:layout_height="92sp"
 
             android:layout_marginStart="8dp"
-            android:layout_marginTop="89dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="89dp"
             android:background="@drawable/button_roundcorners_dark"
@@ -72,8 +70,7 @@
             android:textColor="@color/hvid"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtInfoBox3" />
+            app:layout_constraintStart_toStartOf="parent" />
 
 
     </android.support.constraint.ConstraintLayout>

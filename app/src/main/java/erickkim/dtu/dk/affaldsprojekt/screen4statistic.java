@@ -1,16 +1,18 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.jjoe64.graphview.GraphView;
 
 
-
-public class screen4statistic extends Fragment {
+public class screen4statistic extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -20,6 +22,10 @@ public class screen4statistic extends Fragment {
     private String mParam1;
     private String mParam2;
     private View root;
+    private Button becomeBetterButton;
+    private TextView txtCoinBox4;
+    private GraphView statistic;
+
 
     public screen4statistic() {
         // Required empty public constructor
@@ -55,13 +61,35 @@ public class screen4statistic extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
       root = inflater.inflate(R.layout.fragment_screen4statistic, container, false);
-
         // Inflate the layout for this fragment
+
+        txtCoinBox4 = root.findViewById(R.id.txtCoinBox4);
+        becomeBetterButton = root.findViewById(R.id.becomebetterButton);
+        statistic = root.findViewById(R.id.statistic);
+
+        becomeBetterButton.setOnClickListener(this);
+
+        //TODO: Hent data til statistik og præsentér dem
+
+        txtCoinBox4.setText("GarbageCoins: " + Data_Background.getInstance().getTrashCoins());
+
         return root;
     }
 
 
-
-
-
+    @Override
+    public void onClick(View v) {
+        //check view objektet og skift til den tilhørende case.
+        switch(v.getId()) {
+              case R.id.becomebetterButton:
+                //kør fragmentet for Screen2delivery.
+               /*getFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.fragmentContent, new screen5becomebetter())
+                        .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                        .addToBackStack(null)
+                        .commit();*/
+                break;
+        }
+    }
 }

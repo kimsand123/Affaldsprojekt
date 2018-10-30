@@ -1,7 +1,5 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -77,7 +75,7 @@ public class screen2delivery extends Fragment implements View.OnClickListener {
 
         //Hent data til textfelter.
         txtCoinBox2.setText("GarbageCoins: " + Data_Background.getInstance().getTrashCoins());
-        txtIdBox.setText("ID: 4 3 2 4");
+        txtIdBox.setText("ID: 2 3 4 5");//+ Data_Background.getInstance().getDeliveryCode());
 
         doneButton.setOnClickListener(this);
         newIdButton.setOnClickListener(this);
@@ -100,7 +98,7 @@ public class screen2delivery extends Fragment implements View.OnClickListener {
                 break;
             case R.id.newIdButton:
                 //TODO: Hent nyt id fra backend.
-                //huske det nok skal foregår i en anden tråd
+                //txtIdBox.setText("ID: "+ Data_Background.getInstance().getDeliveryCode());
                 break;
 
         }

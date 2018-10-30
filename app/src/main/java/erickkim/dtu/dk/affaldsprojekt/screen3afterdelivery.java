@@ -72,7 +72,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
         //TODO: Hent data til piechart.
 
-        //statisticButton.setOnClickListener(this);
+        statisticButton.setOnClickListener(this);
 
         return root;
     }
@@ -83,10 +83,10 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         //check view objektet, og skift til den tilhørende case
         switch(v.getId()){
             case R.id.statisticButton:
-                //kør fragmentet for Screen4statistik.
+                //kør fragmentet for screen4statistic.
                 getFragmentManager().beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        //.replace(R.id.fragmentContent, new screen4statistik())
+                        .replace(R.id.fragmentContent, new screen4statistic())
                         .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                         .addToBackStack(null)
                         .commit();
