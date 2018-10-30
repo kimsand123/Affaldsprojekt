@@ -43,7 +43,7 @@
             android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/txtCoinBox4"
+            app:layout_constraintBottom_toTopOf="@+id/txtInfoBox1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

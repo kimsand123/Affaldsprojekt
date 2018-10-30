@@ -15,7 +15,7 @@
         android:minHeight="511dp">
 
         <TextView
-            android:id="@+id/txtCoinBox3"
+            android:id="@+id/txtCoinBox1"
             android:layout_width="0dp"
             android:layout_height="42sp"
             android:layout_marginStart="18dp"

@@ -33,7 +33,7 @@
             app:layout_constraintBottom_toTopOf="@+id/garbageButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/depositButton"
-            app:layout_constraintTop_toBottomOf="@+id/txtCoinBox4" />
+            app:layout_constraintTop_toBottomOf="@+id/txtInfoBox1" />
 
         <Button
             android:id="@+id/hubplacementButton"
@@ -57,7 +57,7 @@
             app:layout_constraintTop_toBottomOf="@+id/depositButton" />
 
         <TextView
-            android:id="@+id/txtCoinBox3"
+            android:id="@+id/txtCoinBox1"
             android:layout_width="0dp"
             android:layout_height="42dp"
             android:layout_marginStart="18dp"
@@ -71,13 +71,13 @@
             android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/txtCoinBox4"
+            app:layout_constraintBottom_toTopOf="@+id/txtInfoBox1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txtCoinBox4"
+            android:id="@+id/txtInfoBox1"
             android:layout_width="0dp"
             android:layout_height="160sp"
             android:layout_marginStart="18dp"
@@ -93,7 +93,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtCoinBox3" />
+            app:layout_constraintTop_toBottomOf="@+id/txtCoinBox1" />
 
         <ImageButton
             android:id="@+id/garbageButton"
@@ -145,7 +145,7 @@
             app:layout_constraintEnd_toStartOf="@+id/sendButton"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtCoinBox4" />
+            app:layout_constraintTop_toBottomOf="@+id/txtInfoBox1" />
 
 
     </android.support.constraint.ConstraintLayout>

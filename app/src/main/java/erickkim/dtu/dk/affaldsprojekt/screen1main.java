@@ -25,9 +25,6 @@ public class screen1main extends Fragment implements View.OnClickListener {
     private TextView txtCoinBox;
     private TextView txtInfoBox;
 
-
-
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -75,8 +72,8 @@ public class screen1main extends Fragment implements View.OnClickListener {
         hubstatusButton = root.findViewById(R.id.sendButton);
         hubplacementButton = root.findViewById(R.id.hubplacementButton);
         depositButton = root.findViewById(R.id.depositButton);
-        txtCoinBox = root.findViewById(R.id.txtCoinBox3);
-        txtInfoBox = root.findViewById(R.id.txtCoinBox4);
+        txtCoinBox = root.findViewById(R.id.txtCoinBox1);
+        txtInfoBox = root.findViewById(R.id.txtInfoBox1);
 
         // setonclicklisteners for alle knapper.
         garbageButton.setOnClickListener(this);

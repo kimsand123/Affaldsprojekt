@@ -63,7 +63,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
         //initialiser views
         statisticButton = root.findViewById(R.id.statisticButton);
-        txtCoinBox3 = root.findViewById(R.id.txtCoinBox3);
+        txtCoinBox3 = root.findViewById(R.id.txtCoinBox1);
         txtInfoBox3 = root.findViewById(R.id.txtInfoBox3);
 
         //Hent data til TextViews.
