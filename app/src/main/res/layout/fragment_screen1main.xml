@@ -83,7 +83,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginTop="36dp"
             android:layout_marginEnd="18dp"
-            android:background="@drawable/text_roundcorners_darkgreen"
+            android:background="@drawable/text_roundcorners_beige"
             android:fontFamily="@font/roboto"
             android:gravity="center"
             android:textAlignment="center"
