@@ -54,5 +54,6 @@ public class Data_Controller {
 
     public Data_DTO_deliveryCode getNewDeliveryCode() {
         setDeliveryCode(dao_deliveryCode.getAvailableDeliveryCode());
+        return deliveryCode;
     }
 }

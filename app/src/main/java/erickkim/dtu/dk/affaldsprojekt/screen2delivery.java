@@ -25,11 +25,6 @@ public class screen2delivery extends Fragment implements View.OnClickListener {
     private TextView txtIdBox;
     private TextView txtCoinBox2;
 
-    private Data_DAO_deliveryCode getData;
-    private Data_DTO_deliveryCode dataDTO;
-
-
-
     public screen2delivery() {
         // Required empty public constructor
     }
@@ -62,8 +57,7 @@ public class screen2delivery extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_screen2delivery, container, false);
 
@@ -80,13 +74,11 @@ public class screen2delivery extends Fragment implements View.OnClickListener {
         doneButton.setOnClickListener(this);
         newIdButton.setOnClickListener(this);
         return root;
-
     }
 
     public void setNewIdCode() {
         String ID = Data_Controller.getInstance().getNewDeliveryCode().getCode();
         txtIdBox.setText("ID: " + ID);//+ Data_Controller.getInstance().getDeliveryCode());
-
     }
 
     @Override
