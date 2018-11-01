@@ -51,4 +51,8 @@ public class Data_Controller {
     public void setPersonId(int personId) {
         this.personId = personId;
     }
+
+    public Data_DTO_deliveryCode getNewDeliveryCode() {
+        setDeliveryCode(dao_deliveryCode.getAvailableDeliveryCode());
+    }
 }
