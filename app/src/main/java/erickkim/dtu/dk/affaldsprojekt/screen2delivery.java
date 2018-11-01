@@ -75,12 +75,17 @@ public class screen2delivery extends Fragment implements View.OnClickListener {
 
         //Hent data til textfelter.
         txtCoinBox2.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());
-        txtIdBox.setText("ID: 2 3 4 5");//+ Data_Controller.getInstance().getDeliveryCode());
+        setNewIdCode();
 
         doneButton.setOnClickListener(this);
         newIdButton.setOnClickListener(this);
         return root;
 
+    }
+
+    public void setNewIdCode() {
+        int ID = Data_Controller.getInstance().getDeliveryCode().getCode();
+        txtIdBox.setText("ID:" + ID);//+ Data_Controller.getInstance().getDeliveryCode());
     }
 
     @Override
@@ -97,8 +102,7 @@ public class screen2delivery extends Fragment implements View.OnClickListener {
                         .commit();
                 break;
             case R.id.newIdButton:
-                //TODO: Hent nyt id fra backend.
-                //txtIdBox.setText("ID: "+ Data_Controller.getInstance().getDeliveryCode());
+                setNewIdCode();
                 break;
 
         }
