@@ -86,8 +86,8 @@ public class screen2delivery extends Fragment implements View.OnClickListener {
     public void setNewIdCode() {
 
         String ID = Data_Controller.getInstance().getDeliveryCode().getCode();
+        txtIdBox.setText("ID: " + ID);//+ Data_Controller.getInstance().getDeliveryCode());
 
-        txtIdBox.setText("ID: " + ID.charAt(0) + " " + ID.charAt(1) + " " + ID.charAt(2) + " " ID.charAt(3));//+ Data_Controller.getInstance().getDeliveryCode());
     }
 
     @Override
@@ -106,9 +106,7 @@ public class screen2delivery extends Fragment implements View.OnClickListener {
             case R.id.newIdButton:
                 setNewIdCode();
                 break;
-
         }
-
     }
 }
 
