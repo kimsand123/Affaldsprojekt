@@ -35,6 +35,7 @@ public class TEST_Database {
 
     public static Data_DTO_deliveryCode getDeliveryCode() {
         Data_DTO_deliveryCode newTempCode = new Data_DTO_deliveryCode();
+        /* Simplify the code process.
         Date dateSetter = new Date();
         do {
             newTempCode.setCode(fabricateNewCode());
@@ -42,7 +43,9 @@ public class TEST_Database {
         } while (!testCodeValid(newTempCode));
 
         insertCodeIntoData(newTempCode);
-
+        */
+        newTempCode.setDate(new Date().getTime());
+        newTempCode.setCode(fabricateNewCode());
         return newTempCode;
     }
 
