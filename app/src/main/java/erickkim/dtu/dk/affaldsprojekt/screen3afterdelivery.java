@@ -67,8 +67,8 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         txtInfoBox3 = root.findViewById(R.id.txtInfoBox3);
 
         //Hent data til TextViews.
-        txtInfoBox3.setText(Data_Background.getInstance().getTip());
-        txtCoinBox3.setText("GarbageCoins: " + Data_Background.getInstance().getTrashCoins());
+        txtInfoBox3.setText(Data_Controller.getInstance().getTip());
+        txtCoinBox3.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());
 
         //TODO: Hent data til piechart.
 

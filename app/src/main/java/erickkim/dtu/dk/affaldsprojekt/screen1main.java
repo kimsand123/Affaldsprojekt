@@ -82,8 +82,8 @@ public class screen1main extends Fragment implements View.OnClickListener {
         depositButton.setOnClickListener(this);
 
         // Hent data for TextViews
-        txtInfoBox.setText(Data_Background.getInstance().getTip());
-        txtCoinBox.setText("GarbageCoins: "+ Data_Background.getInstance().getTrashCoins());
+        txtInfoBox.setText(Data_Controller.getInstance().getTip());
+        txtCoinBox.setText("GarbageCoins: "+ Data_Controller.getInstance().getTrashCoins());
 
         return root;
     }

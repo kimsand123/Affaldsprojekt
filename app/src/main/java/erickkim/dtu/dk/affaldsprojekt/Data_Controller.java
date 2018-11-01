@@ -1,25 +1,25 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
-public class Data_Background {
+public class Data_Controller {
 
     private int trashCoins;
     private Data_DTO_deliveryCode deliveryCode;
     private int personId = 123; // TODO: implement a way to store a personalized person ID.
-    private static Data_Background dataBackgroundInstance = null;
+    private static Data_Controller dataBackgroundInstance = null;
     Data_DAO_deliveryCode dao_deliveryCode;
     Data_DAO_trashCoins dao_trashCoins;
     Data_DAO_tips dao_tips;
 
-    private Data_Background() {
+    private Data_Controller() {
         dao_deliveryCode = new Data_DAO_deliveryCode();
         dao_trashCoins = new Data_DAO_trashCoins();
         dao_tips = new Data_DAO_tips();
         setDeliveryCode(dao_deliveryCode.getAvailableDeliveryCode());
     }
 
-    public static Data_Background getInstance() {
+    public static Data_Controller getInstance() {
         if (dataBackgroundInstance == null)
-            dataBackgroundInstance = new Data_Background();
+            dataBackgroundInstance = new Data_Controller();
         return dataBackgroundInstance;
     }
 

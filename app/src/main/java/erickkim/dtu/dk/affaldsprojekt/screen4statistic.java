@@ -70,7 +70,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener {
 
         //TODO: Hent data til statistik og præsentér dem
 
-        txtCoinBox4.setText("GarbageCoins: " + Data_Background.getInstance().getTrashCoins());
+        txtCoinBox4.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());
 
         return root;
     }

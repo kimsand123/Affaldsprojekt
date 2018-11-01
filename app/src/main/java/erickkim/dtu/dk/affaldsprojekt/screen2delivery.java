@@ -74,8 +74,8 @@ public class screen2delivery extends Fragment implements View.OnClickListener {
         txtCoinBox2 = root.findViewById(R.id.txtCoinBox2);
 
         //Hent data til textfelter.
-        txtCoinBox2.setText("GarbageCoins: " + Data_Background.getInstance().getTrashCoins());
-        txtIdBox.setText("ID: 2 3 4 5");//+ Data_Background.getInstance().getDeliveryCode());
+        txtCoinBox2.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());
+        txtIdBox.setText("ID: 2 3 4 5");//+ Data_Controller.getInstance().getDeliveryCode());
 
         doneButton.setOnClickListener(this);
         newIdButton.setOnClickListener(this);
@@ -98,7 +98,7 @@ public class screen2delivery extends Fragment implements View.OnClickListener {
                 break;
             case R.id.newIdButton:
                 //TODO: Hent nyt id fra backend.
-                //txtIdBox.setText("ID: "+ Data_Background.getInstance().getDeliveryCode());
+                //txtIdBox.setText("ID: "+ Data_Controller.getInstance().getDeliveryCode());
                 break;
 
         }
