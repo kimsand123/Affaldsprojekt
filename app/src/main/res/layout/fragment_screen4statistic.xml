@@ -36,24 +36,21 @@
         <com.jjoe64.graphview.GraphView
             android:id="@+id/statistic"
             android:layout_width="0dp"
-            android:layout_height="188dp"
+            android:layout_height="160sp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="36dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             android:background="@color/beige"
-            app:layout_constraintBottom_toTopOf="@+id/sendButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtInfoBox1"
-            app:layout_constraintVertical_bias="0.529" />
+            app:layout_constraintTop_toBottomOf="@+id/txtInfoBox4" />
 
 
         <TextView
-            android:id="@+id/txtInfoBox1"
+            android:id="@+id/txtInfoBox4"
             android:layout_width="0dp"
-            android:layout_height="63dp"
+            android:layout_height="42sp"
             android:layout_marginStart="18dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="18dp"
@@ -62,8 +59,8 @@
             android:gravity="center"
             android:textAlignment="center"
             android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:textStyle="italic"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
