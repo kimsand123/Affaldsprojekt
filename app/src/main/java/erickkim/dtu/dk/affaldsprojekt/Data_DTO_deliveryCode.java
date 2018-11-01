@@ -1,14 +1,14 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
 public class Data_DTO_deliveryCode {
-    private int code;
+    private String code;
     private long date;
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

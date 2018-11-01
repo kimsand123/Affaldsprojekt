@@ -80,11 +80,24 @@ public class TEST_Database {
             return false;
     }
 
-    public static int fabricateNewCode() {
+    public static int getRandomNumber() {
         int min = 1;
-        int max = 9999;
+        int max = 9;
         int range = (max - min) + 1;
-        return (int) (Math.random() * range) + min;
+        int result = (int) (Math.random() * range) + min;
+        return result;
+    }
+
+    public static String fabricateNewCode() {
+
+        String output = "";
+        for (int i = 0; i < 4; i++) {
+            output += Integer.toString(getRandomNumber());
+            if (i != 3) {
+                output += " ";
+            }
+        }
+        return output;
     }
 
     public static String getTip() {
