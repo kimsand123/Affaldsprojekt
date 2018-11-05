@@ -57,6 +57,7 @@ public class screen5sortingguide extends Fragment {
         root = inflater.inflate(R.layout.fragment_screen5sortingguide, container, false)
         txtCoinBox5 = root.findViewById(R.id.txtCoinBox5);
         web = root.findViewById(R.id.sortguide_Webview);
+        web.loadUrl("http://www.traykon.com/pdf/The_Net_Libram_of_Random_Magical_Effects.pdf");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_screen5sortingguide, container, false);
     }
