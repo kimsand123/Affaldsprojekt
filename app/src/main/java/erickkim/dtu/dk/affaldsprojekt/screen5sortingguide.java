@@ -1,5 +1,6 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -54,12 +55,13 @@ public class screen5sortingguide extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_screen5sortingguide, container, false)
+        root = inflater.inflate(R.layout.fragment_screen5sortingguide, container, false);
         txtCoinBox5 = root.findViewById(R.id.txtCoinBox5);
         web = root.findViewById(R.id.sortguide_Webview);
-        web.loadUrl("http://www.traykon.com/pdf/The_Net_Libram_of_Random_Magical_Effects.pdf");
+        txtCoinBox5.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());
+        web.loadUrl("http://www.naestved-affald.dk/min-ordning/dagrenovation/madaffald/");
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_screen5sortingguide, container, false);
+        return root;
     }
 
 }
