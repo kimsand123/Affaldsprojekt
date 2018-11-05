@@ -95,8 +95,13 @@ public class screen1main extends Fragment implements View.OnClickListener {
         //check view objektet og skift til den tilhørende case.
         switch(v.getId()) {
             case R.id.garbageButton:
-                //TODO: vis pdf i en browser.
-                //huske det nok skal foregå i en anden tråd
+                // Kør fragmentet for screen5sortingguide
+                getFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.fragmentContent, new screen5sortingguide())
+                        .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                        .addToBackStack(null)
+                        .commit();
                 break;
             case R.id.sendButton:
                 //TODO: vis et dummy billede af en hubstatus

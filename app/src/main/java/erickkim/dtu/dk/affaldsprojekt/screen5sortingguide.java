@@ -1,18 +1,14 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+import android.webkit.WebView;
 import android.widget.TextView;
 
-
-public class screen6feedback extends Fragment implements View.OnClickListener{
+public class screen5sortingguide extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -21,13 +17,11 @@ public class screen6feedback extends Fragment implements View.OnClickListener{
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private TextView txtCoinBox5;
     private View root;
-    private Button send;
-    private EditText feedback;
+    private WebView web;
 
-
-
-    public screen6feedback() {
+    public screen5sortingguide() {
         // Required empty public constructor
     }
 
@@ -37,11 +31,11 @@ public class screen6feedback extends Fragment implements View.OnClickListener{
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment screen6feedback.
+     * @return A new instance of fragment screen5sortingguide.
      */
     // TODO: Rename and change types and number of parameters
-    public static screen6feedback newInstance(String param1, String param2) {
-        screen6feedback fragment = new screen6feedback();
+    public static screen5sortingguide newInstance(String param1, String param2) {
+        screen5sortingguide fragment = new screen5sortingguide();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,15 +54,11 @@ public class screen6feedback extends Fragment implements View.OnClickListener{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_screen6feedback, container, false);
-
+        root = inflater.inflate(R.layout.fragment_screen5sortingguide, container, false)
+        txtCoinBox5 = root.findViewById(R.id.txtCoinBox5);
+        web = root.findViewById(R.id.sortguide_Webview);
         // Inflate the layout for this fragment
-        return root;
+        return inflater.inflate(R.layout.fragment_screen5sortingguide, container, false);
     }
 
-
-    @Override
-    public void onClick(View v) {
-
-    }
 }

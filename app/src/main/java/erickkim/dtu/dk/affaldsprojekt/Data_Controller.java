@@ -4,7 +4,7 @@ public class Data_Controller {
 
     private int trashCoins;
     private Data_DTO_deliveryCode deliveryCode;
-    private int personId = 123; // TODO: implement a way to store a personalized person ID.
+    private int personId = 123; // TODO: implement a way to store a personalized person ID locally.
     private static Data_Controller dataBackgroundInstance = null;
     Data_DAO_deliveryCode dao_deliveryCode;
     Data_DAO_trashCoins dao_trashCoins;

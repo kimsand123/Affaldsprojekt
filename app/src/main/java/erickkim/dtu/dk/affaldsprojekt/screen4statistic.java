@@ -62,7 +62,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener {
       root = inflater.inflate(R.layout.fragment_screen4statistic, container, false);
         // Inflate the layout for this fragment
 
-        txtCoinBox4 = root.findViewById(R.id.txtInfoBox4);
+        txtCoinBox4 = root.findViewById(R.id.txtCoinBox4);
         becomeBetterButton = root.findViewById(R.id.sendButton);
         statistic = root.findViewById(R.id.statistic);
 
