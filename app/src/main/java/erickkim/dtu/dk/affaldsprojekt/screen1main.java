@@ -95,7 +95,6 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
         // Hent data for TextViews
         txtInfoBox.setText(Data_Controller.getInstance().getTip());
         txtCoinBox.setText("GarbageCoins: "+ Data_Controller.getInstance().getTrashCoins());
-
         return root;
     }
 

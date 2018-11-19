@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-        android:color="@color/hvid">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:color="@color/hvid">
   <item>
     <selector>
 
       <item android:state_enabled="false">
         <shape android:shape="rectangle">
-          <corners android:radius="100dp"/>
-          <solid android:color="@color/colorPrimary"/>
+          <corners android:radius="100dp" />
+          <solid android:color="@color/colorPrimary" />
+          <stroke
+              android:width="3dp"
+              android:color="@color/colorPrimaryDark" />
         </shape>
       </item>
 
@@ -17,6 +21,9 @@
         <shape android:shape="rectangle">
           <corners android:radius="100dp"/>
           <solid android:color="@color/colorPrimary"/>
+            <stroke
+                android:width="3dp"
+                android:color="@color/colorPrimaryDark" />
         </shape>
       </item>
     </selector>
