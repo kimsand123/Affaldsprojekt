@@ -1,5 +1,7 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
+import erickkim.dtu.dk.affaldsprojekt.TEST_Data_Backend.TEST_Database;
+
 public class Data_Controller {
 
     private int trashCoins;
@@ -56,4 +58,14 @@ public class Data_Controller {
         setDeliveryCode(dao_deliveryCode.getAvailableDeliveryCode());
         return deliveryCode;
     }
+
+    public String[] getHubStatus(){
+        String[] hubStatus = new String[4];
+        hubStatus[0]=TEST_Database.getFraktion1DisposalStatus();
+        hubStatus[1]=TEST_Database.getFraktion1DisposalStatus();
+        hubStatus[2]=TEST_Database.getFraktion1DisposalStatus();
+        hubStatus[3]=TEST_Database.getFraktion1DisposalStatus();
+        return hubStatus;
+    }
+
 }

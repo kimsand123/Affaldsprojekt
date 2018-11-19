@@ -106,6 +106,56 @@ public class TEST_Database {
         return tips[tipToGet];
     }
 
+    public static String getFraktion1DisposalStatus(){
+        String status="";
+        int statcode;
+        Random statrnd = new Random();
+        statcode = statrnd.nextInt(10);
+        if (statcode <= 9){
+            status = "ok";
+        } else {
+            status = "Fejl, virker ikke";
+        }
+        return status;
+    }
 
+    public static String getFraktion2DisposalStatus(){
+        String status="";
+        int statcode;
+        Random statrnd = new Random();
+        statcode = statrnd.nextInt(10);
+        if (statcode <= 9){
+            status = "ok";
+        } else {
+            status = "Fejl, virker ikke";
+        }
+        return status;
+    }
+
+    public String getFraktion3DisposalStatus(){
+        String status="";
+        int statcode;
+        Random statrnd = new Random();
+        statcode = statrnd.nextInt(10);
+        if (statcode <= 9){
+            status = "ok";
+        } else {
+            status = "Fejl, virker ikke";
+        }
+        return status;
+    }
+
+    public static String getFraktion4DisposalStatus(){
+        String status="";
+        int statcode;
+        Random statrnd = new Random();
+        statcode = statrnd.nextInt(10);
+        if (statcode <= 9){
+            status = "ok";
+        } else {
+            status = "Fejl, virker ikke";
+        }
+        return status;
+    }
 
 }
