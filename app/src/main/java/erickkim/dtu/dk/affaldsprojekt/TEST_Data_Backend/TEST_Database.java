@@ -111,7 +111,7 @@ public class TEST_Database {
         int statcode;
         Random statrnd = new Random();
         statcode = statrnd.nextInt(10);
-        if (statcode <= 9){
+        if (statcode <= 8){
             status = "ok";
         } else {
             status = "Fejl, virker ikke";
@@ -124,7 +124,7 @@ public class TEST_Database {
         int statcode;
         Random statrnd = new Random();
         statcode = statrnd.nextInt(10);
-        if (statcode <= 9){
+        if (statcode <= 8){
             status = "ok";
         } else {
             status = "Fejl, virker ikke";
@@ -132,12 +132,12 @@ public class TEST_Database {
         return status;
     }
 
-    public String getFraktion3DisposalStatus(){
+    public static String getFraktion3DisposalStatus(){
         String status="";
         int statcode;
         Random statrnd = new Random();
         statcode = statrnd.nextInt(10);
-        if (statcode <= 9){
+        if (statcode <= 8){
             status = "ok";
         } else {
             status = "Fejl, virker ikke";
@@ -150,7 +150,7 @@ public class TEST_Database {
         int statcode;
         Random statrnd = new Random();
         statcode = statrnd.nextInt(10);
-        if (statcode <= 9){
+        if (statcode <= 8){
             status = "ok";
         } else {
             status = "Fejl, virker ikke";

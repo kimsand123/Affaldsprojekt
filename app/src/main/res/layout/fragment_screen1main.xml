@@ -15,7 +15,7 @@
         android:minHeight="511dp">
 
         <Button
-            android:id="@+id/hubStatusButton"
+            android:id="@+id/sendButton"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="2dp"

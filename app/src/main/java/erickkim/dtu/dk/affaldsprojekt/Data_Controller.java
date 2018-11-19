@@ -62,9 +62,9 @@ public class Data_Controller {
     public String[] getHubStatus(){
         String[] hubStatus = new String[4];
         hubStatus[0]=TEST_Database.getFraktion1DisposalStatus();
-        hubStatus[1]=TEST_Database.getFraktion1DisposalStatus();
-        hubStatus[2]=TEST_Database.getFraktion1DisposalStatus();
-        hubStatus[3]=TEST_Database.getFraktion1DisposalStatus();
+        hubStatus[1]=TEST_Database.getFraktion2DisposalStatus();
+        hubStatus[2]=TEST_Database.getFraktion3DisposalStatus();
+        hubStatus[3]=TEST_Database.getFraktion4DisposalStatus();
         return hubStatus;
     }
 

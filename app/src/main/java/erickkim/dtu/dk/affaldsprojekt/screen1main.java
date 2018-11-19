@@ -75,7 +75,7 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
 
         // initialiser de forskellige views i fragmentet
         garbageButton = root.findViewById(R.id.garbageButton);
-        hubstatusButton = root.findViewById(R.id.hubStatusButton);
+        hubstatusButton = root.findViewById(R.id.sendButton);
         hubplacementButton = root.findViewById(R.id.hubplacementButton);
         depositButton = root.findViewById(R.id.depositButton);
         txtCoinBox = root.findViewById(R.id.txtCoinBox1);
@@ -94,7 +94,7 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
 
         // Hent data for TextViews
         txtInfoBox.setText(Data_Controller.getInstance().getTip());
-        txtCoinBox.setText("GarbageCoins: "+ Data_Controller.getInstance().getTrashCoins());
+        txtCoinBox.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());
         return root;
     }
 
@@ -108,9 +108,13 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
                 //TODO: vis pdf i en browser.
                 //huske det nok skal foregå i en anden tråd
                 break;
-            case R.id.hubStatusButton:
-                //TODO: vis et dummy billede af en hubstatus
-                //huske det nok skal foregå i en anden tråd
+            case R.id.sendButton:
+                getFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.fragmentContent, new screen5hubstatus())
+                        .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                        .addToBackStack(null)
+                        .commit();
                 break;
             case R.id.hubplacementButton:
                 //TODO: vis et googlemaps med et koordinat evt. med en fra til markeret.
