@@ -4,13 +4,16 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class screen1main extends Fragment implements View.OnClickListener {
+public class screen1main extends Fragment implements View.OnClickListener, Button.OnTouchListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -24,6 +27,9 @@ public class screen1main extends Fragment implements View.OnClickListener {
     private Button depositButton;
     private TextView txtCoinBox;
     private TextView txtInfoBox;
+
+    final DecelerateInterpolator sDecelerator = new DecelerateInterpolator();
+    final OvershootInterpolator sOvershooter = new OvershootInterpolator(5f);
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -77,21 +83,25 @@ public class screen1main extends Fragment implements View.OnClickListener {
 
         // setonclicklisteners for alle knapper.
         garbageButton.setOnClickListener(this);
+        garbageButton.setOnTouchListener(this);
         hubstatusButton.setOnClickListener(this);
+        hubstatusButton.setOnTouchListener(this);
         hubplacementButton.setOnClickListener(this);
+        hubplacementButton.setOnTouchListener(this);
         depositButton.setOnClickListener(this);
+        depositButton.setOnTouchListener(this);
+
 
         // Hent data for TextViews
         txtInfoBox.setText(Data_Controller.getInstance().getTip());
-        txtCoinBox.setText("GarbageCoins: "+ Data_Controller.getInstance().getTrashCoins());
-
+        txtCoinBox.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());
         return root;
     }
 
 
     @Override
     public void onClick(View v) {
-
+        //animateButton(v, v.getId());
         //check view objektet og skift til den tilhørende case.
         switch(v.getId()) {
             case R.id.garbageButton:
@@ -104,8 +114,12 @@ public class screen1main extends Fragment implements View.OnClickListener {
                         .commit();
                 break;
             case R.id.sendButton:
-                //TODO: vis et dummy billede af en hubstatus
-                //huske det nok skal foregå i en anden tråd
+                getFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.fragmentContent, new screen5hubstatus())
+                        .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                        .addToBackStack(null)
+                        .commit();
                 break;
             case R.id.hubplacementButton:
                 //TODO: vis et googlemaps med et koordinat evt. med en fra til markeret.
@@ -121,5 +135,19 @@ public class screen1main extends Fragment implements View.OnClickListener {
                         .commit();
                 break;
         }
-        }
     }
+
+    //Kode er fra Lektion 7 fragmenter. Animate_frag.  AndroidElementer Jacob Nordfalk
+
+
+     @Override
+     public boolean onTouch(View v, MotionEvent me) {
+        v.animate().setDuration(200);
+        if (me.getAction() == MotionEvent.ACTION_DOWN) {
+            v.animate().setInterpolator(sDecelerator).scaleX(.7f).scaleY(.7f);
+            } else if (me.getAction() == MotionEvent.ACTION_UP) {
+            v.animate().setInterpolator(sOvershooter).scaleX(1f).scaleY(1f);
+            }
+            return false;
+        }
+}
