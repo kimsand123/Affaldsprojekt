@@ -1,5 +1,6 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +13,9 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class screen1main extends Fragment implements View.OnClickListener, Button.OnTouchListener{
     // TODO: Rename parameter arguments, choose names that match
@@ -27,6 +31,9 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
     private Button depositButton;
     private TextView txtCoinBox;
     private TextView txtInfoBox;
+
+    private FirebaseDatabase mref;
+    private DatabaseReference myref;
 
     final DecelerateInterpolator sDecelerator = new DecelerateInterpolator();
     final OvershootInterpolator sOvershooter = new OvershootInterpolator(5f);
@@ -91,6 +98,9 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
         depositButton.setOnClickListener(this);
         depositButton.setOnTouchListener(this);
 
+        // Create firebase link
+        mref = FirebaseDatabase.getInstance();
+
 
         // Hent data for TextViews
         txtInfoBox.setText(Data_Controller.getInstance().getTip());
@@ -123,7 +133,10 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
                 break;
             case R.id.hubplacementButton:
                 //TODO: vis et googlemaps med et koordinat evt. med en fra til markeret.
-                //huske det nok skal foregå i en anden tråd
+                FirebaseTest test = new FirebaseTest();
+                myref = mref.getReference().child("messageTexts");
+
+                test.execute();
                 break;
             case R.id.depositButton:
                 //kør fragmentet for Screen2delivery.
@@ -142,12 +155,21 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
 
      @Override
      public boolean onTouch(View v, MotionEvent me) {
-        v.animate().setDuration(200);
-        if (me.getAction() == MotionEvent.ACTION_DOWN) {
-            v.animate().setInterpolator(sDecelerator).scaleX(.7f).scaleY(.7f);
-            } else if (me.getAction() == MotionEvent.ACTION_UP) {
-            v.animate().setInterpolator(sOvershooter).scaleX(1f).scaleY(1f);
-            }
-            return false;
-        }
+         v.animate().setDuration(200);
+         if (me.getAction() == MotionEvent.ACTION_DOWN) {
+             v.animate().setInterpolator(sDecelerator).scaleX(.7f).scaleY(.7f);
+         } else if (me.getAction() == MotionEvent.ACTION_UP) {
+             v.animate().setInterpolator(sOvershooter).scaleX(1f).scaleY(1f);
+         }
+         return false;
+     }
+
+     public class FirebaseTest extends AsyncTask {
+         @Override
+         protected Object doInBackground(Object[] objects) {
+             myref.child("message1").setValue("Hello 1");
+             myref.child("message2").setValue("Hello 2");
+             return null;
+         }
+     }
 }

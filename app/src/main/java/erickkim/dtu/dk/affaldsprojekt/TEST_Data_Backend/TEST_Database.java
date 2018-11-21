@@ -81,22 +81,16 @@ public class TEST_Database {
     }
 
     public static int getRandomNumber() {
-        int min = 1;
-        int max = 9;
+        int min = 1000;
+        int max = 9999;
         int range = (max - min) + 1;
         int result = (int) (Math.random() * range) + min;
         return result;
     }
 
-    public static String fabricateNewCode() {
+    public static int fabricateNewCode() {
 
-        String output = "";
-        for (int i = 0; i < 4; i++) {
-            output += Integer.toString(getRandomNumber());
-            if (i != 3) {
-                output += " ";
-            }
-        }
+        int output = getRandomNumber();
         return output;
     }
 
