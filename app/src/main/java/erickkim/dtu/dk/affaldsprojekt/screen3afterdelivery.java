@@ -1,6 +1,7 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -8,6 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.interfaces.datasets.IPieDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+import java.util.ArrayList;
 
 public class screen3afterdelivery extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
@@ -20,6 +29,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     private Button statisticButton;
     private TextView txtCoinBox3 ;
     private TextView txtInfoBox3;
+    private ArrayList pieData;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -59,7 +69,11 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        pieData = new ArrayList(4);
         root = inflater.inflate(R.layout.fragment_screen3afterdelivery, container, false);
+        PieChart chart = root.findViewById(R.id.pieChart);
+        getDataForPieChart();
+
 
         //initialiser views
         statisticButton = root.findViewById(R.id.statisticButton);
@@ -91,6 +105,12 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                         .addToBackStack(null)
                         .commit();
                 break;
+        }
+    }
+
+    public void getDataForPieChart(){
+        Data_Controller.getInstance().getPieData(){
+
         }
     }
 }

@@ -7,6 +7,9 @@ public class Data_Controller {
     private int trashCoins;
     private Data_DTO_deliveryCode deliveryCode;
     private int personId = 123; // TODO: implement a way to store a personalized person ID locally.
+    private int usedDataDeliveryCode=0;
+    private String userId;
+    private String deliveredDate;
     private static Data_Controller dataBackgroundInstance = null;
     Data_DAO_deliveryCode dao_deliveryCode;
     Data_DAO_trashCoins dao_trashCoins;
@@ -38,6 +41,30 @@ public class Data_Controller {
         return deliveryCode;
     }
 
+    public void setUsedDataDeliveryCode(int code){
+        this.usedDataDeliveryCode = code;
+    }
+
+    public int getUsedDataDeliveryCode(){
+        return usedDataDeliveryCode;
+    }
+
+    public String getUserId(){
+        return this.userId;
+    }
+
+    public void setUserId(String userId){
+        this.userId = userId;
+    }
+
+    public void setDeliveredDate(String deliveredDate){
+        this.deliveredDate=deliveredDate;
+    }
+
+    public String getDeliveredDate(){
+        return this.deliveredDate;
+    }
+
     public void setDeliveryCode(Data_DTO_deliveryCode deliveryCode) {
         this.deliveryCode = deliveryCode;
     }
@@ -66,6 +93,17 @@ public class Data_Controller {
         hubStatus[2]=TEST_Database.getFraktion3DisposalStatus();
         hubStatus[3]=TEST_Database.getFraktion4DisposalStatus();
         return hubStatus;
+    }
+
+    public int[] getPieData(){
+        int[] pieData = new int[4];
+
+        pieData[0] = TEST_Database.getInstance().getFraktionAmount(this.usedDataDeliveryCode, this.userId, this.deliveredDate, "metal");
+        pieData[1] = TEST_Database.getInstance().getFraktionAmount(this.usedDataDeliveryCode, this.userId, this.deliveredDate, "plastik");
+        pieData[2] = TEST_Database.getInstance().getFraktionAmount(this.usedDataDeliveryCode, this.userId, this.deliveredDate, "bio");
+        pieData[3] = TEST_Database.getInstance().getFraktionAmount(this.usedDataDeliveryCode, this.userId, this.deliveredDate, "rest");
+
+        return pieData;
     }
 
 }

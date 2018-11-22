@@ -1,13 +1,23 @@
 package erickkim.dtu.dk.affaldsprojekt.TEST_Data_Backend;
 
+import android.os.AsyncTask;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.;
+
 import java.util.Date;
 import java.util.Random;
+
 
 import erickkim.dtu.dk.affaldsprojekt.Data_DTO_deliveryCode;
 
 public class TEST_Database {
+    static FirebaseDatabase mref;
+    static DatabaseReference myref;
 
     public static TEST_Database getInstance() {
+        mref = FirebaseDatabase.getInstance();
         if (testDatabaseInstance == null)
             testDatabaseInstance = new TEST_Database();
         return testDatabaseInstance;
@@ -152,4 +162,23 @@ public class TEST_Database {
         return status;
     }
 
+    public int getFraktionAmount(int usedDataDeliveryCode, String userId, String date, String fraction) {
+        int amount=0;
+            DatabaseReference data = myref.child("delivery");
+
+        for (Database dat:
+             ) {
+
+        }
+
+        return amount;
+    }
+
+    public class asyncTestFirebase extends AsyncTask {
+        @Override
+        protected Object doInBackground(Object[] objects) {
+
+            return null;
+        }
+    }
 }
