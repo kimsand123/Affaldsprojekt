@@ -4,8 +4,9 @@ import android.os.AsyncTask;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.;
 
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -166,17 +167,9 @@ public class TEST_Database {
     }
 
 
-    public void testmetode(){
-
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-
-        db.child("delivery").child(FirebaseAuth.getCurrent.getUID()).child(getDato)
-
-    }
-
-    public int getFraktionAmount(final int usedDataDeliveryCode, final String userId, final String date, final String type) {
+    public List<String> getFraktionAmount(final int usedDataDeliveryCode, final String userId, final String date, final String type) {
         int result;
-        DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("delivery");
+        DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date);
 
         final List<String> liste = new ArrayList<>();
 
@@ -189,13 +182,10 @@ public class TEST_Database {
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                     Data_DTO_delivery data = snapshot.getValue(Data_DTO_delivery.class);
-                                    if (data.getDeliveryCode() == usedDataDeliveryCode && data.getUserId().equals(userId) && data.getDate().equals(date)&& data.getType().equals(type)){
-                                        ((ArrayList) liste).add(data.getAmount());
-
-                                    }
+                                    ((ArrayList) liste).add(data.getAmount());
+                                    ((ArrayList) liste).add(data.getType());
                                 }
                             }
-
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
                             }
@@ -205,31 +195,10 @@ public class TEST_Database {
 
             @Override
             protected void onPostExecute(Object o) {
-                super.onPostExecute(o);
+                return liste;
             }
+
         }
-
-
-        FirebaseDatabase.getInstance().getReference().child("delivery")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            Data_DTO_delivery data = snapshot.getValue(Data_DTO_delivery.class);
-                            if (data.getDeliveryCode() == usedDataDeliveryCode && data.getUserId().equals(userId) && data.getDate().equals(date)&& data.getType().equals(type)){
-                                 ((ArrayList) liste).add(data.getAmount());
-
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
-
-        return ;
-    }
 
 
 
