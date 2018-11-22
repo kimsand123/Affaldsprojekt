@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "44048421062",
+    "firebase_url": "https://affaldsprojekt-ae236.firebaseio.com",
+    "project_id": "affaldsprojekt-ae236",
+    "storage_bucket": "affaldsprojekt-ae236.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44048421062:android:4d008ab4085c475e",
+        "android_client_info": {
+          "package_name": "erickkim.dtu.dk.affaldsprojekt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44048421062-9ccsrn9g7vs0rkra0ulg85ars7ovj3g6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "erickkim.dtu.dk.affaldsprojekt",
+            "certificate_hash": "4d501851f9ec1623dc3dd57779756e5c9f997fca"
+          }
+        },
+        {
+          "client_id": "44048421062-j075pa6cllv45mkdpv77p4b55pp9ls5l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "erickkim.dtu.dk.affaldsprojekt",
+            "certificate_hash": "6fa056faa728100842b1fb47cd6d928e060561c9"
+          }
+        },
+        {
+          "client_id": "44048421062-4vj88oa78i29fdd9hhmae9knfpt0lskm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8udL-_gu4oQnyiwAYqqtk2MYvYViZcpA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44048421062-4vj88oa78i29fdd9hhmae9knfpt0lskm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
