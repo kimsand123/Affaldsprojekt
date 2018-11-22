@@ -133,10 +133,7 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
                 break;
             case R.id.hubplacementButton:
                 //TODO: vis et googlemaps med et koordinat evt. med en fra til markeret.
-                FirebaseTest test = new FirebaseTest();
-                myref = mref.getReference().child("messageTexts");
-
-                test.execute();
+                // Vis google maps hub placement
                 break;
             case R.id.depositButton:
                 //kør fragmentet for Screen2delivery.
@@ -164,7 +161,7 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
          return false;
      }
 
-     public class FirebaseTest extends AsyncTask {
+     public class asyncTestFirebase extends AsyncTask {
          @Override
          protected Object doInBackground(Object[] objects) {
              myref.child("message1").setValue("Hello 1");

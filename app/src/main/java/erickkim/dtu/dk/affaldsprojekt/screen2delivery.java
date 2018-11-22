@@ -4,13 +4,16 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
 
 
-public class screen2delivery extends Fragment implements View.OnClickListener {
+public class screen2delivery extends Fragment implements View.OnClickListener, View.OnTouchListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -24,6 +27,9 @@ public class screen2delivery extends Fragment implements View.OnClickListener {
     private Button newIdButton;
     private TextView txtIdBox;
     private TextView txtCoinBox2;
+
+    final DecelerateInterpolator sDecelerator = new DecelerateInterpolator();
+    final OvershootInterpolator sOvershooter = new OvershootInterpolator(5f);
 
     public screen2delivery() {
         // Required empty public constructor
@@ -72,7 +78,9 @@ public class screen2delivery extends Fragment implements View.OnClickListener {
         setNewIdCode();
 
         doneButton.setOnClickListener(this);
+        doneButton.setOnTouchListener(this);
         newIdButton.setOnClickListener(this);
+        newIdButton.setOnTouchListener(this);
         return root;
     }
 
@@ -98,6 +106,16 @@ public class screen2delivery extends Fragment implements View.OnClickListener {
                 setNewIdCode();
                 break;
         }
+    }
+
+    public boolean onTouch(View v, MotionEvent me) {
+        v.animate().setDuration(200);
+        if (me.getAction() == MotionEvent.ACTION_DOWN) {
+            v.animate().setInterpolator(sDecelerator).scaleX(.7f).scaleY(.7f);
+        } else if (me.getAction() == MotionEvent.ACTION_UP) {
+            v.animate().setInterpolator(sOvershooter).scaleX(1f).scaleY(1f);
+        }
+        return false;
     }
 }
 
