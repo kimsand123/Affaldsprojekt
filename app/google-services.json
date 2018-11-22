@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "44048421062-j075pa6cllv45mkdpv77p4b55pp9ls5l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "erickkim.dtu.dk.affaldsprojekt",
+            "certificate_hash": "6fa056faa728100842b1fb47cd6d928e060561c9"
+          }
+        },
+        {
           "client_id": "44048421062-4vj88oa78i29fdd9hhmae9knfpt0lskm.apps.googleusercontent.com",
           "client_type": 3
         }
