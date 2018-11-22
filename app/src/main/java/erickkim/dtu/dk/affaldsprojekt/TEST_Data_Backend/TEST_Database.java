@@ -6,10 +6,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 
+import erickkim.dtu.dk.affaldsprojekt.Data_DTO_delivery;
 import erickkim.dtu.dk.affaldsprojekt.Data_DTO_deliveryCode;
 
 public class TEST_Database {
@@ -162,17 +165,73 @@ public class TEST_Database {
         return status;
     }
 
-    public int getFraktionAmount(int usedDataDeliveryCode, String userId, String date, String fraction) {
-        int amount=0;
-            DatabaseReference data = myref.child("delivery");
 
-        for (Database dat:
-             ) {
+    public void testmetode(){
 
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+
+        db.child("delivery").child(FirebaseAuth.getCurrent.getUID()).child(getDato)
+
+    }
+
+    public int getFraktionAmount(final int usedDataDeliveryCode, final String userId, final String date, final String type) {
+        int result;
+        DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("delivery");
+
+        final List<String> liste = new ArrayList<>();
+
+        new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] objects) {
+                FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date)
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    Data_DTO_delivery data = snapshot.getValue(Data_DTO_delivery.class);
+                                    if (data.getDeliveryCode() == usedDataDeliveryCode && data.getUserId().equals(userId) && data.getDate().equals(date)&& data.getType().equals(type)){
+                                        ((ArrayList) liste).add(data.getAmount());
+
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+            }
         }
 
-        return amount;
+
+        FirebaseDatabase.getInstance().getReference().child("delivery")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Data_DTO_delivery data = snapshot.getValue(Data_DTO_delivery.class);
+                            if (data.getDeliveryCode() == usedDataDeliveryCode && data.getUserId().equals(userId) && data.getDate().equals(date)&& data.getType().equals(type)){
+                                 ((ArrayList) liste).add(data.getAmount());
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+        return ;
     }
+
+
 
     public class asyncTestFirebase extends AsyncTask {
         @Override
