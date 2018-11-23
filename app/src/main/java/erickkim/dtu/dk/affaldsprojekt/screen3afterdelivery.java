@@ -111,16 +111,10 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     }
 
     public void getDataForPieChart(){
+        //Kode taget fra Galgeleg III
         LoadHandler lh = new LoadHandler();
         if (lh.getStatus() != AsyncTask.Status.FINISHED) {
             lh.execute();
-        }
-
-
-        Data_Controller.getInstance().getPieData(){
-
-
-
         }
     }
 
