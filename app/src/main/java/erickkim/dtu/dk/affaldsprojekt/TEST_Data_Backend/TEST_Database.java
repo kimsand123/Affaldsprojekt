@@ -2,8 +2,11 @@ package erickkim.dtu.dk.affaldsprojekt.TEST_Data_Backend;
 
 import android.os.AsyncTask;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 import java.lang.reflect.Array;
@@ -167,37 +170,27 @@ public class TEST_Database {
     }
 
 
-    public List<String> getFraktionAmount(final int usedDataDeliveryCode, final String userId, final String date, final String type) {
+    public List<String> getFraktionAmount(final int usedDataDeliveryCode, final String userId, final String date) {
         int result;
         DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date);
 
         final List<String> liste = new ArrayList<>();
 
-        new AsyncTask() {
-            @Override
-            protected Object doInBackground(Object[] objects) {
-                FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date)
-                        .addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                    Data_DTO_delivery data = snapshot.getValue(Data_DTO_delivery.class);
-                                    ((ArrayList) liste).add(data.getAmount());
-                                    ((ArrayList) liste).add(data.getType());
-                                }
-                            }
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                            }
-                        });
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Object o) {
-                return liste;
-            }
-
+        FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Data_DTO_delivery data = snapshot.getValue(Data_DTO_delivery.class);
+                            ((ArrayList) liste).add(data.getAmount());
+                            ((ArrayList) liste).add(data.getType());
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+        return liste;
         }
 
 

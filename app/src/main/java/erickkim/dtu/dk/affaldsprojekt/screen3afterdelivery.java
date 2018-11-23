@@ -1,5 +1,7 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
@@ -109,8 +111,32 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     }
 
     public void getDataForPieChart(){
+        LoadHandler lh = new LoadHandler();
+        if (lh.getStatus() != AsyncTask.Status.FINISHED) {
+            lh.execute();
+        }
+
+
         Data_Controller.getInstance().getPieData(){
 
+
+
+        }
+    }
+
+    public class LoadHandler extends AsyncTask {
+
+        @Override
+        protected Object doInBackground (Object[]objects){
+            Data_Controller.getInstance().getPieData();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute (Object o){
+            super.onPostExecute(o);
+            //load pieview with data.
+            //finish();
         }
     }
 }

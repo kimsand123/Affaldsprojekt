@@ -1,5 +1,8 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import erickkim.dtu.dk.affaldsprojekt.TEST_Data_Backend.TEST_Database;
 
 public class Data_Controller {
@@ -95,14 +98,9 @@ public class Data_Controller {
         return hubStatus;
     }
 
-    public int[] getPieData(){
-        int[] pieData = new int[4];
-
-        pieData[0] = TEST_Database.getInstance().getFraktionAmount(this.usedDataDeliveryCode, this.userId, this.deliveredDate, "metal");
-        pieData[1] = TEST_Database.getInstance().getFraktionAmount(this.usedDataDeliveryCode, this.userId, this.deliveredDate, "plastik");
-        pieData[2] = TEST_Database.getInstance().getFraktionAmount(this.usedDataDeliveryCode, this.userId, this.deliveredDate, "bio");
-        pieData[3] = TEST_Database.getInstance().getFraktionAmount(this.usedDataDeliveryCode, this.userId, this.deliveredDate, "rest");
-
+    public List<String> getPieData(){
+        List<String> pieData = new ArrayList<>();
+        pieData = TEST_Database.getInstance().getFraktionAmount(this.usedDataDeliveryCode, this.userId, this.deliveredDate);
         return pieData;
     }
 
