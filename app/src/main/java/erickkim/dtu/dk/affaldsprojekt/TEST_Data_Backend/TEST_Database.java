@@ -2,6 +2,8 @@ package erickkim.dtu.dk.affaldsprojekt.TEST_Data_Backend;
 
 import android.os.AsyncTask;
 
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieEntry;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -170,11 +172,11 @@ public class TEST_Database {
     }
 
 
-    public List<String> getFraktionAmount(final int usedDataDeliveryCode, final String userId, final String date) {
+    public ArrayList<PieEntry> getFraktionAmount(final int usedDataDeliveryCode, final String userId, final String date) {
         int result;
         DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date);
 
-        final List<String> liste = new ArrayList<>();
+        final ArrayList<PieEntry> liste = new ArrayList<>();
 
         FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date)
                 .addListenerForSingleValueEvent(new ValueEventListener() {

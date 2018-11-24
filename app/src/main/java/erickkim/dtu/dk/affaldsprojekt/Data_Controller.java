@@ -1,7 +1,11 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieEntry;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import erickkim.dtu.dk.affaldsprojekt.TEST_Data_Backend.TEST_Database;
 
@@ -98,8 +102,8 @@ public class Data_Controller {
         return hubStatus;
     }
 
-    public List<String> getPieData(){
-        List<String> pieData = new ArrayList<>();
+    public ArrayList<PieEntry> getPieData(){
+        ArrayList<PieEntry> pieData = new ArrayList<>();
         pieData = TEST_Database.getInstance().getFraktionAmount(this.usedDataDeliveryCode, this.userId, this.deliveredDate);
         return pieData;
     }

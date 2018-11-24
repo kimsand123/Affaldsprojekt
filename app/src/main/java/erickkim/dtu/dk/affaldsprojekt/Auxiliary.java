@@ -79,7 +79,7 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
             return;
         }
 
-        deliveryObject = new Data_DTO_delivery();
+        /*deliveryObject = new Data_DTO_delivery();
         deliveryObject.setDate("22-Nov-18");
         deliveryObject.setDeliveryCode(deliveryCodeInt);
         deliveryObject.setAmount(amountInt);
@@ -87,7 +87,7 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
         deliveryObject.setUserId(userIdString);
 
         asyncDeliver deliverTask = new asyncDeliver();
-        deliverTask.execute();
+        deliverTask.execute();*/
 
 
     }
