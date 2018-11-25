@@ -154,7 +154,6 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
             chart.highlightValues(null);
             chart.invalidate();
 
-            //load pieview with data.
             //finish();
         }
     }

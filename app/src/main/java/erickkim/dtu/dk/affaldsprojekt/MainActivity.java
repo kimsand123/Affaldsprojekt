@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .commit();
         //}
 
+        Data_Controller.getInstance().setUserId("1111111111");
 
 
 

@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieEntry;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -173,13 +174,13 @@ public class TEST_Database {
 
 
     public ArrayList<PieEntry> getFraktionAmount(final int usedDataDeliveryCode, final String userId, final String date) {
-        int result;
+
         DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date);
 
         final ArrayList<PieEntry> liste = new ArrayList<>();
 
-        FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("affaldsprojekt-ae236").child("delivery").child(userId).child(date)
+                .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -194,14 +195,4 @@ public class TEST_Database {
                 });
         return liste;
         }
-
-
-
-    public class asyncTestFirebase extends AsyncTask {
-        @Override
-        protected Object doInBackground(Object[] objects) {
-
-            return null;
-        }
-    }
 }
