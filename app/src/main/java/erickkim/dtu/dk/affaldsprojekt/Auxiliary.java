@@ -1,5 +1,6 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -20,7 +22,11 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
     private EditText amount;
     private Spinner typeSpinner;
     private String typeString;
+    private String userIdString;
+    private int deliveryCodeInt;
     private Button deliveryButton;
+    private int amountInt;
+    private String date = "25-11-2018";
     private Data_DTO_delivery deliveryObject;
 
     private FirebaseDatabase fireData;
@@ -29,7 +35,7 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_auxiliary);
 
         deliveryCode = findViewById(R.id.text_deliverycode);
         userId = findViewById(R.id.text_userid);
@@ -37,9 +43,8 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
         typeSpinner = findViewById(R.id.spinner_type);
         deliveryButton = findViewById(R.id.button_deliver);
 
-        ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(this,
-                R.array.garbage_types_array,
-                android.R.layout.simple_spinner_item);
+        String[] typeArray = new String[]{"Metal", "Plastik", "Bio", "Rest"};
+        ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeArray);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         typeString = "";
@@ -49,33 +54,47 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
         fireData = FirebaseDatabase.getInstance();
         dataRef = fireData.getReference("delivery");
 
+        deliveryButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        int deliveryCodeInt;
         deliveryCodeInt = Integer.parseInt(deliveryCode.getText().toString());
         if (deliveryCodeInt == 0) {
-            System.err.print("Delivery code is 0.");
+            Context context = getApplicationContext();
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, "Delivery Code Missing", duration);
+            toast.show();
             return;
         }
 
-        String userIdString;
         userIdString = userId.getText().toString();
         if (userIdString.equals("")) {
-            System.err.print("User ID empty.");
+            Context context = getApplicationContext();
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, "User ID missing", duration);
+            toast.show();
             return;
         }
 
-        int amountInt;
         amountInt = Integer.parseInt(userId.getText().toString());
         if (amountInt == 0) {
-            System.err.print("Amount is 0");
+            Context context = getApplicationContext();
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, "Amount missing", duration);
+            toast.show();
             return;
         }
 
         if (typeString.equals("")) {
-            System.err.print("Type is not selected");
+            Context context = getApplicationContext();
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, "Type missing", duration);
+            toast.show();
             return;
         }
 
@@ -85,9 +104,18 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
         deliveryObject.setAmount(amountInt);
         deliveryObject.setType(typeString);
         deliveryObject.setUserId(userIdString);
+        */
 
         asyncDeliver deliverTask = new asyncDeliver();
-        deliverTask.execute();*/
+        deliverTask.execute();
+
+        Context context = getApplicationContext();
+        CharSequence text = "Hello toast!";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
 
 
     }
@@ -95,7 +123,6 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         typeString = parent.getItemAtPosition(position).toString();
-
     }
 
     @Override
@@ -106,7 +133,10 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
     public class asyncDeliver extends AsyncTask {
         @Override
         protected Object doInBackground(Object[] objects) {
-            System.out.print("Let's go.");
+            /* int deliveryDataCount = 1;
+            String last = dataRef.child(userIdString).child(date).getKey(); */
+            dataRef.child(userIdString).child(date).child("1_" + deliveryCodeInt).child("amount").setValue(amountInt);
+            dataRef.child(userIdString).child(date).child("1_" + deliveryCodeInt).child("type").setValue("" + typeString);
             return null;
         }
     }

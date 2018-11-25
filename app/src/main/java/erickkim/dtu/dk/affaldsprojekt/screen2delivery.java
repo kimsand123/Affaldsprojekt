@@ -1,5 +1,6 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -27,6 +28,7 @@ public class screen2delivery extends Fragment implements View.OnClickListener, V
     private Button newIdButton;
     private TextView txtIdBox;
     private TextView txtCoinBox2;
+    private Button auxiliaryButton;
 
     final DecelerateInterpolator sDecelerator = new DecelerateInterpolator();
     final OvershootInterpolator sOvershooter = new OvershootInterpolator(5f);
@@ -72,6 +74,7 @@ public class screen2delivery extends Fragment implements View.OnClickListener, V
         newIdButton = root.findViewById(R.id.newIdButton);
         txtIdBox = root.findViewById(R.id.txtIdBox);
         txtCoinBox2 = root.findViewById(R.id.txtCoinBox2);
+        auxiliaryButton = root.findViewById(R.id.button_auxiliary);
 
         //Hent data til textfelter.
         txtCoinBox2.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());
@@ -81,6 +84,7 @@ public class screen2delivery extends Fragment implements View.OnClickListener, V
         doneButton.setOnTouchListener(this);
         newIdButton.setOnClickListener(this);
         newIdButton.setOnTouchListener(this);
+        auxiliaryButton.setOnClickListener(this);
         return root;
     }
 
@@ -108,6 +112,12 @@ public class screen2delivery extends Fragment implements View.OnClickListener, V
             case R.id.newIdButton:
                 setNewIdCode();
                 break;
+                // Test button to enter Auxiliary activity.
+            case R.id.button_auxiliary:
+                Intent auxIntent;
+                auxIntent = new Intent(this.getContext(), Auxiliary.class);
+                startActivity(auxIntent);
+
         }
     }
 
