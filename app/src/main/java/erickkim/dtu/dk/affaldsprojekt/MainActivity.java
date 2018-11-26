@@ -1,5 +1,6 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -97,23 +98,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.competitions:
                 break;
             case R.id.feedback:
-                //kør fragmentet for Screen2delivery.
-                /*getFragmentManager().beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.fragmentContent, new screen6feedback())
-                        .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                        .addToBackStack(null)
-                        .commit();*/
+                Intent intent = new Intent(MainActivity.this, FeedbackActivity.class);
+                startActivity(intent);
                 break;
             case R.id.about:
                 break;
         }
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
 }

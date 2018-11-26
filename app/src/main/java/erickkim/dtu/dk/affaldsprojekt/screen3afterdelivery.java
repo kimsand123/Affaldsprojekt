@@ -133,6 +133,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         String date = Data_Controller.getInstance().getDeliveredDate();
         String userId = Data_Controller.getInstance().getUserId();
         DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date);
+
         final ArrayList<PieEntry> values = new ArrayList<>();
         final ArrayList<String> labels = new ArrayList<>();
 
@@ -143,13 +144,11 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Data_DTO_delivery snapshotData;
-
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             snapshotData = snapshot.getValue(Data_DTO_delivery.class);
+                            //TODO Der skal tages højde for at man kan lave 2 deposits på samme dag af samme type og de skal så
+                            //TODO ligges sammen inden pieChart blive skrevet til skærm
                             ((ArrayList) values).add(new PieEntry(snapshotData.getAmount(), snapshotData.getType()));
-                            ((ArrayList) labels).add(snapshotData.getType());
-
-                            //((ArrayList) labels).add(snapshotData.getType());
                         }
                         System.out.println(values);
 
@@ -189,12 +188,10 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         chart.setTransparentCircleRadius(30f);
         chart.setHoleRadius(30f);
         chart.getLegend().setEnabled(false);
+        //Vi easer en lille smule mod slutningen af animationen.
         chart.animateXY(1400, 1400, Easing.EaseOutCubic);
         chart.setRotationEnabled(true);
         chart.setData(data);
-
-
-
 
         chart.highlightValues(null);
         chart.invalidate();

@@ -101,6 +101,7 @@ public class screen2delivery extends Fragment implements View.OnClickListener, V
                 //DUMMY SET deliveryId
                 Data_Controller.getInstance().setUsedDataDeliveryCode(4411);
                 Data_Controller.getInstance().setDeliveredDate("31-08-2018");
+
                 //TODO: sæt hent dataflag i preferences, og skift til screen1main fragment
                 getFragmentManager().beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
