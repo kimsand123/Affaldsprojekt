@@ -107,7 +107,7 @@ public class screen2delivery extends Fragment implements View.OnClickListener, V
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .replace(R.id.fragmentContent, new screen3afterdelivery())
                         .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                        .addToBackStack(null)
+                        //.addToBackStack(null)
                         .commit();
                 break;
             case R.id.newIdButton:
