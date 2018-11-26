@@ -35,13 +35,12 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
     private Spinner typeSpinner;
     private String typeString;
     private String userIdString;
-    private int deliveryCodeInt;
     private Button deliveryButton;
     private int amountInt;
     private String date = "25-11-2018";
     private FirebaseDatabase fireData;
     private DatabaseReference dataRef;
-    private String lastDelivery = "";
+    private String deliveryCodeString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +69,9 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        deliveryCodeInt = Integer.parseInt(deliveryCode.getText().toString());
-        if (deliveryCodeInt == 0) {
-            makeToast("Delivery code int missing");
+        deliveryCodeString = deliveryCode.getText().toString();
+        if (deliveryCodeString.equals("")) {
+            makeToast("Delivery code string missing");
             return;
         }
 
@@ -130,46 +129,10 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
     public class asyncDeliver extends AsyncTask {
         @Override
         protected Object doInBackground(Object[] objects) {
-            int deliveryDataCount = findLastDeliveryCode();
-            deliveryDataCount++;
-            dataRef.child(userIdString).child(date).child(deliveryDataCount + "_" + deliveryCodeInt).child("amount").setValue("" + amountInt);
-            dataRef.child(userIdString).child(date).child(deliveryDataCount + "_" + deliveryCodeInt).child("type").setValue("" + typeString);
+            dataRef.child(userIdString).child(date).child(deliveryCodeString).child("amount").setValue("" + amountInt);
+            dataRef.child(userIdString).child(date).child(deliveryCodeString).child("type").setValue("" + typeString);
             return null;
         }
 
-        private int findLastDeliveryCode() {
-            int lastDeliveryCode = 0;
-
-            FirebaseDatabase.getInstance().getReference().child("delivery").child(userIdString).child(date).limitToLast(1)
-                    .addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            Data_DTO_delivery snapshotData;
-                            System.out.println("dataSnapshot " + dataSnapshot);
-                            System.out.println("dataSnapshot " + dataSnapshot.getRef());
-
-                            DataSnapshot snapshot = dataSnapshot;
-                            snapshotData = snapshot.getValue(Data_DTO_delivery.class);
-                            lastDelivery = snapshotData.getDeliveryId();
-                            lastDelivery = snapshot.getKey();
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            System.out.println("The read failed: " + databaseError.getCode());
-                        }
-                    });
-
-            if (lastDelivery == null) {
-                return 0;
-            }
-
-            if (lastDelivery.equals("")) {
-                return 0;
-            }
-            lastDeliveryCode = (int) lastDelivery.charAt(0);
-            lastDelivery = "";
-            return lastDeliveryCode;
-        }
     }
 }
