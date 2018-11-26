@@ -88,6 +88,8 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
         root = inflater.inflate(R.layout.fragment_screen3afterdelivery, container, false);
         chart = root.findViewById(R.id.pieChart);
+        chart.setNoDataText(" ");
+        chart.setNoDataTextColor(Color.BLACK);
         getDataForPieChart();
 
 
@@ -129,7 +131,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         String date = Data_Controller.getInstance().getDeliveredDate();
         String userId = Data_Controller.getInstance().getUserId();
         DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date);
-        final ArrayList<Entry> values = new ArrayList<>();
+        final ArrayList<PieEntry> values = new ArrayList<>();
         final ArrayList<String> labels = new ArrayList<>();
 
         final ArrayList<PieEntry> liste = new ArrayList<>();
@@ -138,33 +140,23 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Data_DTO_delivery snapshotData;
-                        System.out.println("dataSnapshot " + dataSnapshot);
-                        System.out.println("dataSnapshot " + dataSnapshot.getRef());
+
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             snapshotData = snapshot.getValue(Data_DTO_delivery.class);
-                            System.out.println("Amount " + snapshotData.getAmount());
-                            ((ArrayList) values).add(snapshotData.getAmount());
-                            System.out.println("label " + snapshotData.getType());
-                            ((ArrayList) labels).add(snapshotData.getType());
+                            ((ArrayList) values).add(new PieEntry(snapshotData.getAmount()));
+                            //((ArrayList) values).add(snapshotData.getType());
+
+                            //((ArrayList) labels).add(snapshotData.getType());
                         }
+                        System.out.println(values);
 
-                        ArrayList<PieEntry> values = new ArrayList<>();
+                       /* for (int counter = 0;counter < values.size();counter++) {
+                            System.out.print("Label " + counter + " "+ labels.get(counter)+ " ");
+                            System.out.println("Value " + counter + " "+ values.get(counter));
 
-                        /* for (int counter = 0; counter<piedata.size();counter++){
-                            labels.add(new String(piedata.get(counter).getLabel()));
-                            values.add(new PieEntry((float)piedata.get(counter).getValue(), counter));
                         }*/
 
-                        PieDataSet dataSet = new PieDataSet(values, "gram" );
-                        dataSet.setValueFormatter(new PercentFormatter());
-                        dataSet.setValueTextSize(11f);
-                        dataSet.setValueTextColor(Color.BLACK);
-                        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-                        PieData data = new PieData(dataSet);
-                        chart.setNoDataText(" ");
-                        chart.setData(data);
-                        chart.highlightValues(null);
-                        chart.invalidate();
+                        drawPieChart(values);
                     }
 
                     @Override
@@ -172,6 +164,33 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                         System.out.println("The read failed: " + databaseError.getCode());
                     }
                 });
+
+    }
+    public void drawPieChart(ArrayList<PieEntry> values){
+
+        //initialize dataset and pass the data
+        PieDataSet dataSet = new PieDataSet(values, "TEST" );
+
+
+        dataSet.setValueFormatter(new PercentFormatter());
+        dataSet.setValueTextSize(11f);
+        dataSet.setValueTextColor(Color.BLACK);
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+
+        //Initialize PieData
+        PieData data = new PieData(dataSet);
+
+        chart.setDrawHoleEnabled(true);
+        chart.setTransparentCircleRadius(40f);
+        chart.setHoleRadius(40f);
+        chart.animateXY(1400, 1400);
+        chart.setRotationEnabled(true);
+        chart.setData(data);
+
+
+
+        chart.highlightValues(null);
+        chart.invalidate();
     }
 }
 
