@@ -1,6 +1,7 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,8 +13,19 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class Auxiliary extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener{
 
@@ -23,14 +35,12 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
     private Spinner typeSpinner;
     private String typeString;
     private String userIdString;
-    private int deliveryCodeInt;
     private Button deliveryButton;
     private int amountInt;
     private String date = "25-11-2018";
-    private Data_DTO_delivery deliveryObject;
-
     private FirebaseDatabase fireData;
     private DatabaseReference dataRef;
+    private String deliveryCodeString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,42 +69,26 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        deliveryCodeInt = Integer.parseInt(deliveryCode.getText().toString());
-        if (deliveryCodeInt == 0) {
-            Context context = getApplicationContext();
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, "Delivery Code Missing", duration);
-            toast.show();
+        deliveryCodeString = deliveryCode.getText().toString();
+        if (deliveryCodeString.equals("")) {
+            makeToast("Delivery code string missing");
             return;
         }
 
         userIdString = userId.getText().toString();
         if (userIdString.equals("")) {
-            Context context = getApplicationContext();
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, "User ID missing", duration);
-            toast.show();
+            makeToast("UserIDString missing");
             return;
         }
 
-        amountInt = Integer.parseInt(userId.getText().toString());
+        amountInt = Integer.parseInt(amount.getText().toString());
         if (amountInt == 0) {
-            Context context = getApplicationContext();
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, "Amount missing", duration);
-            toast.show();
+            makeToast("Amount missing");
             return;
         }
 
         if (typeString.equals("")) {
-            Context context = getApplicationContext();
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, "Type missing", duration);
-            toast.show();
+            makeToast("Type Missing");
             return;
         }
 
@@ -108,16 +102,18 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
 
         asyncDeliver deliverTask = new asyncDeliver();
         deliverTask.execute();
+        makeToast("Executed!");
 
+
+    }
+
+    public void makeToast(String toastString){
         Context context = getApplicationContext();
-        CharSequence text = "Hello toast!";
+        CharSequence text = toastString;
         int duration = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
-
-
-
     }
 
     @Override
@@ -133,11 +129,10 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
     public class asyncDeliver extends AsyncTask {
         @Override
         protected Object doInBackground(Object[] objects) {
-            /* int deliveryDataCount = 1;
-            String last = dataRef.child(userIdString).child(date).getKey(); */
-            dataRef.child(userIdString).child(date).child("1_" + deliveryCodeInt).child("amount").setValue(amountInt);
-            dataRef.child(userIdString).child(date).child("1_" + deliveryCodeInt).child("type").setValue("" + typeString);
+            dataRef.child(userIdString).child(date).child(deliveryCodeString).child("amount").setValue("" + amountInt);
+            dataRef.child(userIdString).child(date).child(deliveryCodeString).child("type").setValue("" + typeString);
             return null;
         }
+
     }
 }
