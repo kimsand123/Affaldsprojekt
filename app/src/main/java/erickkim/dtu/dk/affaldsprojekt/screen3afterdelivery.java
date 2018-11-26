@@ -132,10 +132,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         final ArrayList<Entry> values = new ArrayList<>();
         final ArrayList<String> labels = new ArrayList<>();
 
-
-
         final ArrayList<PieEntry> liste = new ArrayList<>();
-
         FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -153,7 +150,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
                         ArrayList<PieEntry> values = new ArrayList<>();
 
-                      /*  for (int counter = 0; counter<piedata.size();counter++){
+                        /* for (int counter = 0; counter<piedata.size();counter++){
                             labels.add(new String(piedata.get(counter).getLabel()));
                             values.add(new PieEntry((float)piedata.get(counter).getValue(), counter));
                         }*/
@@ -163,9 +160,8 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                         dataSet.setValueTextSize(11f);
                         dataSet.setValueTextColor(Color.BLACK);
                         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-
                         PieData data = new PieData(dataSet);
-
+                        chart.setNoDataText(" ");
                         chart.setData(data);
                         chart.highlightValues(null);
                         chart.invalidate();
