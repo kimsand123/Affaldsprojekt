@@ -16,8 +16,17 @@
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChart"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="210dp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginBottom="70dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txtCoinBox3"
@@ -59,13 +68,13 @@
 
         <Button
             android:id="@+id/statisticButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
 
-            android:layout_height="92sp"
-
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="140dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="150dp"
+            android:layout_marginBottom="150dp"
             android:background="@drawable/button_roundcorners_dark"
             android:backgroundTint="@color/colorPrimary"
             android:fontFamily="@font/roboto"
@@ -75,7 +84,8 @@
             android:textColor="@color/hvid"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtInfoBox3" />
 
 
     </android.support.constraint.ConstraintLayout>

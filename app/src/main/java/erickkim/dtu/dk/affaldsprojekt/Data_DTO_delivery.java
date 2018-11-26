@@ -2,15 +2,15 @@ package erickkim.dtu.dk.affaldsprojekt;
 
 public class Data_DTO_delivery {
 
-    private String amount;
+    private int amount;
     private String type;
     private String deliveryId;
 
-    public String getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 

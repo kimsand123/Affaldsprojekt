@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -20,6 +22,12 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IPieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +45,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     private TextView txtInfoBox3;
     private ArrayList<PieEntry> piedata;
     private PieChart chart;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -116,46 +125,57 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     }
 
     public void getDataForPieChart(){
-        //Kode taget fra Galgeleg III
-        LoadHandler lh = new LoadHandler();
-        if (lh.getStatus() != AsyncTask.Status.FINISHED) {
-            lh.execute();
-        }
-    }
 
-    public class LoadHandler extends AsyncTask {
+        String date = Data_Controller.getInstance().getDeliveredDate();
+        String userId = Data_Controller.getInstance().getUserId();
+        DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date);
+        final ArrayList<Entry> values = new ArrayList<>();
+        final ArrayList<String> labels = new ArrayList<>();
 
-        @Override
-        protected Object doInBackground (Object[]objects){
-            piedata = Data_Controller.getInstance().getPieData();
-            return null;
-        }
 
-        @Override
-        protected void onPostExecute (Object o){
-            super.onPostExecute(o);
-            ArrayList<String> labels = new ArrayList<String>();
-            ArrayList<PieEntry> values = new ArrayList<>();
 
-            for (int counter = 0; counter<piedata.size();counter++){
-                labels.add(new String(piedata.get(counter).getLabel()));
-                values.add(new PieEntry((float)piedata.get(counter).getValue(), counter));
-            }
+        final ArrayList<PieEntry> liste = new ArrayList<>();
 
-            PieDataSet dataSet = new PieDataSet(values, "gram" );
-            dataSet.setValueFormatter(new PercentFormatter());
-            dataSet.setValueTextSize(11f);
-            dataSet.setValueTextColor(Color.BLACK);
-            dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Data_DTO_delivery snapshotData;
+                        System.out.println("dataSnapshot " + dataSnapshot);
+                        System.out.println("dataSnapshot " + dataSnapshot.getRef());
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            snapshotData = snapshot.getValue(Data_DTO_delivery.class);
+                            System.out.println("Amount " + snapshotData.getAmount());
+                            ((ArrayList) values).add(snapshotData.getAmount());
+                            System.out.println("label " + snapshotData.getType());
+                            ((ArrayList) labels).add(snapshotData.getType());
+                        }
 
-            PieData data = new PieData(dataSet);
+                        ArrayList<PieEntry> values = new ArrayList<>();
 
-            chart.setData(data);
-            chart.highlightValues(null);
-            chart.invalidate();
+                      /*  for (int counter = 0; counter<piedata.size();counter++){
+                            labels.add(new String(piedata.get(counter).getLabel()));
+                            values.add(new PieEntry((float)piedata.get(counter).getValue(), counter));
+                        }*/
 
-            //finish();
-        }
+                        PieDataSet dataSet = new PieDataSet(values, "gram" );
+                        dataSet.setValueFormatter(new PercentFormatter());
+                        dataSet.setValueTextSize(11f);
+                        dataSet.setValueTextColor(Color.BLACK);
+                        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+
+                        PieData data = new PieData(dataSet);
+
+                        chart.setData(data);
+                        chart.highlightValues(null);
+                        chart.invalidate();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        System.out.println("The read failed: " + databaseError.getCode());
+                    }
+                });
     }
 }
 
