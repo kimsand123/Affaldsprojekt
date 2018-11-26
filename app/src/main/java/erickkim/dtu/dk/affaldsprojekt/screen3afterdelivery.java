@@ -182,8 +182,8 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         PieData data = new PieData(dataSet);
 
         chart.setDrawHoleEnabled(true);
-        chart.setTransparentCircleRadius(40f);
-        chart.setHoleRadius(40f);
+        chart.setTransparentCircleRadius(30f);
+        chart.setHoleRadius(30f);
         chart.animateXY(1400, 1400);
         chart.setRotationEnabled(true);
         chart.getLegend().setEnabled(false);
