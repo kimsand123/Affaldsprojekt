@@ -134,7 +134,8 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         final ArrayList<PieEntry> values = new ArrayList<>();
         final ArrayList<String> labels = new ArrayList<>();
 
-        final ArrayList<PieEntry> liste = new ArrayList<>();
+
+
         FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -143,8 +144,8 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             snapshotData = snapshot.getValue(Data_DTO_delivery.class);
-                            ((ArrayList) values).add(new PieEntry(snapshotData.getAmount()));
-                            //((ArrayList) values).add(snapshotData.getType());
+                            ((ArrayList) values).add(new PieEntry(snapshotData.getAmount(), snapshotData.getType()));
+                            ((ArrayList) labels).add(snapshotData.getType());
 
                             //((ArrayList) labels).add(snapshotData.getType());
                         }
@@ -156,7 +157,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
                         }*/
 
-                        drawPieChart(values);
+                        drawPieChart(values, labels);
                     }
 
                     @Override
@@ -166,7 +167,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                 });
 
     }
-    public void drawPieChart(ArrayList<PieEntry> values){
+    public void drawPieChart(ArrayList<PieEntry> values, ArrayList<String> labels){
 
         //initialize dataset and pass the data
         PieDataSet dataSet = new PieDataSet(values, "TEST" );
@@ -185,6 +186,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         chart.setHoleRadius(40f);
         chart.animateXY(1400, 1400);
         chart.setRotationEnabled(true);
+        chart.getLegend().setEnabled(false);
         chart.setData(data);
 
 
