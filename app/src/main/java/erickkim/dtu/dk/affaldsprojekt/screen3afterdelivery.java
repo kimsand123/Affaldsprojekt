@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
@@ -177,17 +179,20 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         dataSet.setValueTextSize(11f);
         dataSet.setValueTextColor(Color.BLACK);
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        dataSet.setValueFormatter(new PercentFormatter());
 
         //Initialize PieData
         PieData data = new PieData(dataSet);
 
+        chart.setUsePercentValues(true);
         chart.setDrawHoleEnabled(true);
         chart.setTransparentCircleRadius(30f);
         chart.setHoleRadius(30f);
-        chart.animateXY(1400, 1400);
-        chart.setRotationEnabled(true);
         chart.getLegend().setEnabled(false);
+        chart.animateXY(1400, 1400, Easing.EaseOutCubic);
+        chart.setRotationEnabled(true);
         chart.setData(data);
+
 
 
 
