@@ -2,9 +2,17 @@ package erickkim.dtu.dk.affaldsprojekt;
 
 public class Data_DTO_delivery {
 
-    private int amount;
-    private String type;
     private String deliveryId;
+    private String type;
+    private int amount;
+
+    public String getDeliveryId() {
+        return deliveryId;
+    }
+
+    public void setDeliveryId(String deliveryId) {
+        this.deliveryId = deliveryId;
+    }
 
     public int getAmount() {
         return amount;
@@ -22,11 +30,4 @@ public class Data_DTO_delivery {
         this.type = type;
     }
 
-    public String getDeliveryId() {
-        return deliveryId;
-    }
-
-    public void setDeliveryId(String deliveryId) {
-        this.deliveryId = deliveryId;
-    }
 }

@@ -1,6 +1,7 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,8 +13,19 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class Auxiliary extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener{
 
@@ -27,10 +39,9 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
     private Button deliveryButton;
     private int amountInt;
     private String date = "25-11-2018";
-    private Data_DTO_delivery deliveryObject;
-
     private FirebaseDatabase fireData;
     private DatabaseReference dataRef;
+    private String lastDelivery = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,40 +72,24 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
     public void onClick(View v) {
         deliveryCodeInt = Integer.parseInt(deliveryCode.getText().toString());
         if (deliveryCodeInt == 0) {
-            Context context = getApplicationContext();
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, "Delivery Code Missing", duration);
-            toast.show();
+            makeToast("Delivery code int missing");
             return;
         }
 
         userIdString = userId.getText().toString();
         if (userIdString.equals("")) {
-            Context context = getApplicationContext();
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, "User ID missing", duration);
-            toast.show();
+            makeToast("UserIDString missing");
             return;
         }
 
-        amountInt = Integer.parseInt(userId.getText().toString());
+        amountInt = Integer.parseInt(amount.getText().toString());
         if (amountInt == 0) {
-            Context context = getApplicationContext();
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, "Amount missing", duration);
-            toast.show();
+            makeToast("Amount missing");
             return;
         }
 
         if (typeString.equals("")) {
-            Context context = getApplicationContext();
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, "Type missing", duration);
-            toast.show();
+            makeToast("Type Missing");
             return;
         }
 
@@ -108,16 +103,18 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
 
         asyncDeliver deliverTask = new asyncDeliver();
         deliverTask.execute();
+        makeToast("Executed!");
 
+
+    }
+
+    public void makeToast(String toastString){
         Context context = getApplicationContext();
-        CharSequence text = "Hello toast!";
+        CharSequence text = toastString;
         int duration = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
-
-
-
     }
 
     @Override
@@ -133,11 +130,46 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
     public class asyncDeliver extends AsyncTask {
         @Override
         protected Object doInBackground(Object[] objects) {
-            /* int deliveryDataCount = 1;
-            String last = dataRef.child(userIdString).child(date).getKey(); */
-            dataRef.child(userIdString).child(date).child("1_" + deliveryCodeInt).child("amount").setValue(amountInt);
-            dataRef.child(userIdString).child(date).child("1_" + deliveryCodeInt).child("type").setValue("" + typeString);
+            int deliveryDataCount = findLastDeliveryCode();
+            deliveryDataCount++;
+            dataRef.child(userIdString).child(date).child(deliveryDataCount + "_" + deliveryCodeInt).child("amount").setValue("" + amountInt);
+            dataRef.child(userIdString).child(date).child(deliveryDataCount + "_" + deliveryCodeInt).child("type").setValue("" + typeString);
             return null;
+        }
+
+        private int findLastDeliveryCode() {
+            int lastDeliveryCode = 0;
+
+            FirebaseDatabase.getInstance().getReference().child("delivery").child(userIdString).child(date).limitToLast(1)
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Data_DTO_delivery snapshotData;
+                            System.out.println("dataSnapshot " + dataSnapshot);
+                            System.out.println("dataSnapshot " + dataSnapshot.getRef());
+
+                            DataSnapshot snapshot = dataSnapshot;
+                            snapshotData = snapshot.getValue(Data_DTO_delivery.class);
+                            lastDelivery = snapshotData.getDeliveryId();
+                            lastDelivery = snapshot.getKey();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            System.out.println("The read failed: " + databaseError.getCode());
+                        }
+                    });
+
+            if (lastDelivery == null) {
+                return 0;
+            }
+
+            if (lastDelivery.equals("")) {
+                return 0;
+            }
+            lastDeliveryCode = (int) lastDelivery.charAt(0);
+            lastDelivery = "";
+            return lastDeliveryCode;
         }
     }
 }
