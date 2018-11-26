@@ -3,6 +3,6 @@
     <color name="colorPrimary">#1a4f28</color>
     <color name="colorPrimaryDark">#2bd578</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="hvid">#ffffffff</color>
+    <color name="hvid">#ffffff</color>
     <color name="beige">#FFEBA9</color>
 </resources>

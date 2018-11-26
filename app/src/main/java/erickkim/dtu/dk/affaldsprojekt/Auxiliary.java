@@ -1,6 +1,7 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -71,23 +72,27 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
     public void onClick(View v) {
         deliveryCodeString = deliveryCode.getText().toString();
         if (deliveryCodeString.equals("")) {
+            //MessageCenter.getInstance().showMessage("Delivery code string missing");
             makeToast("Delivery code string missing");
             return;
         }
 
         userIdString = userId.getText().toString();
         if (userIdString.equals("")) {
-            makeToast("UserIDString missing");
+            //MessageCenter.getInstance().showMessage("UserIDString missing");
+           makeToast("UserIDString missing");
             return;
         }
 
         amountInt = Integer.parseInt(amount.getText().toString());
         if (amountInt == 0) {
+            //MessageCenter.getInstance().showMessage("Amount missing");
             makeToast("Amount missing");
             return;
         }
 
         if (typeString.equals("")) {
+            //MessageCenter.getInstance().showMessage("Type Missing");
             makeToast("Type Missing");
             return;
         }
@@ -102,7 +107,8 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
 
         asyncDeliver deliverTask = new asyncDeliver();
         deliverTask.execute();
-        makeToast("Executed!");
+        //makeToast("Executed!");
+        //MessageCenter.getInstance().showMessage("Executed");
 
 
     }
@@ -134,5 +140,11 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
             return null;
         }
 
+        @Override
+        protected void onPostExecute (Object o){
+            super.onPostExecute(o);
+            makeToast("Executed!");
+            //MessageCenter.getInstance().showMessage("Data er skrevet");
+        }
     }
 }
