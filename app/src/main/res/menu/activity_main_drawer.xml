@@ -22,6 +22,10 @@
     <item android:title="App Info">
         <menu>
             <item
+                android:id="@+id/settings"
+                android:title="Indstillinger"
+                />
+            <item
                 android:id="@+id/about"
                 android:title="Om" />
         </menu>

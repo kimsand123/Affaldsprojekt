@@ -63,7 +63,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
 
         txtCoinBox4 = root.findViewById(R.id.txtCoinBox4);
-        becomeBetterButton = root.findViewById(R.id.sendButton);
+        becomeBetterButton = root.findViewById(R.id.hvordanBliverJegBedreButton);
         statistic = root.findViewById(R.id.statistic);
 
         becomeBetterButton.setOnClickListener(this);
@@ -80,7 +80,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         //check view objektet og skift til den tilhørende case.
         switch(v.getId()) {
-              case R.id.sendButton:
+              case R.id.hvordanBliverJegBedreButton:
                 //kør fragmentet for Screen2delivery.
                /*getFragmentManager().beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)

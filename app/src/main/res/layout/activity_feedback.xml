@@ -42,7 +42,6 @@
             android:layout_marginTop="100dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/text_roundcorners_darkgreen"
-            android:ems="10"
             android:fontFamily="@font/roboto"
             android:gravity="left|top"
             android:inputType="textMultiLine"
@@ -59,7 +58,7 @@
         <Spinner
             android:id="@+id/feedbackDropdown"
             android:layout_width="247dp"
-            android:layout_height="25dp"
+            android:layout_height="33dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/text_roundcorners_darkgreen"

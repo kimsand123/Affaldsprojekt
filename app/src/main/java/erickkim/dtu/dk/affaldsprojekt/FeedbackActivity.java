@@ -82,7 +82,6 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
         Context context = getApplicationContext();
         CharSequence text = toastString;
         int duration = Toast.LENGTH_SHORT;
-
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
@@ -90,8 +89,10 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
     public class AsyncDeliver extends AsyncTask {
         @Override
         protected Object doInBackground(Object[] objects) {
+            //Getting the next key
             String key = dataRef.push().getKey();
 
+            //writing data
             dataRef.child(key).child("idea").setValue("" + feedback.getText().toString());
             dataRef.child(key).child("userId").setValue("" + Data_Controller.getInstance().getUserId());
             return null;
