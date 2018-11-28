@@ -17,4 +17,5 @@
         <item>Plastik</item>
         <item>Rest</item>
     </string-array>
+    <string name="title_activity_maps">HubPlacementMap</string>
 </resources>

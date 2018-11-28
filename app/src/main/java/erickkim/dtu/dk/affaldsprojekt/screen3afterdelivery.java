@@ -33,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class screen3afterdelivery extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
@@ -146,30 +147,24 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         boolean metal=false, plastik=false, rest=false, bio = false;
                         Data_DTO_delivery snapshotData;
+                        //For hvert barn i datasnapshot.
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             snapshotData = snapshot.getValue(Data_DTO_delivery.class);
-                            //doesnt work.
-                            //TODO Der skal tages højde for at man kan lave 2 deposits på samme dag af samme type og de skal så
-                            //TODO ligges sammen inden pieChart blive skrevet til skærm
-                         
-                            //if ((values).contains(snapshotData);
-                            //if( values.(snapshotData)){
-                                int index = values.indexOf(snapshotData.getType());
-                                if (index != -1) {
-                                    PieEntry oldValue;
-                                    oldValue = values.get(index);
-                                    snapshotData.setAmount((int) (oldValue.getY() + snapshotData.getAmount()));
-                                    } else {
-
-
-                                    ((ArrayList) values).add(new PieEntry(snapshotData.getAmount(), snapshotData.getType()));
+                            ListIterator<PieEntry> listElements = values.listIterator();
+                            //algorithm for at samle 2 deposits af den samme type eks. bio den samme dag
+                            //til et deposit i datastrukturen indeholdende PieEntries, før PieChart bliver tegnet.
+                            while(listElements.hasNext()){
+                                String label = listElements.next().getLabel();
+                                String currentType = snapshotData.getType();
+                                if (label.equals(currentType)) {
+                                    listElements.previous();
+                                    float value = listElements.next().getValue();
+                                    listElements.remove();
+                                    snapshotData.setAmount(snapshotData.getAmount() + (int) value);
                                 }
-
+                            }
+                            ((ArrayList) values).add(new PieEntry(snapshotData.getAmount(), snapshotData.getType()));
                         }
-
-
-                        System.out.println(values);
-
                         drawPieChart(values, labels);
                     }
 
