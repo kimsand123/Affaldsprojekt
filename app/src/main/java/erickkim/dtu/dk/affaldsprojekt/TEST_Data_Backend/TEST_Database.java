@@ -38,7 +38,7 @@ public class TEST_Database {
     public static String tips[] = {"Leverpostejen skal opdeles.", "Smid nu for filen din skrald ordentligt ud.", "Det er noget af en weekend du har haft!",
             "Vi kan se at det blev en god første date igår!", "Bananer går i bio, plast går i plast. Lær det nu."};
 
-    public static int personCoins[][] = { {123, 323, 252, 623, 555, 111, 112, 113, 999, 986},
+    public static int personCoins[][] = { {1111111111, 323, 252, 623, 555, 111, 112, 113, 999, 986},
                             {15555, 55005, 252555, 236110, 0, 10, 623523, 161512, 696969696, 2336 }
     };
 

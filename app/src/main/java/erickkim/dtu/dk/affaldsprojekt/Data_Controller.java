@@ -3,7 +3,9 @@ package erickkim.dtu.dk.affaldsprojekt;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieEntry;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,9 +13,12 @@ import erickkim.dtu.dk.affaldsprojekt.TEST_Data_Backend.TEST_Database;
 
 public class Data_Controller {
 
+
+    private String date;
+    private int todaysDeliveryCounter;
     private int trashCoins;
     private Data_DTO_deliveryCode deliveryCode;
-    private int personId = 123; // TODO: implement a way to store a personalized person ID locally.
+
     private int usedDataDeliveryCode=0;
     private String userId;
     private String deliveredDate;
@@ -36,7 +41,7 @@ public class Data_Controller {
     }
 
     public int getTrashCoins() {
-        trashCoins = dao_trashCoins.getTrashCoins(personId);
+        trashCoins = dao_trashCoins.getTrashCoins(Integer.parseInt(userId));
         return trashCoins;
     }
 
@@ -80,14 +85,6 @@ public class Data_Controller {
         return dao_tips.getTip();
     }
 
-    public int getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(int personId) {
-        this.personId = personId;
-    }
-
     public Data_DTO_deliveryCode getNewDeliveryCode() {
         setDeliveryCode(dao_deliveryCode.getAvailableDeliveryCode());
         return deliveryCode;
@@ -108,4 +105,22 @@ public class Data_Controller {
         return pieData;
     }
 
+    public String getToday() {
+
+        return this.date;
+    }
+
+    public void setToday() {
+        String date;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        this.date = sdf.format(new Date());
+    }
+
+    public int getTodaysDeliveryCounter() {
+        return todaysDeliveryCounter;
+    }
+
+    public void setTodaysDeliveryCounter(int todaysDeliveryCounter) {
+        this.todaysDeliveryCounter = todaysDeliveryCounter;
+    }
 }

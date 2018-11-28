@@ -38,7 +38,7 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
     private String userIdString;
     private Button deliveryButton;
     private int amountInt;
-    private String date = "25-11-2018";
+    private String date;
     private FirebaseDatabase fireData;
     private DatabaseReference dataRef;
     private String deliveryCodeString;
@@ -48,13 +48,18 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auxiliary);
 
-
+        Data_Controller.getInstance().setToday();
+        if(!(Data_Controller.getInstance().getToday().equals(Data_Controller.getInstance().getDeliveredDate()))){
+            Data_Controller.getInstance().setTodaysDeliveryCounter(0);
+        }
 
         deliveryCode = findViewById(R.id.text_deliverycode);
         int ID = Data_Controller.getInstance().getUsedDataDeliveryCode();
         deliveryCode.setText(Integer.toString(ID));
+
         userId = findViewById(R.id.text_userid);
         userId.setText(Data_Controller.getInstance().getUserId());
+
         amount = findViewById(R.id.text_amount);
         typeSpinner = findViewById(R.id.spinner_type);
         deliveryButton = findViewById(R.id.button_deliver);
@@ -140,8 +145,10 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
     public class asyncDeliver extends AsyncTask {
         @Override
         protected Object doInBackground(Object[] objects) {
-            dataRef.child(userIdString).child(date).child(deliveryCodeString).child("amount").setValue("" + amountInt);
-            dataRef.child(userIdString).child(date).child(deliveryCodeString).child("type").setValue("" + typeString);
+            dataRef.child(userIdString).child(Data_Controller.getInstance().getToday()).child(Integer.toString(Data_Controller.getInstance().getTodaysDeliveryCounter()) + deliveryCodeString).child("amount").setValue("" + amountInt);
+            dataRef.child(userIdString).child(Data_Controller.getInstance().getToday()).child(Integer.toString(Data_Controller.getInstance().getTodaysDeliveryCounter()) + deliveryCodeString).child("type").setValue("" + typeString);
+            Data_Controller.getInstance().setDeliveredDate(Data_Controller.getInstance().getToday());
+            Data_Controller.getInstance().setTodaysDeliveryCounter(Data_Controller.getInstance().getTodaysDeliveryCounter()+1);
             return null;
         }
 
