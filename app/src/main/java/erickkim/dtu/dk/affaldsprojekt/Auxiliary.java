@@ -48,8 +48,13 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auxiliary);
 
+
+
         deliveryCode = findViewById(R.id.text_deliverycode);
+        int ID = Data_Controller.getInstance().getUsedDataDeliveryCode();
+        deliveryCode.setText(Integer.toString(ID));
         userId = findViewById(R.id.text_userid);
+        userId.setText(Data_Controller.getInstance().getUserId());
         amount = findViewById(R.id.text_amount);
         typeSpinner = findViewById(R.id.spinner_type);
         deliveryButton = findViewById(R.id.button_deliver);
