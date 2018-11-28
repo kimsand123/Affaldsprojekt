@@ -72,6 +72,8 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        // Testdata.
+        Data_Controller.getInstance().setUserId("1111111111");
     }
 
     @Override

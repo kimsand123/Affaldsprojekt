@@ -130,6 +130,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
     public void getDataForPieChart(){
 
+
         String date = Data_Controller.getInstance().getDeliveredDate();
         String userId = Data_Controller.getInstance().getUserId();
         DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date);
@@ -143,20 +144,31 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        boolean metal=false, plastik=false, rest=false, bio = false;
                         Data_DTO_delivery snapshotData;
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             snapshotData = snapshot.getValue(Data_DTO_delivery.class);
+                            //doesnt work.
                             //TODO Der skal tages højde for at man kan lave 2 deposits på samme dag af samme type og de skal så
                             //TODO ligges sammen inden pieChart blive skrevet til skærm
-                            ((ArrayList) values).add(new PieEntry(snapshotData.getAmount(), snapshotData.getType()));
+                         
+                            //if ((values).contains(snapshotData);
+                            //if( values.(snapshotData)){
+                                int index = values.indexOf(snapshotData.getType());
+                                if (index != -1) {
+                                    PieEntry oldValue;
+                                    oldValue = values.get(index);
+                                    snapshotData.setAmount((int) (oldValue.getY() + snapshotData.getAmount()));
+                                    } else {
+
+
+                                    ((ArrayList) values).add(new PieEntry(snapshotData.getAmount(), snapshotData.getType()));
+                                }
+
                         }
+
+
                         System.out.println(values);
-
-                       /* for (int counter = 0;counter < values.size();counter++) {
-                            System.out.print("Label " + counter + " "+ labels.get(counter)+ " ");
-                            System.out.println("Value " + counter + " "+ values.get(counter));
-
-                        }*/
 
                         drawPieChart(values, labels);
                     }
