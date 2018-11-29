@@ -174,9 +174,7 @@ public class TEST_Database {
 
 
     public ArrayList<PieEntry> getFraktionAmount(final int usedDataDeliveryCode, final String userId, final String date) {
-
-        DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date);
-
+        
         final ArrayList<PieEntry> liste = new ArrayList<>();
 
         FirebaseDatabase.getInstance().getReference("affaldsprojekt-ae236").child("delivery").child(userId).child(date)
