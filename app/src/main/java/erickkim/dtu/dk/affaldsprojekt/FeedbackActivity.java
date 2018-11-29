@@ -8,8 +8,11 @@ import android.os.Bundle;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -23,7 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 
-public class FeedbackActivity extends AppCompatActivity implements View.OnClickListener,  AdapterView.OnItemSelectedListener {
+public class FeedbackActivity extends AppCompatActivity implements View.OnClickListener,  AdapterView.OnItemSelectedListener, View.OnTouchListener {
     private Spinner typeSpinner;
     private String feedbackString;
     private FirebaseDatabase fireData;
@@ -32,6 +35,9 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
 
     private Button send;
     private EditText feedback;
+
+    final DecelerateInterpolator sDecelerator = new DecelerateInterpolator();
+    final OvershootInterpolator sOvershooter = new OvershootInterpolator(5f);
 
 
     @Override
@@ -43,6 +49,7 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
 
         sendButton = findViewById(R.id.sendButton);
         sendButton.setOnClickListener(this);
+        sendButton.setOnTouchListener(this);
 
 
         //populer feedback type spinner
@@ -86,6 +93,17 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
         toast.show();
     }
 
+    @Override
+    public boolean onTouch(View v, MotionEvent me) {
+        v.animate().setDuration(200);
+        if (me.getAction() == MotionEvent.ACTION_DOWN) {
+            v.animate().setInterpolator(sDecelerator).scaleX(.7f).scaleY(.7f);
+        } else if (me.getAction() == MotionEvent.ACTION_UP) {
+            v.animate().setInterpolator(sOvershooter).scaleX(1f).scaleY(1f);
+        }
+        return false;
+    }
+
     public class AsyncDeliver extends AsyncTask {
         @Override
         protected Object doInBackground(Object[] objects) {
@@ -105,5 +123,6 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
             finish();
             //MessageCenter.getInstance().showMessage("Tak for din idé. :)");
         }
+
     }
 }

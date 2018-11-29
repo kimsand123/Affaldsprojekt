@@ -1,5 +1,6 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -117,10 +118,10 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
         //check view objektet og skift til den tilhørende case.
         switch(v.getId()) {
             case R.id.garbageButton:
-                // Kør fragmentet for screen5sortingguide
+                // Kør fragmentet for screen7sortingguide
                 getFragmentManager().beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.fragmentContent, new screen5sortingguide())
+                        .replace(R.id.fragmentContent, new screen7sortingguide())
                         .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                         .addToBackStack(null)
                         .commit();
@@ -134,8 +135,9 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
                         .commit();
                 break;
             case R.id.hubplacementButton:
-                //TODO: vis et googlemaps med et koordinat evt. med en fra til markeret.
-                // Vis google maps hub placement
+                Intent mapIntent;
+                mapIntent = new Intent(this.getContext(), MapsActivity.class);
+                startActivity(mapIntent);
                 break;
             case R.id.depositButton:
                 //kør fragmentet for Screen2delivery.

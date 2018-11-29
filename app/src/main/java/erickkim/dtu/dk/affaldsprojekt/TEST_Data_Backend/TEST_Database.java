@@ -1,6 +1,7 @@
 package erickkim.dtu.dk.affaldsprojekt.TEST_Data_Backend;
 
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieEntry;
@@ -25,6 +26,7 @@ import erickkim.dtu.dk.affaldsprojekt.Data_DTO_deliveryCode;
 public class TEST_Database {
     static FirebaseDatabase mref;
     static DatabaseReference myref;
+    public double coordinates[] = {0.0, 0.0};
 
     public static TEST_Database getInstance() {
         mref = FirebaseDatabase.getInstance();
@@ -170,6 +172,26 @@ public class TEST_Database {
             status = "Fejl, virker ikke";
         }
         return status;
+    }
+
+    public double[] getCoordinates(String hubId) {
+
+        FirebaseDatabase.getInstance().getReference().child("hubs").child(hubId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int i = 0;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    coordinates[i] = (double) snapshot.getValue();
+                    i++;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+        return coordinates;
     }
 
 

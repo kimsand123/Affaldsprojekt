@@ -1,6 +1,5 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,7 +8,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.TextView;
 
-public class screen5sortingguide extends Fragment {
+public class screen7sortingguide extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -22,7 +21,7 @@ public class screen5sortingguide extends Fragment {
     private View root;
     private WebView web;
 
-    public screen5sortingguide() {
+    public screen7sortingguide() {
         // Required empty public constructor
     }
 
@@ -32,11 +31,11 @@ public class screen5sortingguide extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment screen5sortingguide.
+     * @return A new instance of fragment screen7sortingguide.
      */
     // TODO: Rename and change types and number of parameters
-    public static screen5sortingguide newInstance(String param1, String param2) {
-        screen5sortingguide fragment = new screen5sortingguide();
+    public static screen7sortingguide newInstance(String param1, String param2) {
+        screen7sortingguide fragment = new screen7sortingguide();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -55,7 +54,7 @@ public class screen5sortingguide extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_screen5sortingguide, container, false);
+        root = inflater.inflate(R.layout.fragment_screen7sortingguide, container, false);
         txtCoinBox5 = root.findViewById(R.id.txtCoinBox5);
         web = root.findViewById(R.id.sortguide_Webview);
         txtCoinBox5.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());

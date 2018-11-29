@@ -1,5 +1,8 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
+import android.os.AsyncTask;
+import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -9,10 +12,19 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
+import erickkim.dtu.dk.affaldsprojekt.TEST_Data_Backend.TEST_Database;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private ArrayList<String> allHubs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +50,72 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        /*
+        class asyncLoadHubLocations extends AsyncTask {
+
+            double coordinates[] = {0, 0};
+
+
+            @Override
+            protected Object doInBackground(Object[] objects) {
+                coordinates = TEST_Database.getInstance().getCoordinates("hub1");
+                // TODO: Add way to find all hubs?
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                LatLng hub = new LatLng(coordinates[0], coordinates[1]);
+                mMap.addMarker(new MarkerOptions().position(hub).title("Testmarker in Læsø"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(hub));
+            }
+
+        }
+        */
+        getAllHubNames();
+
+    }
+
+    private void getAllHubNames() {
+        FirebaseDatabase.getInstance().getReference().child("hubs").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String hubName = "";
+                int i = 0;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    hubName = (String) snapshot.getKey();
+                    addHubToMap(hubName);
+                    i++;
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
+    private void addHubToMap(String hubName) {
+        FirebaseDatabase.getInstance().getReference().child("hubs").child(hubName).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                double coordinates[] = {0.0, 0.0};
+                int i = 0;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    coordinates[i] = (double) snapshot.getValue();
+                    i++;
+                }
+
+                LatLng hub = new LatLng(coordinates[0], coordinates[1]);
+                mMap.addMarker(new MarkerOptions().position(hub).title("Testmarker in Læsø"));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 }
