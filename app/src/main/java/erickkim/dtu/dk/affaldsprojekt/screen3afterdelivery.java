@@ -134,9 +134,9 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     public void getDataForPieChart(){
 
 
-        String date = Data_Controller.getInstance().getDeliveredDate();
+        String date = Data_Controller.getInstance().getToday();
         String userId = Data_Controller.getInstance().getUserId();
-        DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(makedate());
+        //DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date);
 
         final ArrayList<PieEntry> values = new ArrayList<>();
         final ArrayList<String> labels = new ArrayList<>();
@@ -144,14 +144,14 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
 
         FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date)
-                .addValueEventListener(new ValueEventListener() {
+                .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        boolean metal=false, plastik=false, rest=false, bio = false;
                         Data_DTO_delivery snapshotData;
                         //For hvert barn i datasnapshot.
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             snapshotData = snapshot.getValue(Data_DTO_delivery.class);
+
                             ListIterator<PieEntry> listElements = values.listIterator();
                             //algorithm for at samle 2 deposits af den samme type eks. bio den samme dag
                             //til et deposit i datastrukturen indeholdende PieEntries, før PieChart bliver tegnet.
@@ -162,10 +162,10 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                                     listElements.previous();
                                     float value = listElements.next().getValue();
                                     listElements.remove();
-                                    snapshotData.setAmount(snapshotData.getAmount() + (int) value);
+                                    snapshotData.setAmount(Integer.toString(Integer.parseInt( snapshotData.getAmount()) + (int) value));
                                 }
                             }
-                            ((ArrayList) values).add(new PieEntry(snapshotData.getAmount(), snapshotData.getType()));
+                            ((ArrayList) values).add(new PieEntry(Integer.parseInt(snapshotData.getAmount()), snapshotData.getType()));
                         }
                         drawPieChart(values, labels);
                     }
@@ -204,15 +204,6 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
         chart.highlightValues(null);
         chart.invalidate();
-    }
-
-    private String makedate(){
-        String date = "";
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
-        date = sdf.format(new Date());
-
-        return date;
     }
 }
 

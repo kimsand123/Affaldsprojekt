@@ -45,12 +45,12 @@ public class Data_Controller {
         return trashCoins;
     }
 
-    public void setTrashCoins(int trashCoins) {
-        this.trashCoins = trashCoins;
-    }
-
     public Data_DTO_deliveryCode getDeliveryCode() {
         return deliveryCode;
+    }
+
+    public void setTrashCoins(int trashCoins) {
+        this.trashCoins = trashCoins;
     }
 
     public void setUsedDataDeliveryCode(int code){
@@ -106,13 +106,12 @@ public class Data_Controller {
     }
 
     public String getToday() {
-
+        setToday();
         return this.date;
     }
 
     public void setToday() {
-        String date;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         this.date = sdf.format(new Date());
     }
 

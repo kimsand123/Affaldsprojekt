@@ -55,7 +55,7 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
 
         deliveryCode = findViewById(R.id.text_deliverycode);
         int ID = Data_Controller.getInstance().getUsedDataDeliveryCode();
-        deliveryCode.setText(Integer.toString(ID));
+        deliveryCode.setText(Data_Controller.getInstance().getTodaysDeliveryCounter() + "_" + Integer.toString(ID));
 
         userId = findViewById(R.id.text_userid);
         userId.setText(Data_Controller.getInstance().getUserId());
@@ -145,10 +145,12 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
     public class asyncDeliver extends AsyncTask {
         @Override
         protected Object doInBackground(Object[] objects) {
-            dataRef.child(userIdString).child(Data_Controller.getInstance().getToday()).child(Integer.toString(Data_Controller.getInstance().getTodaysDeliveryCounter()) + deliveryCodeString).child("amount").setValue("" + amountInt);
-            dataRef.child(userIdString).child(Data_Controller.getInstance().getToday()).child(Integer.toString(Data_Controller.getInstance().getTodaysDeliveryCounter()) + deliveryCodeString).child("type").setValue("" + typeString);
+
+            dataRef.child(userIdString).child(Data_Controller.getInstance().getToday()).child(deliveryCodeString).child("amount").setValue("" + amountInt);
+            dataRef.child(userIdString).child(Data_Controller.getInstance().getToday()).child(deliveryCodeString).child("type").setValue("" + typeString);
             Data_Controller.getInstance().setDeliveredDate(Data_Controller.getInstance().getToday());
             Data_Controller.getInstance().setTodaysDeliveryCounter(Data_Controller.getInstance().getTodaysDeliveryCounter()+1);
+
             return null;
         }
 
@@ -157,6 +159,10 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
             super.onPostExecute(o);
             makeToast("Executed!");
             //MessageCenter.getInstance().showMessage("Data er skrevet");
+            int ID = Data_Controller.getInstance().getUsedDataDeliveryCode();
+            deliveryCode.setText(Data_Controller.getInstance().getTodaysDeliveryCounter() + "_" + Integer.toString(ID));
         }
     }
+
+
 }

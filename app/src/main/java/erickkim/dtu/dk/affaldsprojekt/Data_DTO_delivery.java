@@ -4,7 +4,7 @@ public class Data_DTO_delivery {
 
     private String deliveryId;
     private String type;
-    private int amount;
+    private String amount;
 
     public String getDeliveryId() {
         return deliveryId;
@@ -14,11 +14,11 @@ public class Data_DTO_delivery {
         this.deliveryId = deliveryId;
     }
 
-    public int getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 
