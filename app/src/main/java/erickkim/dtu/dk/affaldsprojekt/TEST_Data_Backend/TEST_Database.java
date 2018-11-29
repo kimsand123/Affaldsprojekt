@@ -1,10 +1,6 @@
 package erickkim.dtu.dk.affaldsprojekt.TEST_Data_Backend;
 
-import android.os.AsyncTask;
-
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieEntry;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -174,7 +170,7 @@ public class TEST_Database {
 
 
     public ArrayList<PieEntry> getFraktionAmount(final int usedDataDeliveryCode, final String userId, final String date) {
-        
+
         final ArrayList<PieEntry> liste = new ArrayList<>();
 
         FirebaseDatabase.getInstance().getReference("affaldsprojekt-ae236").child("delivery").child(userId).child(date)
