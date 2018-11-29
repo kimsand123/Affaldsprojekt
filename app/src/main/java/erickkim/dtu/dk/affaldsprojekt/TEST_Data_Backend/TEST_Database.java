@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieEntry;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -172,26 +171,6 @@ public class TEST_Database {
             status = "Fejl, virker ikke";
         }
         return status;
-    }
-
-    public double[] getCoordinates(String hubId) {
-
-        FirebaseDatabase.getInstance().getReference().child("hubs").child(hubId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int i = 0;
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    coordinates[i] = (double) snapshot.getValue();
-                    i++;
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-
-        return coordinates;
     }
 
 
