@@ -112,7 +112,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                             snapshotData = snapshot.getValue(Data_DTO_delivery.class);
 
                             ListIterator<PieEntry> listElements = values.listIterator();
-                            //algorithm for at samle 2 deposits af den samme type eks. bio den samme dag
+                            //algoritme for at samle 2 deposits af den samme type eks. bio den samme dag
                             //til et deposit i datastrukturen indeholdende PieEntries, før PieChart bliver tegnet.
                             while(listElements.hasNext()){
                                 String label = listElements.next().getLabel();

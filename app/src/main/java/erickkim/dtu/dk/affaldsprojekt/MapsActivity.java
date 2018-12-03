@@ -105,7 +105,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String hubName = "";
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                    if (snapshot.getKey().equals("hubName")) {
+                    if (snapshot.getKey().equals("hubname")) {
                         hubName = ((String) snapshot.getValue());
                     }
                     if (snapshot.getKey().equals("latitude")) {
