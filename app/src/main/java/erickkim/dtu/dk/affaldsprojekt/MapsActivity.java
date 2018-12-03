@@ -102,14 +102,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 double coordinates[] = {0.0, 0.0};
-                int i = 0;
+                String hubName = "";
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    coordinates[i] = (double) snapshot.getValue();
-                    i++;
+
+                    if (snapshot.getKey().equals("hubName")) {
+                        hubName = ((String) snapshot.getValue());
+                    }
+                    if (snapshot.getKey().equals("latitude")) {
+                        coordinates[0] = (double) snapshot.getValue();
+                    }
+                    if (snapshot.getKey().equals("longitude")) {
+                        coordinates[1] = (double) snapshot.getValue();
+                    }
                 }
 
                 LatLng hub = new LatLng(coordinates[0], coordinates[1]);
-                mMap.addMarker(new MarkerOptions().position(hub).title("Testmarker in Læsø"));
+                if (hubName.equals("")) {
+                    mMap.addMarker(new MarkerOptions().position(hub).title("DebugFailedToCatchName"));
+                } else {
+                    mMap.addMarker(new MarkerOptions().position(hub).title(hubName));
+                }
 
             }
 

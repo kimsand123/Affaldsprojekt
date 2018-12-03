@@ -1,13 +1,9 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieEntry;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 import erickkim.dtu.dk.affaldsprojekt.TEST_Data_Backend.TEST_Database;
 
