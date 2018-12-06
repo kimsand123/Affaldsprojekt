@@ -36,8 +36,20 @@ public class TEST_Database {
 
     private static TEST_Database testDatabaseInstance = null;
 
-    public static String tips[] = {"Leverpostejen skal opdeles.", "Smid nu for filen din skrald ordentligt ud.", "Det er noget af en weekend du har haft!",
-            "Vi kan se at det blev en god første date igår!", "Bananer går i bio, plast går i plast. Lær det nu."};
+    public static String tips[] = {"Danmark har EU-rekord i skrald - danskerne smider 802 " +
+            "kg skrald ud per indbygger om året. \n \n kilde: Eurostat - tal fra 2010 ",
+
+            "Ca. 30 plastflasker kan blive til en fleecetrøje og ca. 500 " +
+            "dåser kan blive til at cykelstel",
+
+            "Et kilo aviser bliver til 32 æggebakker og i to konservesdåser " +
+            "er der materiale nok til at lave 1 ringeklokke til en cykel",
+
+            "Stryhns laver 100.000 bakker leverpostej om dagen, i 106 foliebakker " +
+            "Er der materiale nok til rammen til en bærbar computer",
+
+            "Et kg aluminium udvundet af bauxit skaber ca. 85 kg affald. Det skaber " +
+            "kun 3.5 kg affald at genbruge et kg aluminium"};
 
     public static int personCoins[][] = { {1111111111, 323, 252, 623, 555, 111, 112, 113, 999, 986},
                             {15555, 55005, 252555, 236110, 0, 10, 623523, 161512, 696969696, 2336 }

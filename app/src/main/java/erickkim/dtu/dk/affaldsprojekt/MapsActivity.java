@@ -14,6 +14,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -103,6 +104,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 double coordinates[] = {0.0, 0.0};
                 String hubName = "";
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     if (snapshot.getKey().equals("hubname")) {
@@ -120,6 +122,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (hubName.equals("")) {
                     mMap.addMarker(new MarkerOptions().position(hub).title("DebugFailedToCatchName"));
                 } else {
+                    hubName = hubName + "\nBiotårn : " + dataSnapshot.child("towers").child("biotower").getValue();
+                    hubName = hubName + "\nMetaltårn : " + dataSnapshot.child("towers").child("metaltower").getValue();
+                    hubName = hubName + "\nPlastiktårn : " + dataSnapshot.child("towers").child("plastictower").getValue();
+                    hubName = hubName + "\nResttårn : " + dataSnapshot.child("towers").child("resttower").getValue();
+
                     mMap.addMarker(new MarkerOptions().position(hub).title(hubName));
                 }
 
