@@ -97,7 +97,6 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
         String date = Data_Controller.getInstance().getToday();
         String userId = Data_Controller.getInstance().getUserId();
-        //DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date);
 
         final ArrayList<PieEntry> values = new ArrayList<>();
         final ArrayList<String> labels = new ArrayList<>();

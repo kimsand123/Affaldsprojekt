@@ -1,7 +1,10 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
+import android.text.format.DateUtils;
+
 import com.github.mikephil.charting.data.PieEntry;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,6 +14,8 @@ public class Data_Controller {
 
 
     private String date;
+    private long longDate;
+    private long startdate;
     private int todaysDeliveryCounter;
     private int trashCoins;
     private Data_DTO_deliveryCode deliveryCode;
@@ -101,14 +106,20 @@ public class Data_Controller {
         return pieData;
     }
 
-    public String getToday() {
-        setToday();
+    public String getStringToday() {
         return this.date;
     }
 
+    public long getLongToday(){
+        return this.longDate;
+    }
+
     public void setToday() {
+        Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        this.date = sdf.format(new Date());
+        this.date = sdf.format(date);
+        this.longDate = new Date().getTime();
+        this.startdate = this.longDate - 7776000000l;
     }
 
     public int getTodaysDeliveryCounter() {

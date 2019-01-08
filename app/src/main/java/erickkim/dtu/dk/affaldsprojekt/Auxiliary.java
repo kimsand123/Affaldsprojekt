@@ -49,9 +49,9 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.activity_auxiliary);
 
         Data_Controller.getInstance().setToday();
-        if(!(Data_Controller.getInstance().getToday().equals(Data_Controller.getInstance().getDeliveredDate()))){
+       /* if(!(Data_Controller.getInstance().getToday().equals(Data_Controller.getInstance().getDeliveredDate()))){
             Data_Controller.getInstance().setTodaysDeliveryCounter(0);
-        }
+        }*/
 
         deliveryCode = findViewById(R.id.text_deliverycode);
         int ID = Data_Controller.getInstance().getUsedDataDeliveryCode();
@@ -146,9 +146,9 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
         @Override
         protected Object doInBackground(Object[] objects) {
 
-            dataRef.child(userIdString).child(Data_Controller.getInstance().getToday()).child(deliveryCodeString).child("amount").setValue("" + amountInt);
-            dataRef.child(userIdString).child(Data_Controller.getInstance().getToday()).child(deliveryCodeString).child("type").setValue("" + typeString);
-            Data_Controller.getInstance().setDeliveredDate(Data_Controller.getInstance().getToday());
+            dataRef.child(userIdString).child(Data_Controller.getInstance().getLongToday()).child(deliveryCodeString).child("amount").setValue("" + amountInt);
+            dataRef.child(userIdString).child(Data_Controller.getInstance().getLongToday()).child(deliveryCodeString).child("type").setValue("" + typeString);
+            Data_Controller.getInstance().setDeliveredDate(Data_Controller.getInstance().getLongToday());
             Data_Controller.getInstance().setTodaysDeliveryCounter(Data_Controller.getInstance().getTodaysDeliveryCounter()+1);
 
             return null;

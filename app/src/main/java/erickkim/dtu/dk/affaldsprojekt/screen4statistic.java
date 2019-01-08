@@ -12,14 +12,22 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.internal.InternalTokenResult;
 import com.jjoe64.graphview.GraphView;
 
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 
 public class screen4statistic extends Fragment implements View.OnClickListener, OnChartGestureListener, OnChartValueSelectedListener {
@@ -143,7 +151,55 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
         Log.d("Nothing selected","Nothing selected");
     }
 
-    private void buildChart(ArrayList<String>[][] chartData){
-        
+    private void buildChart(Data_DTO_ChartBundle[] dataBundle){
+        LineDataSet metal;
+        LineDataSet bio;
+        LineDataSet plastik;
+        LineDataSet rest;
+
+
+    }
+
+    private LineData populateDataSet(Data_DTO_ChartBundle[] dataBundle, String type){
+        LineData dataset;
+        String date = Data_Controller.getInstance().getToday()-30;
+        String userId = Data_Controller.getInstance().getUserId();
+
+        FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Data_DTO_ChartBundle snapshotData;
+                        //For hvert barn i datasnapshot.
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            snapshotData = snapshot.getValue(Data_DTO_ChartBundle.class);
+
+                            ListIterator<Entry> listElements = values.listIterator();
+                            //algoritme for at samle 2 deposits af den samme type eks. bio den samme dag
+                            //til et deposit i datastrukturen indeholdende PieEntries, før PieChart bliver tegnet.
+                            while(listElements.hasNext()){
+                                String label = listElements.next().getLabel();
+                                String currentType = snapshotData.getType();
+                                if (label.equals(currentType)) {
+                                    listElements.previous();
+                                    float value = listElements.next().getValue();
+                                    listElements.remove();
+                                    snapshotData.setAmount(Integer.toString(Integer.parseInt( snapshotData.getAmount()) + (int) value));
+                                }
+                            }
+                            ((ArrayList) values).add(new PieEntry(Integer.parseInt(snapshotData.getAmount()), snapshotData.getType()));
+                        }
+                        drawPieChart(values, labels);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        System.out.println("The read failed: " + databaseError.getCode());
+                    }
+                });
+
+
+        return dataset;
+
     }
 }
