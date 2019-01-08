@@ -76,6 +76,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         */
         getAllHubNames();
 
+        float zoomLevel = 13.0f; //This goes up to 21
+        LatLng zoomPosition = new LatLng(55.230006, 11.753839);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(zoomPosition, zoomLevel));
+
     }
 
     private void getAllHubNames() {
@@ -83,11 +87,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String hubName = "";
-                int i = 0;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     hubName = (String) snapshot.getKey();
                     addHubToMap(hubName);
-                    i++;
                 }
 
             }
@@ -104,10 +106,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 double coordinates[] = {0.0, 0.0};
                 String hubName = "";
-
+                String hubInfo = "";
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                    if (snapshot.getKey().equals("hubname")) {
+                    if (snapshot.getKey().equals("hubName")) {
                         hubName = ((String) snapshot.getValue());
                     }
                     if (snapshot.getKey().equals("latitude")) {
@@ -116,18 +118,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     if (snapshot.getKey().equals("longitude")) {
                         coordinates[1] = (double) snapshot.getValue();
                     }
+                    if (snapshot.getKey().equals("towers")) {
+                        for (DataSnapshot snapshot2 : snapshot.child("towers").getChildren()) {
+                            hubInfo += snapshot2.getValue().toString() + "\n";
+                        }
+                    }
                 }
 
                 LatLng hub = new LatLng(coordinates[0], coordinates[1]);
                 if (hubName.equals("")) {
                     mMap.addMarker(new MarkerOptions().position(hub).title("DebugFailedToCatchName"));
                 } else {
-                    hubName = hubName + "\nBiotårn : " + dataSnapshot.child("towers").child("biotower").getValue();
-                    hubName = hubName + "\nMetaltårn : " + dataSnapshot.child("towers").child("metaltower").getValue();
-                    hubName = hubName + "\nPlastiktårn : " + dataSnapshot.child("towers").child("plastictower").getValue();
-                    hubName = hubName + "\nResttårn : " + dataSnapshot.child("towers").child("resttower").getValue();
-
-                    mMap.addMarker(new MarkerOptions().position(hub).title(hubName));
+                    mMap.addMarker(new MarkerOptions().position(hub).title(hubName).snippet("Fork off"));
                 }
 
             }
