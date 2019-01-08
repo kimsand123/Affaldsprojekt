@@ -141,12 +141,12 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         //initialize dataset and pass the data
         PieDataSet dataSet = new PieDataSet(values, "TEST" );
 
-
         dataSet.setValueFormatter(new PercentFormatter());
         dataSet.setValueTextSize(11f);
         dataSet.setValueTextColor(Color.BLACK);
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         dataSet.setValueFormatter(new PercentFormatter());
+        dataSet.setSliceSpace(2f);
 
         //Initialize PieData
         PieData data = new PieData(dataSet);
