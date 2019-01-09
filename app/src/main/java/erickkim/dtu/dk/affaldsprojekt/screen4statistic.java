@@ -161,7 +161,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
 
     }
 
-    private LineData populateDataSet(final TYPE type){
+    /* private LineData populateDataSet(final TYPE type){
         Data_DTO_ChartBundle[] dataBundle;
         final LineData dataset;
         int totalAmount;
@@ -213,5 +213,5 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
 
         return dataset;
 
-    }
+    } */
 }

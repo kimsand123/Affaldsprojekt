@@ -1,13 +1,18 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
-import android.text.format.DateUtils;
+import android.app.Activity;
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.view.inputmethod.InputMethodManager;
 
 import com.github.mikephil.charting.data.PieEntry;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -16,13 +21,21 @@ import erickkim.dtu.dk.affaldsprojekt.TEST_Data_Backend.TEST_Database;
 public class Data_Controller {
 
 
+    public void hideSoftKeyboard(Activity activity) {
+        if (activity.getCurrentFocus() == null) {
+            return;
+        }
+        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+    }
+
     private String date;
     private long longDate;
     private long startdate;
     private int todaysDeliveryCounter;
-    private int trashCoins;
+    private long trashCoins;
     private Data_DTO_deliveryCode deliveryCode;
-
+    private FirebaseDatabase mref;
     private int usedDataDeliveryCode=0;
     private String userId;
     private String deliveredDate;
@@ -35,6 +48,7 @@ public class Data_Controller {
         dao_deliveryCode = new Data_DAO_deliveryCode();
         dao_trashCoins = new Data_DAO_trashCoins();
         dao_tips = new Data_DAO_tips();
+        mref = FirebaseDatabase.getInstance();
         setDeliveryCode(dao_deliveryCode.getAvailableDeliveryCode());
     }
 
@@ -45,8 +59,22 @@ public class Data_Controller {
     }
 
     public int getTrashCoins() {
-        trashCoins = dao_trashCoins.getTrashCoins(Integer.parseInt(userId));
-        return trashCoins;
+        mref.getReference().child("users").child(userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if (snapshot.getKey().equals("coins")) {
+                        trashCoins = (long) snapshot.getValue();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return (int) trashCoins;
     }
 
     public Data_DTO_deliveryCode getDeliveryCode() {

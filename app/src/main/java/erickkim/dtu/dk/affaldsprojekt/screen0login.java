@@ -3,31 +3,41 @@ package erickkim.dtu.dk.affaldsprojekt;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import static android.view.View.GONE;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link screen0login.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link screen0login#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class screen0login extends Fragment {
+public class screen0login extends Fragment implements Button.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+    private View root;
     private String mParam1;
     private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
+    private EditText loginIdText;
+    private Button loginButton;
+    private ProgressBar loadSpinner;
+    private FirebaseDatabase mref;
+    private boolean loggingIn;
 
     public screen0login() {
         // Required empty public constructor
@@ -45,8 +55,6 @@ public class screen0login extends Fragment {
     public static screen0login newInstance(String param1, String param2) {
         screen0login fragment = new screen0login();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,55 +62,100 @@ public class screen0login extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_screen0login, container, false);
-    }
+        root = inflater.inflate(R.layout.fragment_screen0login, container, false);
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        loginIdText = root.findViewById(R.id.login_editText);
+        loginButton = root.findViewById(R.id.login_loginButton);
+        loadSpinner = root.findViewById(R.id.login_progressBar);
+
+        loginButton.setOnClickListener(this);
+        loggingIn = false;
+        loginIdText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (!loggingIn)
+                    loginButton.setEnabled(true);
+            }
+        });
+
+        mref = FirebaseDatabase.getInstance();
+
+        loginButton.setEnabled(false);
+        loadSpinner.setVisibility(GONE);
+
+        return root;
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.login_loginButton:
+                loginButton.setEnabled(false);
+                loginIdText.setEnabled(false);
+                loadSpinner.setVisibility(View.VISIBLE);
+                Data_Controller.getInstance().hideSoftKeyboard(getActivity());
+                loggingIn = true;
+                String loginId = String.valueOf(loginIdText.getText());
+                login(loginId);
+                break;
+            default:
+                break;
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    private void login(final String loginId) {
+        mref.getReference().child("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if (loginId.equals(snapshot.getKey())) {
+                        loginWithId(loginId);
+                        return;
+                    }
+                }
+                resetLoginFields();
+                return;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    private void loginWithId(String loginId) {
+        Data_Controller.getInstance().setUserId(loginId);
+        Data_Controller.getInstance().getTrashCoins();
+        getFragmentManager().beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .replace(R.id.fragmentContent, new screen1main())
+                .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                .addToBackStack(null)
+                .commit();
     }
+
+    private void resetLoginFields() {
+        Toast.makeText(getContext(), "Login failed. ID not found.", Toast.LENGTH_SHORT).show();
+        loggingIn = false;
+        loginIdText.setText("");
+        loginIdText.setEnabled(true);
+        loadSpinner.setVisibility(GONE);
+    }
+
 }

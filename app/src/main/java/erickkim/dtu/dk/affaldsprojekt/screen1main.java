@@ -48,9 +48,6 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Testdata.
-        Data_Controller.getInstance().setUserId("1111111111");
     }
 
     @Override
