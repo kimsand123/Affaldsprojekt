@@ -94,8 +94,8 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
     public void getDataForPieChart(){
 
-
-        String date = Data_Controller.getInstance().getToday();
+        Data_Controller.getInstance().setToday();
+        String date = Data_Controller.getInstance().getLongToday();
         String userId = Data_Controller.getInstance().getUserId();
 
         final ArrayList<PieEntry> values = new ArrayList<>();

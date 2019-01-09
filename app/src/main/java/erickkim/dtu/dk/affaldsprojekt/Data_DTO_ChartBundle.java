@@ -3,13 +3,11 @@ package erickkim.dtu.dk.affaldsprojekt;
 import java.util.Date;
 
 public class Data_DTO_ChartBundle {
-    Date date;
+    String date;
     TYPE type;
     int amount;
 
-    public Data_DTO_ChartBundle{
 
-    }
 
     public Date getDate() {
         return date;
@@ -25,6 +23,14 @@ public class Data_DTO_ChartBundle {
 
     public void setType(TYPE type) {
         this.type = type;
+    }
+
+    public int getAmount(){
+        return this.amount;
+    }
+
+    public void setAmount(int amount){
+        this.amount=amount;
     }
 }
 

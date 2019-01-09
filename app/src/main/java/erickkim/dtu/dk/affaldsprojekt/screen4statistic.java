@@ -160,7 +160,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
 
     }
 
-    private LineData populateDataSet(Data_DTO_ChartBundle[] dataBundle, String type){
+   /* private LineData populateDataSet(Data_DTO_ChartBundle[] dataBundle, String type){
         LineData dataset;
         String date = Data_Controller.getInstance().getToday()-30;
         String userId = Data_Controller.getInstance().getUserId();
@@ -201,5 +201,5 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
 
         return dataset;
 
-    }
+    }*/
 }

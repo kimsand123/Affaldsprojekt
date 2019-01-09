@@ -3,6 +3,9 @@ package erickkim.dtu.dk.affaldsprojekt;
 import android.text.format.DateUtils;
 
 import com.github.mikephil.charting.data.PieEntry;
+
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -102,7 +105,7 @@ public class Data_Controller {
 
     public ArrayList<PieEntry> getPieData(){
         ArrayList<PieEntry> pieData = new ArrayList<>();
-        pieData = TEST_Database.getInstance().getFraktionAmount(this.usedDataDeliveryCode, this.userId, this.deliveredDate);
+        pieData = TEST_Database.getInstance().getFraktionAmount(this.usedDataDeliveryCode, this.userId, ""+this.deliveredDate);
         return pieData;
     }
 
@@ -110,16 +113,23 @@ public class Data_Controller {
         return this.date;
     }
 
-    public long getLongToday(){
-        return this.longDate;
+    public String getLongToday(){
+        return ""+this.longDate;
     }
 
     public void setToday() {
-        Date date = new Date();
+        Date today = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        this.date = sdf.format(date);
-        this.longDate = new Date().getTime();
+        Date todayWithoutTime = null;
+        try {
+            todayWithoutTime = sdf.parse(sdf.format(today));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        this.date = sdf.format(today);
+        this.longDate = todayWithoutTime.getTime();
         this.startdate = this.longDate - 7776000000l;
+
     }
 
     public int getTodaysDeliveryCounter() {
