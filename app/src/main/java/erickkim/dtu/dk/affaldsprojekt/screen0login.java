@@ -140,7 +140,7 @@ public class screen0login extends Fragment implements Button.OnClickListener {
     }
 
     private void loginWithId(String loginId) {
-        Data_Controller.getInstance().setUserId(loginId);
+        Data_Controller.getInstance().setUserId("1111111111");
         Data_Controller.getInstance().getTrashCoins();
         getFragmentManager().beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)

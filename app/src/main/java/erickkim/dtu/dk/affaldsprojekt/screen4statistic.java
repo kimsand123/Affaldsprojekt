@@ -30,6 +30,7 @@ import com.jjoe64.graphview.GraphView;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.Objects;
 
 
 public class screen4statistic extends Fragment implements View.OnClickListener, OnChartGestureListener, OnChartValueSelectedListener {
@@ -174,30 +175,37 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Data_DTO_ChartBundle snapshotData;
+
                         ArrayList<String> xDataSet = new ArrayList<>();
                         ArrayList<Entry> yDataSet = new ArrayList<>();
+
                         int taller=0;
+                        TYPE currentType=TYPE.Metal;
 
                         //For hvert barn i datasnapshot.
-                        //for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            snapshotData = snapshot.getValue(Data_DTO_ChartBundle.class);
+                        for (DataSnapshot bigSnapShot : dataSnapshot.getChildren()) {
+                            String date = bigSnapShot.getKey();
+                            for (DataSnapshot dateSnapShot : bigSnapShot.getChildren()) {
 
-                            ListIterator<Entry> listElements = values.listIterator();
+                                if (Long.parseLong(date) >= Long.parseLong(Data_Controller.getInstance().getLongToday()) - 7776000) {
+                                   if(dateSnapShot.child("amount").getValue().equals("Metal")){
+                                       Float amount = Float.parseFloat(dateSnapShot.child("amount").getValue());
+                                       yDataSet.add(new Entry(amount, taller));
+                                   }
 
-                            //algoritme for at addere alle af samme type
-                            while(listElements.hasNext()){
-                                //Hvis datoen ligger på eller efter 90 dage før dagsdato
-                                if(Long.parseLong(snapshotData.getDate()) >= Long.parseLong(Data_Controller.getInstance().getLongToday())-7776000)
-                                {
-                                    if (currentType == TYPE.Metal) {
-                                        xDataSet.add("test"+taller);
-                                        yDataSet.add(new Entry(Float.parseFloat(snapshotData.getAmount()),taller));
+
+                                    for (DataSnapshot dropSnapShot : dateSnapShot.getChildren()) {
+
+                                        if (dropSnapShot.getKey().equals("Metal")) {
+                                            xDataSet.add("test "+taller);
+
+                                            yDataSet.add(new Entry(Float.parseFloat(dateSnapShot.child("amount").getValue()), taller));
+                                        }
                                     }
                                 }
+                                taller++;
                             }
-                            taller++;
-                        //}
+                        }
                         drawChart(yDataSet);
                     }
 
