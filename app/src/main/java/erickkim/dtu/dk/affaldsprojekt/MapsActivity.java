@@ -1,7 +1,5 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
-import android.os.AsyncTask;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -14,13 +12,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-
-import erickkim.dtu.dk.affaldsprojekt.TEST_Data_Backend.TEST_Database;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -106,10 +101,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 double coordinates[] = {0.0, 0.0};
                 String hubName = "";
-                String hubInfo = "";
+                String hubStatus = "";
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                    if (snapshot.getKey().equals("hubName")) {
+                    if (snapshot.getKey().equals("hubname")) {
                         hubName = ((String) snapshot.getValue());
                     }
                     if (snapshot.getKey().equals("latitude")) {
@@ -119,9 +114,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         coordinates[1] = (double) snapshot.getValue();
                     }
                     if (snapshot.getKey().equals("towers")) {
-                        for (DataSnapshot snapshot2 : snapshot.child("towers").getChildren()) {
-                            hubInfo += snapshot2.getValue().toString() + "\n";
-                        }
+                        // TODO: Make towers indepedent of what is actually in the hub to allow for more tower types.
+                        if (!snapshot.child("resttower").getValue().toString().equals("ok"))
+                            hubStatus += "RestT Fail. ";
+                        if (!snapshot.child("plastictower").getValue().toString().equals("ok"))
+                            hubStatus += "PlasticT Fail. ";
+                        if (!snapshot.child("metaltower").getValue().toString().equals("ok"))
+                            hubStatus += "MetalT Fail. ";
+                        if (!snapshot.child("biotower").getValue().toString().equals("ok"))
+                            hubStatus += "BioT Fail. ";
+                        if (hubStatus.isEmpty())
+                            hubStatus += "Running. ";
                     }
                 }
 
@@ -129,7 +132,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (hubName.equals("")) {
                     mMap.addMarker(new MarkerOptions().position(hub).title("DebugFailedToCatchName"));
                 } else {
-                    mMap.addMarker(new MarkerOptions().position(hub).title(hubName).snippet("Fork off"));
+                    mMap.addMarker(new MarkerOptions().position(hub).title(hubName).snippet("Status: " + hubStatus));
                 }
 
             }

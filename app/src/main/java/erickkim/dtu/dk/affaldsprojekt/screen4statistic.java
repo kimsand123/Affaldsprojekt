@@ -62,6 +62,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
         becomeBetterButton = root.findViewById(R.id.hvordanBliverJegBedreButton);
         becomeBetterButton.setOnClickListener(this);
 
+        // statistic = root.findViewById(R.id.statistic);
         txtCoinBox4 = root.findViewById(R.id.txtCoinBox4);
         txtCoinBox4.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());
         statisticChart = root.findViewById(R.id.lineChart);
