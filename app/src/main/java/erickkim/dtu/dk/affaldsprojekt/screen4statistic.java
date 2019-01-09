@@ -1,5 +1,6 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
@@ -68,6 +70,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
         statisticChart = root.findViewById(R.id.lineChart);
         statisticChart.setOnChartGestureListener(this);
         statisticChart.setOnChartValueSelectedListener(this);
+        createLineChart();
 
         return root;
     }
@@ -161,47 +164,41 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
 
     }
 
-    /* private LineData populateDataSet(final TYPE type){
-        Data_DTO_ChartBundle[] dataBundle;
-        final LineData dataset;
-        int totalAmount;
-        String date = Data_Controller.getInstance().getLongToday();
+    private void createLineChart(){
+
         String userId = Data_Controller.getInstance().getUserId();
 
         final ArrayList<Entry> values = new ArrayList<>();
-        final ArrayList<String> labels = new ArrayList<>();
 
-        FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date)
+        FirebaseDatabase.getInstance().getReference().child("delivery").child(userId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Data_DTO_ChartBundle snapshotData;
-                        int totalAmount=0;
-                        TYPE currentType = snapshotData.getType();
+                        ArrayList<String> xDataSet = new ArrayList<>();
+                        ArrayList<Entry> yDataSet = new ArrayList<>();
+                        int taller=0;
+
                         //For hvert barn i datasnapshot.
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        //for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             snapshotData = snapshot.getValue(Data_DTO_ChartBundle.class);
 
                             ListIterator<Entry> listElements = values.listIterator();
 
                             //algoritme for at addere alle af samme type
                             while(listElements.hasNext()){
-                                if((Long.parseLong(snapshotData.getDate()) >= (Long.parseLong(Data_Controller.getInstance().getLongToday())-7776000l)))
+                                //Hvis datoen ligger på eller efter 90 dage før dagsdato
+                                if(Long.parseLong(snapshotData.getDate()) >= Long.parseLong(Data_Controller.getInstance().getLongToday())-7776000)
                                 {
-                                    if (currentType == type) {
-                                        totalAmount = +snapshotData.getAmount();
+                                    if (currentType == TYPE.Metal) {
+                                        xDataSet.add("test"+taller);
+                                        yDataSet.add(new Entry(Float.parseFloat(snapshotData.getAmount()),taller));
                                     }
                                 }
-                                if (label.equals(currentType)) {
-                                    listElements.previous();
-                                    float value = listElements.next().getValue();
-                                    listElements.remove();
-                                    snapshotData.setAmount(Integer.toString(Integer.parseInt( snapshotData.getAmount()) + (int) value));
-                                }
                             }
-                            ((ArrayList) values).add(new PieEntry(Integer.parseInt(snapshotData.getAmount()), snapshotData.getType()));
-                        }
-                        drawPieChart(values, labels);
+                            taller++;
+                        //}
+                        drawChart(yDataSet);
                     }
 
                     @Override
@@ -209,9 +206,18 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                         System.out.println("The read failed: " + databaseError.getCode());
                     }
                 });
+    }
 
+    private void drawChart(ArrayList<Entry> yDataSet) {
+        LineDataSet lineDataSet = new LineDataSet(yDataSet, "OVERSKRIFT");
 
-        return dataset;
+        lineDataSet.setColor(Color.BLACK);
+        lineDataSet.setCircleColor(Color.BLACK);
+        lineDataSet.setLineWidth(1f);
+        lineDataSet.setCircleRadius(3f);
+        lineDataSet.setDrawCircleHole(false);
+        lineDataSet.setValueTextSize(9f);
+        lineDataSet.setDrawFilled(true);
 
-    } */
+    }
 }

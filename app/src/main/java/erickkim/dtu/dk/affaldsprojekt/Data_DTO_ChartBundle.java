@@ -5,9 +5,7 @@ import java.util.Date;
 public class Data_DTO_ChartBundle {
     String date;
     TYPE type;
-    int amount;
-
-
+    String amount;
 
     public String getDate() {
         return date;
@@ -25,11 +23,11 @@ public class Data_DTO_ChartBundle {
         this.type = type;
     }
 
-    public int getAmount(){
+    public String getAmount(){
         return this.amount;
     }
 
-    public void setAmount(int amount){
+    public void setAmount(String amount){
         this.amount=amount;
     }
 }
