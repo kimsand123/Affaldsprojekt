@@ -160,26 +160,37 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
 
     }
 
-   /* private LineData populateDataSet(Data_DTO_ChartBundle[] dataBundle, String type){
-        LineData dataset;
-        String date = Data_Controller.getInstance().getToday()-30;
+    private LineData populateDataSet(final TYPE type){
+        Data_DTO_ChartBundle[] dataBundle;
+        final LineData dataset;
+        int totalAmount;
+        String date = Data_Controller.getInstance().getLongToday();
         String userId = Data_Controller.getInstance().getUserId();
+
+        final ArrayList<Entry> values = new ArrayList<>();
+        final ArrayList<String> labels = new ArrayList<>();
 
         FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Data_DTO_ChartBundle snapshotData;
+                        int totalAmount=0;
+                        TYPE currentType = snapshotData.getType();
                         //For hvert barn i datasnapshot.
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             snapshotData = snapshot.getValue(Data_DTO_ChartBundle.class);
 
                             ListIterator<Entry> listElements = values.listIterator();
-                            //algoritme for at samle 2 deposits af den samme type eks. bio den samme dag
-                            //til et deposit i datastrukturen indeholdende PieEntries, før PieChart bliver tegnet.
+
+                            //algoritme for at addere alle af samme type
                             while(listElements.hasNext()){
-                                String label = listElements.next().getLabel();
-                                String currentType = snapshotData.getType();
+                                if((Long.parseLong(snapshotData.getDate()) >= (Long.parseLong(Data_Controller.getInstance().getLongToday())-7776000l)))
+                                {
+                                    if (currentType == type) {
+                                        totalAmount = +snapshotData.getAmount();
+                                    }
+                                }
                                 if (label.equals(currentType)) {
                                     listElements.previous();
                                     float value = listElements.next().getValue();
@@ -201,5 +212,5 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
 
         return dataset;
 
-    }*/
+    }
 }
