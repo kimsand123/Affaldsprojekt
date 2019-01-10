@@ -2,6 +2,7 @@ package erickkim.dtu.dk.affaldsprojekt;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -186,22 +188,14 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                         for (DataSnapshot bigSnapShot : dataSnapshot.getChildren()) {
                             String date = bigSnapShot.getKey();
                             for (DataSnapshot dateSnapShot : bigSnapShot.getChildren()) {
+                                Data_DTO_ChartBundle dataBundle =  dateSnapShot.getValue(Data_DTO_ChartBundle.class);
+                                if (Long.parseLong(date) >= Long.parseLong(Data_Controller.getInstance().getLongToday()) - 7776000000L) {
 
-                                if (Long.parseLong(date) >= Long.parseLong(Data_Controller.getInstance().getLongToday()) - 7776000) {
-                                   if(dateSnapShot.child("amount").getValue().equals("Metal")){
-                                       Float amount = Float.parseFloat(dateSnapShot.child("amount").getValue());
-                                       yDataSet.add(new Entry(amount, taller));
-                                   }
-
-
-                                    for (DataSnapshot dropSnapShot : dateSnapShot.getChildren()) {
-
-                                        if (dropSnapShot.getKey().equals("Metal")) {
+                                        if (dataBundle.type.equals("Metal")) {
                                             xDataSet.add("test "+taller);
-
-                                            yDataSet.add(new Entry(Float.parseFloat(dateSnapShot.child("amount").getValue()), taller));
+                                            yDataSet.add(new Entry(taller, Float.parseFloat(dataBundle.amount)));
                                         }
-                                    }
+
                                 }
                                 taller++;
                             }
@@ -227,5 +221,10 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
         lineDataSet.setValueTextSize(9f);
         lineDataSet.setDrawFilled(true);
 
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(lineDataSet);
+        LineData data = new LineData(dataSets);
+        statisticChart.setData(data);
+        statisticChart.invalidate();
     }
 }

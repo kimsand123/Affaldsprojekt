@@ -146,8 +146,12 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
         @Override
         protected Object doInBackground(Object[] objects) {
 
-            dataRef.child(userIdString).child(Data_Controller.getInstance().getLongToday()).child(deliveryCodeString).child("amount").setValue("" + amountInt);
-            dataRef.child(userIdString).child(Data_Controller.getInstance().getLongToday()).child(deliveryCodeString).child("type").setValue("" + typeString);
+            Data_DTO_ChartBundle dataBundle= new Data_DTO_ChartBundle();
+            dataBundle.setAmount(Integer.toString(amountInt));
+            dataBundle.setType(typeString);
+            dataRef.child(userIdString).child(Data_Controller.getInstance().getLongToday()).child(deliveryCodeString).setValue(dataBundle);
+            //dataRef.child(userIdString).child(Data_Controller.getInstance().getLongToday()).child(deliveryCodeString).child("amount").setValue("" + amountInt);
+            //dataRef.child(userIdString).child(Data_Controller.getInstance().getLongToday()).child(deliveryCodeString).child("type").setValue("" + typeString);
             Data_Controller.getInstance().setDeliveredDate(Data_Controller.getInstance().getLongToday());
             Data_Controller.getInstance().setTodaysDeliveryCounter(Data_Controller.getInstance().getTodaysDeliveryCounter()+1);
 
