@@ -73,7 +73,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
         statisticChart = root.findViewById(R.id.lineChart);
         statisticChart.setOnChartGestureListener(this);
         statisticChart.setOnChartValueSelectedListener(this);
-        // createLineChart();
+        createLineChart();
 
         return root;
     }
@@ -167,11 +167,9 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
 
     }
 
-    /* private void createLineChart(){
+    private void createLineChart(){
 
         String userId = Data_Controller.getInstance().getUserId();
-
-        final ArrayList<Entry> values = new ArrayList<>();
 
         FirebaseDatabase.getInstance().getReference().child("delivery").child(userId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -179,28 +177,53 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
                         ArrayList<String> xDataSet = new ArrayList<>();
-                        ArrayList<Entry> yDataSet = new ArrayList<>();
+                        ArrayList<Entry> yDataSetMetal = new ArrayList<>();
+                        ArrayList<Entry> yDataSetBio = new ArrayList<>();
+                        ArrayList<Entry> yDataSetPlastik = new ArrayList<>();
+                        ArrayList<Entry> yDataSetRest = new ArrayList<>();
 
                         int taller=0;
-                        TYPE currentType=TYPE.Metal;
-
+                        String lastdate="";
+                        float metalAmount=0, plastikAmount=0, restAmount=0, bioAmount=0;
                         //For hvert barn i datasnapshot.
                         for (DataSnapshot bigSnapShot : dataSnapshot.getChildren()) {
                             String date = bigSnapShot.getKey();
                             for (DataSnapshot dateSnapShot : bigSnapShot.getChildren()) {
                                 Data_DTO_ChartBundle dataBundle =  dateSnapShot.getValue(Data_DTO_ChartBundle.class);
                                 if (Long.parseLong(date) >= Long.parseLong(Data_Controller.getInstance().getLongToday()) - 7776000000L) {
-
-                                        if (dataBundle.type.equals("Metal")) {
-                                            xDataSet.add("test "+taller);
-                                            yDataSet.add(new Entry(taller, Float.parseFloat(dataBundle.amount)));
+                                        if (!(lastdate.equals(date)||lastdate.equals(""))) {
+                                            yDataSetBio.add(new Entry(taller, bioAmount));
+                                            yDataSetMetal.add(new Entry(taller, metalAmount));
+                                            yDataSetPlastik.add(new Entry(taller, plastikAmount));
+                                            yDataSetRest.add(new Entry(taller, restAmount));
+                                            /*metalAmount=0;
+                                            bioAmount=0;
+                                            plastikAmount=0;
+                                            restAmount=0;*/
                                         }
-
+                                String type = dataBundle.type;
+                                switch (type){
+                                    case "Metal" :
+                                        metalAmount++;
+                                        break;
+                                    case "Bio":
+                                        bioAmount++;
+                                        break;
+                                    case "Plastik":
+                                        plastikAmount++;
+                                        break;
+                                    case "Rest":
+                                        restAmount++;
+                                        break;
+                                }
+                                lastdate = date.toString();
                                 }
                                 taller++;
                             }
                         }
-                        drawChart(yDataSet);
+                        drawChart(yDataSetMetal, yDataSetBio, yDataSetPlastik, yDataSetRest);
+
+
                     }
 
                     @Override
@@ -208,23 +231,68 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                         System.out.println("The read failed: " + databaseError.getCode());
                     }
                 });
-    } */
+    }
 
-    private void drawChart(ArrayList<Entry> yDataSet) {
-        LineDataSet lineDataSet = new LineDataSet(yDataSet, "OVERSKRIFT");
-
-        lineDataSet.setColor(Color.BLACK);
-        lineDataSet.setCircleColor(Color.BLACK);
-        lineDataSet.setLineWidth(1f);
-        lineDataSet.setCircleRadius(3f);
-        lineDataSet.setDrawCircleHole(false);
-        lineDataSet.setValueTextSize(9f);
-        lineDataSet.setDrawFilled(true);
-
+    private void drawChart(ArrayList<Entry> yDataSetMetal, ArrayList<Entry> yDataSetBio, ArrayList<Entry>yDataSetPlastik, ArrayList<Entry>yDataSetRest) {
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(lineDataSet);
+
+        if(yDataSetMetal.size()!=0) {
+            LineDataSet lineDataSetMetal = new LineDataSet(yDataSetMetal, "Metal");
+
+            lineDataSetMetal.setColor(Color.LTGRAY);
+            lineDataSetMetal.setCircleColor(Color.LTGRAY);
+            lineDataSetMetal.setLineWidth(1f);
+            lineDataSetMetal.setCircleRadius(3f);
+            lineDataSetMetal.setDrawCircleHole(false);
+            lineDataSetMetal.setValueTextSize(9f);
+            lineDataSetMetal.setDrawFilled(false);
+
+            dataSets.add(lineDataSetMetal);
+        }
+        if(yDataSetRest.size()!=0) {
+            LineDataSet lineDataSetRest = new LineDataSet(yDataSetRest, "Reest");
+
+            lineDataSetRest.setColor(Color.RED);
+            lineDataSetRest.setCircleColor(Color.RED);
+            lineDataSetRest.setLineWidth(1f);
+            lineDataSetRest.setCircleRadius(3f);
+            lineDataSetRest.setDrawCircleHole(false);
+            lineDataSetRest.setValueTextSize(9f);
+            lineDataSetRest.setDrawFilled(false);
+
+            dataSets.add(lineDataSetRest);
+
+        } if(yDataSetBio.size()!=0) {
+            LineDataSet lineDataSetBio = new LineDataSet(yDataSetBio, "Bio");
+
+            lineDataSetBio.setColor(Color.GREEN);
+            lineDataSetBio.setCircleColor(Color.GREEN);
+            lineDataSetBio.setLineWidth(1f);
+            lineDataSetBio.setCircleRadius(3f);
+            lineDataSetBio.setDrawCircleHole(false);
+            lineDataSetBio.setValueTextSize(9f);
+            lineDataSetBio.setDrawFilled(false);
+
+            dataSets.add(lineDataSetBio);
+
+        } if(yDataSetPlastik.size()!=0) {
+            LineDataSet lineDataSetPlastik = new LineDataSet(yDataSetPlastik, "Plastik");
+
+            lineDataSetPlastik.setColor(Color.YELLOW);
+            lineDataSetPlastik.setCircleColor(Color.YELLOW);
+            lineDataSetPlastik.setLineWidth(1f);
+            lineDataSetPlastik.setCircleRadius(3f);
+            lineDataSetPlastik.setDrawCircleHole(false);
+            lineDataSetPlastik.setValueTextSize(9f);
+            lineDataSetPlastik.setDrawFilled(false);
+
+            dataSets.add(lineDataSetPlastik);
+        }
+
         LineData data = new LineData(dataSets);
+
         statisticChart.setData(data);
         statisticChart.invalidate();
+
     }
 }
