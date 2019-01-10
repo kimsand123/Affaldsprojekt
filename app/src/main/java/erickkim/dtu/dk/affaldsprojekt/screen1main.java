@@ -58,7 +58,7 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
 
         // initialiser de forskellige views i fragmentet
         garbageButton = root.findViewById(R.id.garbageButton);
-        hubstatusButton = root.findViewById(R.id.sendButton);
+
         hubplacementButton = root.findViewById(R.id.hubplacementButton);
         depositButton = root.findViewById(R.id.depositButton);
         txtCoinBox = root.findViewById(R.id.txtCoinBox1);
@@ -67,8 +67,8 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
         // setonclicklisteners for alle knapper.
         garbageButton.setOnClickListener(this);
         garbageButton.setOnTouchListener(this);
-        hubstatusButton.setOnClickListener(this);
-        hubstatusButton.setOnTouchListener(this);
+
+
         hubplacementButton.setOnClickListener(this);
         hubplacementButton.setOnTouchListener(this);
         depositButton.setOnClickListener(this);
@@ -98,14 +98,14 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
                         .addToBackStack(null)
                         .commit();
                 break;
-            case R.id.sendButton:
+           /* case R.id.sendButton:
                 getFragmentManager().beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .replace(R.id.fragmentContent, new screen5hubstatus())
                         .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                         .addToBackStack(null)
                         .commit();
-                break;
+                break;*/
             case R.id.hubplacementButton:
                 Intent mapIntent;
                 mapIntent = new Intent(this.getContext(), MapsActivity.class);

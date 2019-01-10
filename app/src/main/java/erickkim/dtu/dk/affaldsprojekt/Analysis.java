@@ -49,6 +49,7 @@ public class Analysis implements I_Analysis {
                         //Cykel 200 dåser jern eller aluminium
                         break;
                     case 3:
+                        //Der spares 2 ton CO2, når 1 ton jern genanvendes
                         break;
                 }
                 break;
@@ -56,10 +57,16 @@ public class Analysis implements I_Analysis {
             case "Bio":
                 switch(number){
                     case 1:
+                        // Der spares en CO2 emission på 37 kg CO2 pr ton bioAffald
                         break;
                     case 2:
+                        //Et ton bioaffald bliver til 84 normalkubikmeter ren metan.
+                        //En gasbus kan køre 44 km på denne mængde gas.
                         break;
                     case 3:
+                        //Hvis gassen bruges til at producere elektricitet af, kan der produceres ca. 230 kWh energi pr ton bioaffald
+                        //(830 MJ/ton). Det svarer til, at man kan lade en mobiltelefon op i 19 år, eller spille Play Station 4 i 1 år og 4
+                        //måneder.
                         break;
                 }
                 break;
@@ -70,9 +77,11 @@ public class Analysis implements I_Analysis {
                         //Mobiltelefon 56% plastik
                         break;
                     case 2:
-                        //Der går 10 saftevandsflasker til at fremstille et par fiber-handsker.
+                        //1 kg genanvendt plast sparer miljøet for 2 kg CO2
                         break;
                     case 3:
+                        //2 liter olie til at lave 1 kg ren plast
+
                         break;
                 }
                 break;
@@ -96,7 +105,7 @@ public class Analysis implements I_Analysis {
 
     private int getRandom(){
         Random rnd = new Random();
-        int number = rnd.nextInt(3)+1
+        int number = rnd.nextInt(3)+1;
         return number;
     }
 }

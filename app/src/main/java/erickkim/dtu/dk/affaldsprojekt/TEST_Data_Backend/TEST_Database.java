@@ -62,7 +62,12 @@ public class TEST_Database {
             "hvis alle levede som danskerne, ville det kræve 4 jordkloder for at dække " +
             "vores forbrug?",
 
-            "For at lave en cykel skal der ikke samles mere end 200 dåser aluminium eller jern."
+            "For at lave en cykel skal der ikke samles mere end 200 dåser aluminium eller jern.",
+
+            " et ton forbehandlet bioaffald kan gøde 466 m2 landbrugsjord. Det svarer omtrent til "+
+                    "en parcelhusgrund. Samtidig undgås en CO2 emission på 37 kg CO2 pr ton " +
+                    "forbehandlet bioaffald, fordi kulstoffet føres tilbage til jorden, hvor "+
+                    "det lagres og forbedrer dyrkningsegenskaberne.",
 
     };
 
