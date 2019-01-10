@@ -49,7 +49,24 @@ public class TEST_Database {
             "Er der materiale nok til rammen til en bærbar computer",
 
             "Et kg aluminium udvundet af bauxit skaber ca. 85 kg affald. Det skaber " +
-            "kun 3.5 kg affald at genbruge et kg aluminium"};
+            "kun 3.5 kg affald at genbruge et kg aluminium",
+
+            "Der bliver brugt cirka 1,5 tons råstoffer til at producere en computer og " +
+            "cirka 75 kilo til en mobiltelefon. Det meste bliver brugt ved fremstillingen "+
+            "og er ikke en del af det færdige produkt, men bliver til affald.",
+
+            "Koncentrationen af ædelmetaller er ca. 3 gange så stor i elektronikskrot " +
+            "pr. ton, sammenlignet med normal minedrift. Dermed spares der store mængder " +
+            "energi og CO2 ved denne form for genvinding.",
+
+            "hvis alle levede som danskerne, ville det kræve 4 jordkloder for at dække " +
+            "vores forbrug?",
+
+            "For at lave en cykel skal der ikke samles mere end 200 dåser aluminium eller jern."
+
+    };
+
+
 
     public static int personCoins[][] = { {1111111111, 323, 252, 623, 555, 111, 112, 113, 999, 986},
                             {15555, 55005, 252555, 236110, 0, 10, 623523, 161512, 696969696, 2336 }
