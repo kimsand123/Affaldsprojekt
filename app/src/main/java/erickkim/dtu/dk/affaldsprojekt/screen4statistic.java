@@ -71,7 +71,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
         statisticChart = root.findViewById(R.id.lineChart);
         statisticChart.setOnChartGestureListener(this);
         statisticChart.setOnChartValueSelectedListener(this);
-        createLineChart();
+        // createLineChart();
 
         return root;
     }
@@ -165,7 +165,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
 
     }
 
-    private void createLineChart(){
+    /* private void createLineChart(){
 
         String userId = Data_Controller.getInstance().getUserId();
 
@@ -214,7 +214,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                         System.out.println("The read failed: " + databaseError.getCode());
                     }
                 });
-    }
+    } */
 
     private void drawChart(ArrayList<Entry> yDataSet) {
         LineDataSet lineDataSet = new LineDataSet(yDataSet, "OVERSKRIFT");

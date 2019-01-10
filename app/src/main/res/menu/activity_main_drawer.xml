@@ -27,7 +27,12 @@
                 />
             <item
                 android:id="@+id/about"
-                android:title="Om" />
+                android:title="Om"
+                />
+            <item
+                android:id="@+id/logout"
+                android:title="Log Ud"
+                />
         </menu>
     </item>
 

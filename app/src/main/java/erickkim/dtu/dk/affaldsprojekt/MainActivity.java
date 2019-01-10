@@ -41,7 +41,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // TODO: Start different fragment depending on whether already logged in.
        // if(savedInstanceState==null){
-        Fragment startscreen = new screen0login();
+        Fragment startscreen;
+        if (Data_Controller.getInstance().performDefaultLogin(getApplicationContext())) {
+            startscreen = new screen1main();
+        } else {
+            startscreen = new screen0login();
+        }
         fragmentTransaction
                     .add(R.id.fragmentContent, startscreen)
                     .commit();
@@ -53,7 +58,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (fragmentManager.findFragmentById(R.id.fragmentContent) instanceof screen1main) {
+            finish();
+        } else if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
@@ -98,6 +105,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
                 break;
             case R.id.about:
+                break;
+            case R.id.logout:
+                Data_Controller.getInstance().removeDefaultLogin(getApplicationContext());
+                finish();
                 break;
         }
 

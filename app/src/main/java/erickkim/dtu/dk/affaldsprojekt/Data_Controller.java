@@ -2,6 +2,7 @@ package erickkim.dtu.dk.affaldsprojekt;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.view.inputmethod.InputMethodManager;
 
@@ -39,6 +40,8 @@ public class Data_Controller {
     private int usedDataDeliveryCode=0;
     private String userId;
     private String deliveredDate;
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
     private static Data_Controller dataBackgroundInstance = null;
     Data_DAO_deliveryCode dao_deliveryCode;
     Data_DAO_trashCoins dao_trashCoins;
@@ -56,6 +59,33 @@ public class Data_Controller {
         if (dataBackgroundInstance == null)
             dataBackgroundInstance = new Data_Controller();
         return dataBackgroundInstance;
+    }
+
+    public void removeDefaultLogin(Context context) {
+        sharedPref = context.getSharedPreferences("defaultLogin", Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
+        editor.remove("userId");
+        editor.apply();
+    }
+
+    public void setDefaultLogin(Context context) {
+        sharedPref = context.getSharedPreferences("defaultLogin", Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
+        editor.putString("userId", userId);
+        editor.apply();
+    }
+
+    public boolean performDefaultLogin(Context context) {
+        sharedPref = context.getSharedPreferences("defaultLogin", Context.MODE_PRIVATE);
+        String defaultUserId = sharedPref.getString("userId", null);
+        if (defaultUserId == null) {
+            return false;
+        } else {
+            setUserId(defaultUserId);
+            getTrashCoins();
+            return true;
+        }
+
     }
 
     public int getTrashCoins() {
