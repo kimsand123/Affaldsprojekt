@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="Konkurrencer" />
         <item
+            android:id="@+id/coinshop"
+            android:icon="@drawable/guldbaricon"
+            android:title="Guldbutikken" />
+        <item
             android:id="@+id/feedback"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Feedback" />

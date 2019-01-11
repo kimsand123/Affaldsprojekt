@@ -33,11 +33,13 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
     private EditText deliveryCode;
     private EditText userId;
     private EditText amount;
+    private EditText coins;
     private Spinner typeSpinner;
     private String typeString;
     private String userIdString;
     private Button deliveryButton;
     private int amountInt;
+    private int coinsInt;
     private String date;
     private FirebaseDatabase fireData;
     private DatabaseReference dataRef;
@@ -60,20 +62,23 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
         userId = findViewById(R.id.text_userid);
         userId.setText(Data_Controller.getInstance().getUserId());
 
+        coins = findViewById(R.id.text_newCoins);
+
         amount = findViewById(R.id.text_amount);
-        typeSpinner = findViewById(R.id.spinner_type);
+
         deliveryButton = findViewById(R.id.button_deliver);
 
         String[] typeArray = new String[]{"Metal", "Plastik", "Bio", "Rest"};
         ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeArray);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        typeSpinner = findViewById(R.id.spinner_type);
         typeString = "";
         typeSpinner.setAdapter(typeAdapter);
         typeSpinner.setOnItemSelectedListener(this);
 
         fireData = FirebaseDatabase.getInstance();
-        dataRef = fireData.getReference("delivery");
+        dataRef = fireData.getReference();
 
         deliveryButton.setOnClickListener(this);
     }
@@ -98,6 +103,13 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
         if (amountInt == 0) {
             //MessageCenter.getInstance().showMessage("Amount missing");
             makeToast("Amount missing");
+            return;
+        }
+
+        coinsInt = Integer.parseInt(amount.getText().toString());
+        if (coinsInt == 0) {
+            //MessageCenter.getInstance().showMessage("Amount missing");
+            makeToast("Coins missing");
             return;
         }
 
@@ -146,10 +158,13 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
         @Override
         protected Object doInBackground(Object[] objects) {
 
+            int newCoins = 0;
+            newCoins = Data_Controller.getInstance().getTrashCoins() + coinsInt;
             Data_DTO_ChartBundle dataBundle= new Data_DTO_ChartBundle();
             dataBundle.setAmount(Integer.toString(amountInt));
             dataBundle.setType(typeString);
-            dataRef.child(userIdString).child(Data_Controller.getInstance().getLongToday()).child(deliveryCodeString).setValue(dataBundle);
+            dataRef.child("delivery").child(userIdString).child(Data_Controller.getInstance().getLongToday()).child(deliveryCodeString).setValue(dataBundle);
+            dataRef.child("users").child(userIdString).child("coins").setValue(newCoins);
             //dataRef.child(userIdString).child(Data_Controller.getInstance().getLongToday()).child(deliveryCodeString).child("amount").setValue("" + amountInt);
             //dataRef.child(userIdString).child(Data_Controller.getInstance().getLongToday()).child(deliveryCodeString).child("type").setValue("" + typeString);
             Data_Controller.getInstance().setDeliveredDate(Data_Controller.getInstance().getLongToday());

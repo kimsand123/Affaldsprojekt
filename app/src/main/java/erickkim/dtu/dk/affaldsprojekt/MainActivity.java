@@ -94,19 +94,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        Intent intent;
         switch (id){
             case R.id.my_profile:
                 break;
             case R.id.competitions:
                 break;
+            case R.id.coinshop:
+                intent = new Intent(MainActivity.this, CoinShopActivity.class);
+                startActivity(intent);
+                break;
             case R.id.feedback:
-                Intent intent = new Intent(MainActivity.this, FeedbackActivity.class);
+                intent = new Intent(MainActivity.this, FeedbackActivity.class);
                 startActivity(intent);
                 break;
             case R.id.about:
                 break;
             case R.id.logout:
+                // TODO: Closes app entirely. We want this to simply go back to the screen0login fragment, but without messing up the activity stack.
                 Data_Controller.getInstance().removeDefaultLogin(getApplicationContext());
                 finish();
                 break;
