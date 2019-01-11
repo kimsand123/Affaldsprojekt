@@ -42,7 +42,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
     private TextView txtCoinBox4;
     private LineChart statisticChart;
     private Data_DTO_ChartBundle[] dataBundle;
-
+    private I_Analysis analysis = new Analysis();
 
     public screen4statistic() {
         // Required empty public constructor
@@ -94,7 +94,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
         }
     }
 
-    //Idea from https://www.studytutorial.in/android-line-chart-or-line-graph-using-mpandroid-library-tutorial
+    //from https://www.studytutorial.in/android-line-chart-or-line-graph-using-mpandroid-library-tutorial
     @Override
     public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
         Log.d("Gesture","Start, x: " + me.getX() + ", y: " + me.getY());
@@ -168,7 +168,6 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
     }
 
     private void createLineChart(){
-
         String userId = Data_Controller.getInstance().getUserId();
 
         FirebaseDatabase.getInstance().getReference().child("delivery").child(userId)
@@ -176,7 +175,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        ArrayList<String> xDataSet = new ArrayList<>();
+                        //ArrayList<String> xDataSet = new ArrayList<>();
                         ArrayList<Entry> yDataSetMetal = new ArrayList<>();
                         ArrayList<Entry> yDataSetBio = new ArrayList<>();
                         ArrayList<Entry> yDataSetPlastik = new ArrayList<>();
@@ -221,6 +220,9 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                                 taller++;
                             }
                         }
+
+                        String analysisText = analysis.getHistoryAnalysis(yDataSetBio, yDataSetMetal, yDataSetPlastik, yDataSetRest);
+                        //write text to view.
                         drawChart(yDataSetMetal, yDataSetBio, yDataSetPlastik, yDataSetRest);
 
 
