@@ -34,6 +34,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     private TextView txtInfoBox3;
     private ArrayList<PieEntry> piedata;
     private PieChart chart;
+    private I_Analysis analysis = new Analysis();
 
     public screen3afterdelivery() {
         // Required empty public constructor
@@ -124,6 +125,8 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                                 }
                             }
                             ((ArrayList) values).add(new PieEntry(Integer.parseInt(snapshotData.getAmount()), snapshotData.getType()));
+                            analysis.recordDataForDailyAnalysis(Integer.parseInt(snapshotData.getAmount()), snapshotData.getType());
+                            //write txt to view.
                         }
                         drawPieChart(values, labels);
                     }

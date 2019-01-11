@@ -8,6 +8,10 @@ import java.util.ArrayList;
 public interface I_Analysis {
 
     public String getHistoryAnalysis(ArrayList<Entry> metalData, ArrayList<Entry> bioData, ArrayList<Entry> plastikData, ArrayList<Entry> restData );
-    public String getDailyAnalysis(ArrayList<PieEntry> dailyData);
+    public String getDailyAnalysis();
+    public String getFractionStory(String fraction, int fractionAmountInGrams);
+    public String co2SaverCalc (String fraction, int fractionAmountInGrams);
+    public void recordDataForDailyAnalysis(int amount, String type);
+
 
 }
