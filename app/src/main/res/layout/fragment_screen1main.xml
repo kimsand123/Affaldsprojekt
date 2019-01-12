@@ -27,7 +27,7 @@
             android:fontFamily="@font/roboto"
             android:text="Hub\nplacering"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -113,10 +113,8 @@
             android:fontFamily="@font/roboto"
             android:text="Start\nAflevering"
             android:textAlignment="center"
-
-
             android:textColor="#FFFFFF"
-            android:textSize="24sp"
+            android:textSize="34sp"
             android:textStyle="bold"
             android:topLeftRadius="1dp"
             android:topRightRadius="30dp"

@@ -46,14 +46,23 @@ public class Analysis implements I_Analysis {
 
     @Override
     public String getDailyAnalysis() {
+        String text = "Din aflevering i dag her betydet: \n";
+
+        text = text + getFractionStory("Metal", metalAmount, false);
+        text = text + "\n" + getFractionStory("Bio", bioAmount, true);
+        text = text + "\n" + getFractionStory("Plastik", plastikAmount, true);
+        text = text + "\n";
+
+        //Du har samlet sparet ?? CO2 i dag.
+
+        //Dit restaffald var højere i dag end dit gennemsnit.
+
+
         return null;
     }
 
-
-
-
     @Override
-    public String co2SaverCalc (String fraction, int fractionAmountInGrams){
+    public String co2SaverCalc (String fraction, int fractionAmountInGrams, boolean multipleLines){
         String text="";
         double resultat;
         String textStart;
@@ -92,7 +101,7 @@ public class Analysis implements I_Analysis {
     }
 
     @Override
-    public String getFractionStory(String fraction, int fractionAmountInGrams){
+    public String getFractionStory(String fraction, int fractionAmountInGrams, boolean multipleLines){
     // tal taget fra forskellige miljø/genbrugs/oplysnings hjemmesider, og skal betragtes som vejledende, for at illustrere
     // eksemplet.
         String text=null;
@@ -111,7 +120,7 @@ public class Analysis implements I_Analysis {
                         textEnding = "";
                         textStart = "Du har";
 
-                        if (!(text.equals(""))){
+                        if (multipleLines){
                             textStart = " Derudover har du";
                         }
                         resultat = fractionAmountInGrams/telefon;
@@ -131,13 +140,13 @@ public class Analysis implements I_Analysis {
                         if (resultat >= 2.0){
                             textEnding = "ler.";
                         }
-                        if (!(text.equals(""))) {
+                        if (multipleLines) {
                             textStart = " Du har også";
                         }
                         text = text + textStart + " afleveret jern nok til at lave " + resultat + " cyk" + textEnding;
                         break;
                     case 3:
-                        text = text + co2SaverCalc(fraction, fractionAmountInGrams);
+                        text = text + co2SaverCalc(fraction, fractionAmountInGrams, multipleLines);
                         break;
                 }
                 break;
@@ -145,7 +154,7 @@ public class Analysis implements I_Analysis {
             case "Bio":
                 switch(number){
                     case 1:
-                        text = text + co2SaverCalc(fraction, fractionAmountInGrams);
+                        text = text + co2SaverCalc(fraction, fractionAmountInGrams, multipleLines);
                         break;
                     case 2:
                         //Et ton bioaffald bliver til 84 normalkubikmeter ren metan.
@@ -154,7 +163,7 @@ public class Analysis implements I_Analysis {
                         resultat = fractionAmountInGrams * metanm3prgram;
 
                         textStart = "Vidste du at";
-                        if (!(text.equals(""))) {
+                        if (multipleLines) {
                             textStart = " Vidste du også at";
                         }
                         text = text + textStart + " en gasbus kan køre  " + 44/84*resultat + "km på den mængde " + resultat + "m3 rene metan du har genereret med dit Bioaffald.";
@@ -178,7 +187,7 @@ public class Analysis implements I_Analysis {
                         textEnding = "";
                         textStart = "Du har";
 
-                        if (!(text.equals(""))){
+                        if (multipleLines){
                             textStart = " Derudover har du";
                         }
                         resultat = fractionAmountInGrams/telefon;
@@ -189,7 +198,7 @@ public class Analysis implements I_Analysis {
                         break;
                     case 2:
                         //1 kg genanvendt plast sparer miljøet for 2 kg CO2
-                        text = text + co2SaverCalc(fraction, fractionAmountInGrams);
+                        text = text + co2SaverCalc(fraction, fractionAmountInGrams, multipleLines);
                         break;
                     case 3:
                         //2 liter olie til at lave 1 kg ren plast

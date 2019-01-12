@@ -126,8 +126,9 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                             }
                             ((ArrayList) values).add(new PieEntry(Integer.parseInt(snapshotData.getAmount()), snapshotData.getType()));
                             analysis.recordDataForDailyAnalysis(Integer.parseInt(snapshotData.getAmount()), snapshotData.getType());
-                            //write txt to view.
+
                         }
+                        //make analysis and write txt to view.
                         drawPieChart(values, labels);
                     }
 
