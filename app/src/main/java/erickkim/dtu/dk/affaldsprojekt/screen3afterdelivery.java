@@ -129,6 +129,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
                         }
                         //make analysis and write txt to view.
+                        txtInfoBox3.setText(analysis.getDailyAnalysis());
                         drawPieChart(values, labels);
                     }
 
