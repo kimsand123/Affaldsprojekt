@@ -22,6 +22,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.ListIterator;
 
@@ -32,6 +35,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     private Button statisticButton;
     private TextView txtCoinBox3 ;
     private TextView txtInfoBox3;
+    private TextView co2TextBox;
     private ArrayList<PieEntry> piedata;
     private PieChart chart;
     private I_Analysis analysis = new Analysis();
@@ -66,6 +70,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         statisticButton = root.findViewById(R.id.statisticButton);
         txtCoinBox3 = root.findViewById(R.id.txtCoinBox3);
         txtInfoBox3 = root.findViewById(R.id.txtInfoBox3);
+        co2TextBox = root.findViewById(R.id.co2TextBox);
 
         //Hent data til TextViews.
         txtInfoBox3.setText(Data_Controller.getInstance().getTip());
@@ -130,6 +135,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                         }
                         //make analysis and write txt to view.
                         txtInfoBox3.setText(analysis.getDailyAnalysis());
+                        co2TextBox.setText(analysis.co2SaverCalc());
                         drawPieChart(values, labels);
                     }
 

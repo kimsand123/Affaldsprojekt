@@ -59,24 +59,22 @@ public class Analysis implements I_Analysis {
             text = text + "\n" + getFractionStory("Plastik", plastikAmount, true);
         }
         text = text + "\n";
-        text = text + co2SaverCalc( metalAmount, plastikAmount, bioAmount);
-
         //Dit restaffald var højere i dag end dit gennemsnit.
         return text;
     }
 
     @Override
-    public String co2SaverCalc (int metalFractionAmountInGrams, int plastikFractionAmountInGrams, int bioFractionAmountInGrams){
+    public String co2SaverCalc (){
         String text="";
         double resultat;
-        double co2 = 1000000;
-        double co2sparet = 1000/2000;         //Der spares 2 ton CO2, når 1 ton jern genanvendes
-        double co2prgram = 37000/1000000;        // Der spares en CO2 emission på 37 kg CO2 pr ton bioAffald
+        double co2plast = 55/37;                   //
+        double co2metal = 2;                   //Der spares 2 ton CO2, når 1 ton jern genanvendes
+        double co2bio = 37/1000;         //Der spares en CO2 emission på 37 kg CO2 pr ton bioAffald
         DecimalFormat format = new DecimalFormat("#.######");
 
-        resultat = metalFractionAmountInGrams/co2;
-        resultat = resultat + co2sparet * plastikFractionAmountInGrams;
-        resultat = resultat + bioFractionAmountInGrams * co2prgram;
+        resultat = metalAmount * co2metal;
+        resultat = resultat + co2plast * plastikAmount;
+        resultat = resultat + bioAmount * co2bio;
 
         return "Du har i dag sparet miljøet for " + format.format(resultat) + "g CO2";
     }
@@ -112,13 +110,13 @@ public class Analysis implements I_Analysis {
                         text = text + textStart + " lave " + format.format(resultat) + " mobiltelefon" + textEnding + " med den mængde metal du har afleveret.";
                         break;
                     case 2:
-                        //Cykel 200 dåser jern eller aluminium
-                        int dåse = 16;
+                        //Cykel 200 dåser jern eller aluminium til et cykelstel
+                        int daase = 16;
                         textEnding = "el.";
                         textStart = "Du har";
+                        double antalDaaser = fractionAmountInGrams/daase;
+                        resultat = antalDaaser/200;
 
-                        double antalDaaser = fractionAmountInGrams/dåse;
-                        resultat = 200/antalDaaser;
                         if (resultat >= 2.0){
                             textEnding = "ler.";
                         }
@@ -141,14 +139,16 @@ public class Analysis implements I_Analysis {
                     case 1:
                         //Et ton bioaffald bliver til 84 normalkubikmeter ren metan.
                         //En gasbus kan køre 44 km på denne mængde gas.
-                        int metanm3prgram = 84/1000000;
-                        resultat = fractionAmountInGrams * metanm3prgram;
+                        int metanm3prgram = 84;
+                        double km = 44;
+                        resultat = (fractionAmountInGrams/1000000);
+
 
                         textStart = "Vidste du at";
                         if (multipleLines) {
                             textStart = " Vidste du også at";
                         }
-                        text = text + textStart + " en gasbus kan køre  " + format.format(44/84*resultat) + "km på den mængde " + format.format(resultat) + "m3 rene metan du har genereret med dit Bioaffald.";
+                        text = text + textStart + " en gasbus kan køre  " + format.format(km/metanm3prgram*resultat) + "km på den mængde " + format.format(resultat) + "m3 rene metan du har genereret med dit Bioaffald.";
 
                         break;
                     case 2:
