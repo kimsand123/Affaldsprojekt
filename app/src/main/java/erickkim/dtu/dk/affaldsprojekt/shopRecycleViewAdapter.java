@@ -37,9 +37,11 @@ public class shopRecycleViewAdapter extends RecyclerView.Adapter<shopRecycleView
         String title = mData.get(position).title;
         String description = mData.get(position).description;
         int image = mData.get(position).image;
+        String price = String.valueOf(mData.get(position).price);
         holder.shopEntryTitle.setText(title);
         holder.shopEntryDescription.setText(description);
         holder.shopEntryImage.setImageResource(image);
+        holder.shopEntryPrice.setText(price);
     }
 
     // Total number of rows
@@ -53,12 +55,14 @@ public class shopRecycleViewAdapter extends RecyclerView.Adapter<shopRecycleView
         TextView shopEntryTitle;
         TextView shopEntryDescription;
         ImageView shopEntryImage;
+        TextView shopEntryPrice;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             shopEntryTitle = itemView.findViewById(R.id.shop_entry_title);
             shopEntryDescription = itemView.findViewById(R.id.shop_entry_description);
             shopEntryImage = itemView.findViewById(R.id.shop_entry_image);
+            shopEntryPrice = itemView.findViewById(R.id.shop_entry_price);
             itemView.setOnClickListener(this);
         }
 

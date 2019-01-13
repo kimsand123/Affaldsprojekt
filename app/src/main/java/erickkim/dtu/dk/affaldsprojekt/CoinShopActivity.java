@@ -2,6 +2,7 @@ package erickkim.dtu.dk.affaldsprojekt;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -25,22 +26,26 @@ public class CoinShopActivity extends AppCompatActivity implements itemClickList
         txtCoinBox = findViewById(R.id.coinShop_CoinsText);
         txtCoinBox.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());
 
-        // TODO: Create a class object to instead populate the list with proper info and images.
-        ArrayList<Data_DTO_shopEntry> names = new ArrayList<Data_DTO_shopEntry>();
-        names.add(new Data_DTO_shopEntry("2L Flaske Vin", "Den ideelle starter til enhver midaldrende kvinde med en svagtpræsterende mand.", R.drawable.alcoholicmother));
-        names.add(new Data_DTO_shopEntry("5L Flaske Vin", "Er du ekstra desperat? Så er denne vidst lige noget for dig.", R.drawable.alcoholicmother));
-        names.add(new Data_DTO_shopEntry("Skraldesorteringsbutler", "Denne fine herre vil følge dig overalt for at minde dig om at sortere dit skrald ordentligt. Ja, overalt.", R.drawable.sorterskrald));
-        names.add(new Data_DTO_shopEntry("Skraldesorteringsbutler", "Denne fine herre vil følge dig overalt for at minde dig om at sortere dit skrald ordentligt. Ja, overalt.", R.drawable.sorterskrald));
-        names.add(new Data_DTO_shopEntry("Skraldesorteringsbutler", "Denne fine herre vil følge dig overalt for at minde dig om at sortere dit skrald ordentligt. Ja, overalt.", R.drawable.sorterskrald));
-        names.add(new Data_DTO_shopEntry("Skraldesorteringsbutler", "Denne fine herre vil følge dig overalt for at minde dig om at sortere dit skrald ordentligt. Ja, overalt.", R.drawable.sorterskrald));
-        names.add(new Data_DTO_shopEntry("Skraldesorteringsbutler", "Denne fine herre vil følge dig overalt for at minde dig om at sortere dit skrald ordentligt. Ja, overalt.", R.drawable.sorterskrald));
-        names.add(new Data_DTO_shopEntry("Skraldesorteringsbutler", "Denne fine herre vil følge dig overalt for at minde dig om at sortere dit skrald ordentligt. Ja, overalt.", R.drawable.sorterskrald));
+        // TODO: Get these from firebase.
+        ArrayList<Data_DTO_shopEntry> shopEntries = new ArrayList<Data_DTO_shopEntry>();
+        shopEntries.add(new Data_DTO_shopEntry("2L Flaske Vin", "Den ideelle starter til enhver midaldrende kvinde med en svagtpræsterende mand.", R.drawable.alcoholicmother, 2000));
+        shopEntries.add(new Data_DTO_shopEntry("5L Flaske Vin", "Er du ekstra desperat? Så er denne vidst lige noget for dig.", R.drawable.alcoholicmother, 4000));
+        shopEntries.add(new Data_DTO_shopEntry("2L Flaske Vin", "Den ideelle starter til enhver midaldrende kvinde med en svagtpræsterende mand.", R.drawable.alcoholicmother, 2000));
+        shopEntries.add(new Data_DTO_shopEntry("5L Flaske Vin", "Er du ekstra desperat? Så er denne vidst lige noget for dig.", R.drawable.alcoholicmother, 4000));
+        shopEntries.add(new Data_DTO_shopEntry("2L Flaske Vin", "Den ideelle starter til enhver midaldrende kvinde med en svagtpræsterende mand.", R.drawable.alcoholicmother, 2000));
+        shopEntries.add(new Data_DTO_shopEntry("5L Flaske Vin", "Er du ekstra desperat? Så er denne vidst lige noget for dig.", R.drawable.alcoholicmother, 4000));
+        shopEntries.add(new Data_DTO_shopEntry("2L Flaske Vin", "Den ideelle starter til enhver midaldrende kvinde med en svagtpræsterende mand.", R.drawable.alcoholicmother, 2000));
+        shopEntries.add(new Data_DTO_shopEntry("5L Flaske Vin", "Er du ekstra desperat? Så er denne vidst lige noget for dig.", R.drawable.alcoholicmother, 4000));
 
         // Set up the recyclerview
         RecyclerView recyclerView = findViewById(R.id.coinShop_RecycleView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new shopRecycleViewAdapter(this, names);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                layoutManager.getOrientation());
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new shopRecycleViewAdapter(this, shopEntries);
         adapter.setClickListener(this);
+        recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(adapter);
 
     }
