@@ -33,12 +33,9 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
 
     private View root;
     private Button becomeBetterButton;
-<<<<<<< Updated upstream:app/src/main/java/erickkim/dtu/dk/affaldsprojekt/screen4statistic.java
     private TextView txtCoinBox;
-=======
-    private TextView txtCoinBox4;
     private TextView textAnalyseBox;
->>>>>>> Stashed changes:app/src/main/java/erickkim/dtu/dk/affaldsprojekt/screen4statistic.java
+    private TextView co2TextBox2;
     private LineChart statisticChart;
     private Data_DTO_ChartBundle[] dataBundle;
     private I_Analysis analysis = new Analysis();
@@ -67,15 +64,11 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
         becomeBetterButton.setOnClickListener(this);
 
         // statistic = root.findViewById(R.id.statistic);
-<<<<<<< Updated upstream:app/src/main/java/erickkim/dtu/dk/affaldsprojekt/screen4statistic.java
+
         txtCoinBox = root.findViewById(R.id.txtCoinBox1);
         txtCoinBox.setText("" + Data_Controller.getInstance().getTrashCoins());
-=======
-        txtCoinBox4 = root.findViewById(R.id.txtCoinBox4);
-        txtCoinBox4.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());
+        co2TextBox2 = root.findViewById(R.id.co2TextBox2);
         textAnalyseBox = root.findViewById(R.id.textAnalyseBox);
-
->>>>>>> Stashed changes:app/src/main/java/erickkim/dtu/dk/affaldsprojekt/screen4statistic.java
         statisticChart = root.findViewById(R.id.lineChart);
         statisticChart.setOnChartGestureListener(this);
         statisticChart.setOnChartValueSelectedListener(this);
@@ -212,9 +205,9 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                                             yDataSetRest.add(new Entry(taller, restAmountDaily));
 
                                             //When this is commented out, it is the accumulated amount, otherwise it is the day to day
-                                            /*metalAmountDaily=0;
-                                            bioAmountDaily=0;
-                                            plastikAmountDaily=0;
+                                            /*metalAmount=0;
+                                            bioAmount=0;
+                                            plastikAmount=0;
                                             restAmountDaily=0;*/
                                         }
                                 lastdate = date.toString();
@@ -224,6 +217,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                         }
 
                         textAnalyseBox.setText(Html.fromHtml(analysis.getHistoryAnalysis(yDataSetMetal, yDataSetBio, yDataSetPlastik, yDataSetRest)));
+                        co2TextBox2.setText("Du har på 90 dage sparet miljøet for " + analysis.co2SaverCalc()+ "g CO2");
                         drawChart(yDataSetMetal, yDataSetBio, yDataSetPlastik, yDataSetRest);
                     }
 

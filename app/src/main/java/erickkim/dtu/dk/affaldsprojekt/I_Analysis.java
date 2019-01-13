@@ -11,7 +11,7 @@ public interface I_Analysis {
     public String getDailyAnalysis();
     public String getFractionStory(String fraction, int fractionAmountInGrams, boolean multipleLines);
     public String co2SaverCalc();
-    public void recordDataForDailyAnalysis(int amount, String type);
+    public void recordDataForAnalysis(int amount, String type);
 
 
 }

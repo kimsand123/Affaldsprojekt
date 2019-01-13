@@ -71,13 +71,8 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         co2TextBox = root.findViewById(R.id.co2TextBox);
 
         //Hent data til TextViews.
-<<<<<<< Updated upstream:app/src/main/java/erickkim/dtu/dk/affaldsprojekt/screen3afterdelivery.java
         txtInfoBox3.setText(Data_Controller.getInstance().getTip());
         txtCoinBox.setText("" + Data_Controller.getInstance().getTrashCoins());
-
-=======
-        txtCoinBox3.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());
->>>>>>> Stashed changes:app/src/main/java/erickkim/dtu/dk/affaldsprojekt/screen3afterdelivery.java
         statisticButton.setOnClickListener(this);
         return root;
     }
@@ -131,13 +126,14 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                                 }
                             }
                             ((ArrayList) values).add(new PieEntry(Integer.parseInt(snapshotData.getAmount()), snapshotData.getType()));
-                            analysis.recordDataForDailyAnalysis(Integer.parseInt(snapshotData.getAmount()), snapshotData.getType());
+                            analysis.recordDataForAnalysis(Integer.parseInt(snapshotData.getAmount()), snapshotData.getType());
+
 
                         }
                         //make analysis and write txt to view.
                         txtInfoBox3.setText(Html.fromHtml(analysis.getDailyAnalysis()));
                         //txtInfoBox3.setText(analysis.getDailyAnalysis());
-                        co2TextBox.setText(analysis.co2SaverCalc());
+                        co2TextBox.setText("Du har i dag sparet miljøet for " + analysis.co2SaverCalc() + "g CO2");
                         drawPieChart(values, labels);
                     }
 

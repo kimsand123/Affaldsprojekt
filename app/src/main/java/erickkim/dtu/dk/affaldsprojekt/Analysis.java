@@ -10,47 +10,46 @@ import java.util.Random;
 // for at illustrere eksemplet.
 
 public class Analysis implements I_Analysis {
-    int metalAmountDaily, bioAmountDaily, plastikAmountDaily, restAmountDaily;
+    int metalAmount, bioAmount, plastikAmount, restAmountDaily;
 
     @Override
     public String getHistoryAnalysis(ArrayList<Entry> metalHist, ArrayList<Entry> bioHist, ArrayList<Entry> plastikHist, ArrayList<Entry> restHist) {
         String text = "";
         //getting last number of each fraction
-        int lastMetal = (int)metalHist.get(metalHist.size()).getY();
-        int lastBio = (int)bioHist.get(metalHist.size()).getY();
-        int lastPlastik = (int)plastikHist.get(metalHist.size()).getY();
-        int lastRest = (int)restHist.get(metalHist.size()).getY();
+        int lastMetal = (int)metalHist.get(metalHist.size()-1).getY();
+        int lastBio = (int)bioHist.get(metalHist.size()-1).getY();
+        int lastPlastik = (int)plastikHist.get(metalHist.size()-1).getY();
+        int lastRest = (int)restHist.get(metalHist.size()-1).getY();
 
 
 
         text = "<i><b>Din aflevering for de sidste 90 dage har betydet</i></b>";
         if ( lastMetal !=0) {
             text = text + "<br><br>" + getFractionStory("Metal", lastMetal, false);
+            metalAmount = lastMetal;
         }
         if ( lastBio !=0) {
             text = text + "<br><br>" + getFractionStory("Bio", lastBio, true);
+            bioAmount = lastBio;
         }
         if ( lastPlastik !=0) {
             text = text + "<br><br>" + getFractionStory("Plastik", lastBio, true);
+            plastikAmount = lastPlastik;
         }
-        text = text + "<br><br>";
-
-        text = text + co2SaverCalc();
-
         return text;
     }
 
     @Override
-    public void recordDataForDailyAnalysis(int amount, String type){
+    public void recordDataForAnalysis(int amount, String type){
         switch(type){
             case "Metal":
-                metalAmountDaily = amount;
+                metalAmount = amount;
                 break;
             case "Bio":
-                bioAmountDaily = amount;
+                bioAmount = amount;
                 break;
             case "Plastik":
-                plastikAmountDaily = amount;
+                plastikAmount = amount;
                 break;
             case "Rest":
                 restAmountDaily =amount;
@@ -61,14 +60,14 @@ public class Analysis implements I_Analysis {
     @Override
     public String getDailyAnalysis() {
         String text = "<i><b>Din aflevering i dag har betydet</i></b>";
-        if ( metalAmountDaily !=0) {
-            text = text + "<br><br>" + getFractionStory("Metal", metalAmountDaily, false);
+        if ( metalAmount !=0) {
+            text = text + "<br><br>" + getFractionStory("Metal", metalAmount, false);
         }
-        if ( bioAmountDaily !=0) {
-            text = text + "<br><br>" + getFractionStory("Bio", bioAmountDaily, true);
+        if ( bioAmount !=0) {
+            text = text + "<br><br>" + getFractionStory("Bio", bioAmount, true);
         }
-        if ( plastikAmountDaily !=0) {
-            text = text + "<br><br>" + getFractionStory("Plastik", plastikAmountDaily, true);
+        if ( plastikAmount !=0) {
+            text = text + "<br><br>" + getFractionStory("Plastik", plastikAmount, true);
         }
         text = text + "<br>";
         return text;
@@ -81,13 +80,15 @@ public class Analysis implements I_Analysis {
         double co2plast = 2;                   //Der spares 2 kg. CO2 når 1 kg plastic genanvendes
         double co2metal = 2;                   //Der spares 2 ton CO2, når 1 ton jern genanvendes
         double co2bio = 37000/1000000;         //Der spares en CO2 emission på 37 kg CO2 pr ton bioAffald
-        DecimalFormat format = new DecimalFormat("#.######");
+        DecimalFormat format = new DecimalFormat("#.###");
 
-        resultat = metalAmountDaily * co2metal;
-        resultat = resultat + co2plast * plastikAmountDaily;
-        resultat = resultat + bioAmountDaily * co2bio;
-
-        return "Du har i dag sparet miljøet for " + format.format(resultat) + "g CO2";
+        resultat = metalAmount * co2metal;
+        resultat = resultat + co2plast * plastikAmount;
+        resultat = resultat + bioAmount * co2bio;
+        metalAmount=0;
+        plastikAmount=0;
+        bioAmount=0;
+        return format.format(resultat);
     }
 
     @Override

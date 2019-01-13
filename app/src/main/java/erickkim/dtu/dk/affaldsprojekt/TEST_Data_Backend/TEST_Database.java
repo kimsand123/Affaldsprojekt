@@ -64,7 +64,7 @@ public class TEST_Database {
 
             "For at lave en cykel skal der ikke samles mere end 200 dåser aluminium eller jern.",
 
-            " et ton forbehandlet bioaffald kan gøde 466 m2 landbrugsjord. Det svarer omtrent til "+
+            "Et ton forbehandlet bioaffald kan gøde 466 m2 landbrugsjord. Det svarer omtrent til "+
                     "en parcelhusgrund. Samtidig undgås en CO2 emission på 37 kg CO2 pr ton " +
                     "forbehandlet bioaffald, fordi kulstoffet føres tilbage til jorden, hvor "+
                     "det lagres og forbedrer dyrkningsegenskaberne.",
