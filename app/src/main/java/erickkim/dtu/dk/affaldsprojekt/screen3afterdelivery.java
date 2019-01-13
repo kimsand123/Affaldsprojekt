@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +23,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
@@ -58,7 +57,6 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         root = inflater.inflate(R.layout.fragment_screen3afterdelivery, container, false);
         chart = root.findViewById(R.id.pieChart);
@@ -73,11 +71,14 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         co2TextBox = root.findViewById(R.id.co2TextBox);
 
         //Hent data til TextViews.
+<<<<<<< Updated upstream:app/src/main/java/erickkim/dtu/dk/affaldsprojekt/screen3afterdelivery.java
         txtInfoBox3.setText(Data_Controller.getInstance().getTip());
         txtCoinBox.setText("" + Data_Controller.getInstance().getTrashCoins());
 
+=======
+        txtCoinBox3.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());
+>>>>>>> Stashed changes:app/src/main/java/erickkim/dtu/dk/affaldsprojekt/screen3afterdelivery.java
         statisticButton.setOnClickListener(this);
-
         return root;
     }
 
@@ -134,7 +135,8 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
                         }
                         //make analysis and write txt to view.
-                        txtInfoBox3.setText(analysis.getDailyAnalysis());
+                        txtInfoBox3.setText(Html.fromHtml(analysis.getDailyAnalysis()));
+                        //txtInfoBox3.setText(analysis.getDailyAnalysis());
                         co2TextBox.setText(analysis.co2SaverCalc());
                         drawPieChart(values, labels);
                     }

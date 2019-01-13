@@ -1,65 +1,76 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieEntry;
 
 import java.text.DecimalFormat;
-import java.text.Format;
 import java.util.ArrayList;
 import java.util.Random;
 
+// tal taget fra forskellige miljø/genbrugs/oplysnings hjemmesider, og skal betragtes som vejledende,
+// for at illustrere eksemplet.
+
 public class Analysis implements I_Analysis {
-    int metalAmount, bioAmount, plastikAmount, restAmount;
-
-    //Co2 Beregning  DONE UDEN REST affald
-
-    //Rest Andel bevægelse
-
-    //Hvor meget af en fraktion har man afleveret og hvad svarer det til  DONE UDEN REST affald
-
+    int metalAmountDaily, bioAmountDaily, plastikAmountDaily, restAmountDaily;
 
     @Override
-    public String getHistoryAnalysis(ArrayList<Entry> metalData, ArrayList<Entry> bioData, ArrayList<Entry> plastikData, ArrayList<Entry> restData) {
+    public String getHistoryAnalysis(ArrayList<Entry> metalHist, ArrayList<Entry> bioHist, ArrayList<Entry> plastikHist, ArrayList<Entry> restHist) {
+        String text = "";
+        //getting last number of each fraction
+        int lastMetal = (int)metalHist.get(metalHist.size()).getY();
+        int lastBio = (int)bioHist.get(metalHist.size()).getY();
+        int lastPlastik = (int)plastikHist.get(metalHist.size()).getY();
+        int lastRest = (int)restHist.get(metalHist.size()).getY();
 
 
 
+        text = "<i><b>Din aflevering for de sidste 90 dage har betydet</i></b>";
+        if ( lastMetal !=0) {
+            text = text + "<br><br>" + getFractionStory("Metal", lastMetal, false);
+        }
+        if ( lastBio !=0) {
+            text = text + "<br><br>" + getFractionStory("Bio", lastBio, true);
+        }
+        if ( lastPlastik !=0) {
+            text = text + "<br><br>" + getFractionStory("Plastik", lastBio, true);
+        }
+        text = text + "<br><br>";
 
+        text = text + co2SaverCalc();
 
-
-        return null;
+        return text;
     }
+
     @Override
     public void recordDataForDailyAnalysis(int amount, String type){
         switch(type){
             case "Metal":
-                metalAmount= amount;
+                metalAmountDaily = amount;
                 break;
             case "Bio":
-                bioAmount= amount;
+                bioAmountDaily = amount;
                 break;
             case "Plastik":
-                plastikAmount= amount;
+                plastikAmountDaily = amount;
                 break;
             case "Rest":
-                restAmount=amount;
+                restAmountDaily =amount;
                 break;
         }
     }
 
     @Override
     public String getDailyAnalysis() {
-        String text = "Din aflevering i dag har betydet: \n";
-        if ( metalAmount!=0) {
-            text = text + getFractionStory("Metal", metalAmount, false);
+        String text = "<i><b>Din aflevering i dag har betydet</i></b>";
+        if ( metalAmountDaily !=0) {
+            text = text + "<br><br>" + getFractionStory("Metal", metalAmountDaily, false);
         }
-        if ( bioAmount !=0) {
-            text = text + "\n" + getFractionStory("Bio", bioAmount, true);
+        if ( bioAmountDaily !=0) {
+            text = text + "<br><br>" + getFractionStory("Bio", bioAmountDaily, true);
         }
-        if ( plastikAmount !=0) {
-            text = text + "\n" + getFractionStory("Plastik", plastikAmount, true);
+        if ( plastikAmountDaily !=0) {
+            text = text + "<br><br>" + getFractionStory("Plastik", plastikAmountDaily, true);
         }
-        text = text + "\n";
-        //Dit restaffald var højere i dag end dit gennemsnit.
+        text = text + "<br>";
         return text;
     }
 
@@ -67,22 +78,21 @@ public class Analysis implements I_Analysis {
     public String co2SaverCalc (){
         String text="";
         double resultat;
-        double co2plast = 55/37;                   //
+        double co2plast = 2;                   //Der spares 2 kg. CO2 når 1 kg plastic genanvendes
         double co2metal = 2;                   //Der spares 2 ton CO2, når 1 ton jern genanvendes
-        double co2bio = 37/1000;         //Der spares en CO2 emission på 37 kg CO2 pr ton bioAffald
+        double co2bio = 37000/1000000;         //Der spares en CO2 emission på 37 kg CO2 pr ton bioAffald
         DecimalFormat format = new DecimalFormat("#.######");
 
-        resultat = metalAmount * co2metal;
-        resultat = resultat + co2plast * plastikAmount;
-        resultat = resultat + bioAmount * co2bio;
+        resultat = metalAmountDaily * co2metal;
+        resultat = resultat + co2plast * plastikAmountDaily;
+        resultat = resultat + bioAmountDaily * co2bio;
 
         return "Du har i dag sparet miljøet for " + format.format(resultat) + "g CO2";
     }
 
     @Override
     public String getFractionStory(String fraction, int fractionAmountInGrams, boolean multipleLines){
-    // tal taget fra forskellige miljø/genbrugs/oplysnings hjemmesider, og skal betragtes som vejledende, for at illustrere
-    // eksemplet.
+
         String text="";
         int number = getRandom();
         double resultat;
@@ -96,7 +106,7 @@ public class Analysis implements I_Analysis {
                 switch(number){
                     case 1:
                         //Mobiltelefon 25% metal
-                        double telefon = 138*.25;
+                        double telefon = 138.0*.25;
                         textEnding = "";
                         textStart = "Man kunne";
 
@@ -107,15 +117,15 @@ public class Analysis implements I_Analysis {
                         if (resultat >= 2.0){
                             textEnding = "er.";
                         }
-                        text = text + textStart + " lave " + format.format(resultat) + " mobiltelefon" + textEnding + " med den mængde metal du har afleveret.";
+                        text = text + textStart + " lave " + format.format(resultat) + " mobiltelefon" + textEnding + " med det afleverede metal.";
                         break;
                     case 2:
                         //Cykel 200 dåser jern eller aluminium til et cykelstel
-                        int daase = 16;
+                        double daase = 16.0;
                         textEnding = "el.";
                         textStart = "Du har";
                         double antalDaaser = fractionAmountInGrams/daase;
-                        resultat = antalDaaser/200;
+                        resultat = antalDaaser/200.0;
 
                         if (resultat >= 2.0){
                             textEnding = "ler.";
@@ -125,37 +135,30 @@ public class Analysis implements I_Analysis {
                         }
                         text = text + textStart + " afleveret jern nok til at lave " + format.format(resultat) + " cyk" + textEnding;
                         break;
-                    /*case 3:
-                        //text = text + co2SaverCalc(fraction, fractionAmountInGrams, multipleLines);
-                        break;*/
                 }
                 break;
 
             case "Bio":
                 switch(number){
-                   /* case 1:
-                        text = text + co2SaverCalc(fraction, fractionAmountInGrams, multipleLines);
-                        break;*/
                     case 1:
                         //Et ton bioaffald bliver til 84 normalkubikmeter ren metan.
                         //En gasbus kan køre 44 km på denne mængde gas.
-                        int metanm3prgram = 84;
-                        double km = 44;
-                        resultat = (fractionAmountInGrams/1000000);
-
-
-                        textStart = "Vidste du at";
-                        if (multipleLines) {
-                            textStart = " Vidste du også at";
-                        }
-                        text = text + textStart + " en gasbus kan køre  " + format.format(km/metanm3prgram*resultat) + "km på den mængde " + format.format(resultat) + "m3 rene metan du har genereret med dit Bioaffald.";
-
+                        double metanm3prgram = 84.00;
+                        double km = 44.00;
+                        resultat = (fractionAmountInGrams/1000.0);
+                        text = text + "En gasbus kan køre  " + format.format(km/metanm3prgram*resultat) + "m på mængden af metan fra dit Bioaffald.";
                         break;
                     case 2:
                         //Hvis gassen bruges til at producere elektricitet af, kan der produceres ca. 230 kWh energi pr ton bioaffald
                         //(830 MJ/ton). Det svarer til, at man kan lade en mobiltelefon op i 19 år, eller spille Play Station 4 i 1 år og 4
                         //måneder.
+                        double watthprgram = 230000.0/1000000.0;
+                        double watthpramount = watthprgram * fractionAmountInGrams;
+                        double watthprminut = 230000.0/9986400.0;
+                        resultat = watthprminut*watthpramount;
 
+
+                        text = text + textStart + " kan lade din telefon op i " + format.format(resultat) + " minutter med energien fra dit Bioaffald.";
                         break;
                 }
                 break;
@@ -178,17 +181,15 @@ public class Analysis implements I_Analysis {
                         }
                         text = text + textStart + " afleveret en mængde plastik der svarer til hvad man skal bruge for at lave " + format.format(resultat) + " mobiltelefon" + textEnding;
                         break;
-                   /* case 2:
-                        //1 kg genanvendt plast sparer miljøet for 2 kg CO2
-                        text = text + co2SaverCalc(fraction, fractionAmountInGrams, multipleLines);
-                        break;*/
+
                     case 2:
                         //2 liter olie til at lave 1 kg ren plast
-                        double oliesSparet = 2000/1000;
-                        resultat = oliesSparet * (fractionAmountInGrams/1000);
+                        double oliesSparet = 2.0;
+                        resultat = oliesSparet * fractionAmountInGrams;
                         textStart = "Du har";
                         text = text + textStart + " sparet " + format.format(resultat) + "g olie ved at aflevere " + fractionAmountInGrams + "g plastik";
                         break;
+
                 }
                 break;
         }

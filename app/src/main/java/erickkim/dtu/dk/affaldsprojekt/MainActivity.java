@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startscreen = new screen1main();
         } else {
             startscreen = new screen0login();
-
         }
         fragmentTransaction
                     .add(R.id.fragmentContent, startscreen)

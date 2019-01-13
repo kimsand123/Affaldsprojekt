@@ -2,8 +2,8 @@ package erickkim.dtu.dk.affaldsprojekt;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -13,11 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.ChartTouchListener;
@@ -27,19 +25,20 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.internal.InternalTokenResult;
-import com.jjoe64.graphview.GraphView;
 
 import java.util.ArrayList;
-import java.util.ListIterator;
-import java.util.Objects;
 
 
 public class screen4statistic extends Fragment implements View.OnClickListener, OnChartGestureListener, OnChartValueSelectedListener {
 
     private View root;
     private Button becomeBetterButton;
+<<<<<<< Updated upstream:app/src/main/java/erickkim/dtu/dk/affaldsprojekt/screen4statistic.java
     private TextView txtCoinBox;
+=======
+    private TextView txtCoinBox4;
+    private TextView textAnalyseBox;
+>>>>>>> Stashed changes:app/src/main/java/erickkim/dtu/dk/affaldsprojekt/screen4statistic.java
     private LineChart statisticChart;
     private Data_DTO_ChartBundle[] dataBundle;
     private I_Analysis analysis = new Analysis();
@@ -68,8 +67,15 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
         becomeBetterButton.setOnClickListener(this);
 
         // statistic = root.findViewById(R.id.statistic);
+<<<<<<< Updated upstream:app/src/main/java/erickkim/dtu/dk/affaldsprojekt/screen4statistic.java
         txtCoinBox = root.findViewById(R.id.txtCoinBox1);
         txtCoinBox.setText("" + Data_Controller.getInstance().getTrashCoins());
+=======
+        txtCoinBox4 = root.findViewById(R.id.txtCoinBox4);
+        txtCoinBox4.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());
+        textAnalyseBox = root.findViewById(R.id.textAnalyseBox);
+
+>>>>>>> Stashed changes:app/src/main/java/erickkim/dtu/dk/affaldsprojekt/screen4statistic.java
         statisticChart = root.findViewById(R.id.lineChart);
         statisticChart.setOnChartGestureListener(this);
         statisticChart.setOnChartValueSelectedListener(this);
@@ -150,21 +156,11 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                                     ", xmax: " + statisticChart.getXChartMax()+
                                     ", ymin: " + statisticChart.getYChartMin()+
                                     ", ymax: " + statisticChart.getYChartMax());
-
     }
 
     @Override
     public void onNothingSelected() {
         Log.d("Nothing selected","Nothing selected");
-    }
-
-    private void buildChart(Data_DTO_ChartBundle[] dataBundle){
-        LineDataSet metal;
-        LineDataSet bio;
-        LineDataSet plastik;
-        LineDataSet rest;
-
-
     }
 
     private void createLineChart(){
@@ -177,55 +173,58 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
 
                         //ArrayList<String> xDataSet = new ArrayList<>();
                         ArrayList<Entry> yDataSetMetal = new ArrayList<>();
+                        yDataSetMetal.add(new Entry(0,0));
                         ArrayList<Entry> yDataSetBio = new ArrayList<>();
+                        yDataSetBio.add(new Entry(0,0));
                         ArrayList<Entry> yDataSetPlastik = new ArrayList<>();
+                        yDataSetPlastik.add(new Entry(0,0));
                         ArrayList<Entry> yDataSetRest = new ArrayList<>();
+                        yDataSetRest.add(new Entry(0,0));
 
-                        int taller=0;
+                        int taller=1;
                         String lastdate="";
-                        float metalAmount=0, plastikAmount=0, restAmount=0, bioAmount=0;
+                        int metalAmountDaily=0, plastikAmountDaily=0, restAmountDaily=0, bioAmountDaily=0;
                         //For hvert barn i datasnapshot.
                         for (DataSnapshot bigSnapShot : dataSnapshot.getChildren()) {
                             String date = bigSnapShot.getKey();
                             for (DataSnapshot dateSnapShot : bigSnapShot.getChildren()) {
                                 Data_DTO_ChartBundle dataBundle =  dateSnapShot.getValue(Data_DTO_ChartBundle.class);
                                 if (Long.parseLong(date) >= Long.parseLong(Data_Controller.getInstance().getLongToday()) - 7776000000L) {
-                                        if (!(lastdate.equals(date)||lastdate.equals(""))) {
-                                            yDataSetBio.add(new Entry(taller, bioAmount));
-                                            yDataSetMetal.add(new Entry(taller, metalAmount));
-                                            yDataSetPlastik.add(new Entry(taller, plastikAmount));
-                                            yDataSetRest.add(new Entry(taller, restAmount));
-                                            /*metalAmount=0;
-                                            bioAmount=0;
-                                            plastikAmount=0;
-                                            restAmount=0;*/
+                                        if (lastdate.equals(date)||lastdate.equals("")) {
+
+                                            switch (dataBundle.getType()) {
+                                                case "Bio":
+                                                    bioAmountDaily = bioAmountDaily + Integer.parseInt(dataBundle.getAmount());
+                                                    break;
+                                                case "Metal":
+                                                    metalAmountDaily = metalAmountDaily + Integer.parseInt(dataBundle.getAmount());
+                                                    break;
+                                                case "Plastik":
+                                                    plastikAmountDaily = plastikAmountDaily + Integer.parseInt(dataBundle.getAmount());
+                                                    break;
+                                                case "Rest":
+                                                    restAmountDaily = restAmountDaily + Integer.parseInt(dataBundle.getAmount());
+                                                    break;
+                                            }
+                                            yDataSetBio.add(new Entry(taller, bioAmountDaily));
+                                            yDataSetMetal.add(new Entry(taller, metalAmountDaily));
+                                            yDataSetPlastik.add(new Entry(taller, plastikAmountDaily));
+                                            yDataSetRest.add(new Entry(taller, restAmountDaily));
+
+                                            //When this is commented out, it is the accumulated amount, otherwise it is the day to day
+                                            /*metalAmountDaily=0;
+                                            bioAmountDaily=0;
+                                            plastikAmountDaily=0;
+                                            restAmountDaily=0;*/
                                         }
-                                String type = dataBundle.type;
-                                switch (type){
-                                    case "Metal" :
-                                        metalAmount++;
-                                        break;
-                                    case "Bio":
-                                        bioAmount++;
-                                        break;
-                                    case "Plastik":
-                                        plastikAmount++;
-                                        break;
-                                    case "Rest":
-                                        restAmount++;
-                                        break;
-                                }
                                 lastdate = date.toString();
                                 }
                                 taller++;
                             }
                         }
 
-                        String analysisText = analysis.getHistoryAnalysis(yDataSetBio, yDataSetMetal, yDataSetPlastik, yDataSetRest);
-                        //write text to view.
+                        textAnalyseBox.setText(Html.fromHtml(analysis.getHistoryAnalysis(yDataSetMetal, yDataSetBio, yDataSetPlastik, yDataSetRest)));
                         drawChart(yDataSetMetal, yDataSetBio, yDataSetPlastik, yDataSetRest);
-
-
                     }
 
                     @Override

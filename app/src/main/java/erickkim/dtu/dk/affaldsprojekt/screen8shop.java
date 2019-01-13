@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class Frag_screen8shop extends Fragment implements itemClickListener {
+public class screen8shop extends Fragment implements itemClickListener {
 
     shopRecycleViewAdapter adapter;
     private DialogInterface.OnClickListener dialogClickListener;
@@ -22,11 +22,11 @@ public class Frag_screen8shop extends Fragment implements itemClickListener {
     private int lastPrice;
     private View root;
 
-    public Frag_screen8shop() {
+    public screen8shop() {
     }
 
-    public static Frag_screen8shop newInstance(String param1, String param2) {
-        Frag_screen8shop fragment = new Frag_screen8shop();
+    public static screen8shop newInstance(String param1, String param2) {
+        screen8shop fragment = new screen8shop();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;

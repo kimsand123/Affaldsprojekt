@@ -1,7 +1,5 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -49,7 +47,7 @@ public class screen0login extends Fragment implements Button.OnClickListener {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment screen0login.
+     * @return A new instance of fragment Frag_Frag_screen0login.
      */
     // TODO: Rename and change types and number of parameters
     public static screen0login newInstance(String param1, String param2) {
