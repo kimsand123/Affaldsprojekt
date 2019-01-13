@@ -24,7 +24,7 @@ public class CoinShopActivity extends AppCompatActivity implements itemClickList
         setContentView(R.layout.activity_coin_shop);
 
         txtCoinBox = findViewById(R.id.coinShop_CoinsText);
-        txtCoinBox.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());
+        txtCoinBox.setText("" + Data_Controller.getInstance().getTrashCoins());
 
         // TODO: Get these from firebase.
         ArrayList<Data_DTO_shopEntry> shopEntries = new ArrayList<Data_DTO_shopEntry>();

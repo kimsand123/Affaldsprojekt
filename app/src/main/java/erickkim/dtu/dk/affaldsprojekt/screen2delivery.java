@@ -21,7 +21,7 @@ public class screen2delivery extends Fragment implements View.OnClickListener, V
     private Button doneButton;
     private Button newIdButton;
     private TextView txtIdBox;
-    private TextView txtCoinBox2;
+    private TextView txtCoinBox;
     private Button auxiliaryButton;
 
     final DecelerateInterpolator sDecelerator = new DecelerateInterpolator();
@@ -52,11 +52,11 @@ public class screen2delivery extends Fragment implements View.OnClickListener, V
         doneButton = root.findViewById(R.id.doneButton);
         newIdButton = root.findViewById(R.id.newIdButton);
         txtIdBox = root.findViewById(R.id.txtIdBox);
-        txtCoinBox2 = root.findViewById(R.id.txtCoinBox2);
+        txtCoinBox = root.findViewById(R.id.txtCoinBox1);
         auxiliaryButton = root.findViewById(R.id.button_auxiliary);
 
         //Hent data til textfelter.
-        txtCoinBox2.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());
+        txtCoinBox.setText("" + Data_Controller.getInstance().getTrashCoins());
         setNewIdCode();
 
         doneButton.setOnClickListener(this);

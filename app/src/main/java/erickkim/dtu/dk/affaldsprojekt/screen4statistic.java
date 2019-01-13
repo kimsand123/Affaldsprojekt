@@ -39,7 +39,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
 
     private View root;
     private Button becomeBetterButton;
-    private TextView txtCoinBox4;
+    private TextView txtCoinBox;
     private LineChart statisticChart;
     private Data_DTO_ChartBundle[] dataBundle;
     private I_Analysis analysis = new Analysis();
@@ -68,8 +68,8 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
         becomeBetterButton.setOnClickListener(this);
 
         // statistic = root.findViewById(R.id.statistic);
-        txtCoinBox4 = root.findViewById(R.id.txtCoinBox4);
-        txtCoinBox4.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());
+        txtCoinBox = root.findViewById(R.id.txtCoinBox1);
+        txtCoinBox.setText("" + Data_Controller.getInstance().getTrashCoins());
         statisticChart = root.findViewById(R.id.lineChart);
         statisticChart.setOnChartGestureListener(this);
         statisticChart.setOnChartValueSelectedListener(this);

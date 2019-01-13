@@ -31,7 +31,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/txtCoinBox2"
+            android:id="@+id/txtCoinBox1"
             android:layout_width="0dp"
             android:layout_height="42sp"
             android:layout_marginStart="18dp"
@@ -43,10 +43,20 @@
             android:textColor="@color/beige"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/txtInfoBox1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="53dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="28dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtCoinBox1"
+            app:layout_constraintStart_toStartOf="@+id/txtCoinBox1"
+            app:layout_constraintTop_toTopOf="@+id/txtCoinBox1"
+            app:layout_constraintVertical_bias="0.444"
+            app:srcCompat="@drawable/guldbaricon2" />
 
         <Button
             android:id="@+id/doneButton"

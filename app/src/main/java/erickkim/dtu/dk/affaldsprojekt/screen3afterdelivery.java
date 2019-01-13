@@ -33,7 +33,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     //instantier variable
     private View root;
     private Button statisticButton;
-    private TextView txtCoinBox3 ;
+    private TextView txtCoinBox;
     private TextView txtInfoBox3;
     private TextView co2TextBox;
     private ArrayList<PieEntry> piedata;
@@ -68,13 +68,13 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
         //initialiser views
         statisticButton = root.findViewById(R.id.statisticButton);
-        txtCoinBox3 = root.findViewById(R.id.txtCoinBox3);
+        txtCoinBox = root.findViewById(R.id.txtCoinBox1);
         txtInfoBox3 = root.findViewById(R.id.txtInfoBox3);
         co2TextBox = root.findViewById(R.id.co2TextBox);
 
         //Hent data til TextViews.
         txtInfoBox3.setText(Data_Controller.getInstance().getTip());
-        txtCoinBox3.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());
+        txtCoinBox.setText("" + Data_Controller.getInstance().getTrashCoins());
 
         statisticButton.setOnClickListener(this);
 

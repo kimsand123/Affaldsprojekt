@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class screen7sortingguide extends Fragment {
 
-    private TextView txtCoinBox5;
+    private TextView txtCoinBox;
     private View root;
     private WebView web;
 
@@ -33,9 +33,9 @@ public class screen7sortingguide extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_screen7sortingguide, container, false);
-        txtCoinBox5 = root.findViewById(R.id.txtCoinBox5);
+        txtCoinBox = root.findViewById(R.id.txtCoinBox1);
         web = root.findViewById(R.id.sortguide_Webview);
-        txtCoinBox5.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());
+        txtCoinBox.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());
         web.loadUrl("http://www.naestved-affald.dk/information/affaldsvejviser/");
         return root;
     }
