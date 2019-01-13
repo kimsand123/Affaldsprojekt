@@ -1,39 +1,50 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
-import android.annotation.TargetApi;
 import android.content.DialogInterface;
-import android.os.Build;
-import android.os.VibrationEffect;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
-import android.os.Vibrator;
 
 import java.util.ArrayList;
 
-public class CoinShopActivity extends AppCompatActivity implements itemClickListener {
-
+public class Frag_screen8shop extends Fragment implements itemClickListener {
 
     shopRecycleViewAdapter adapter;
     private DialogInterface.OnClickListener dialogClickListener;
     private TextView txtCoinBox;
     private int lastPrice;
-    private Vibrator v;
+    private View root;
+
+    public Frag_screen8shop() {
+    }
+
+    public static Frag_screen8shop newInstance(String param1, String param2) {
+        Frag_screen8shop fragment = new Frag_screen8shop();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_coin_shop);
+    }
 
-        v = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        super.onCreate(savedInstanceState);
+        root = inflater.inflate(R.layout.fragment_frag_screen8shop, container, false);
 
-        txtCoinBox = findViewById(R.id.txtCoinBox1);
+        txtCoinBox = root.findViewById(R.id.txtCoinBox1);
         txtCoinBox.setText("" + Data_Controller.getInstance().getTrashCoins());
 
         // TODO: Get these from firebase.
@@ -48,12 +59,12 @@ public class CoinShopActivity extends AppCompatActivity implements itemClickList
         shopEntries.add(new Data_DTO_shopEntry("5L Flaske Vin", "Er du ekstra desperat? Så er denne vidst lige noget for dig.", R.drawable.alcoholicmother, 4000));
 
         // Set up the recyclerview
-        RecyclerView recyclerView = findViewById(R.id.coinShop_RecycleView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        RecyclerView recyclerView = root.findViewById(R.id.coinShop_RecycleView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(root.getContext());
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 layoutManager.getOrientation());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new shopRecycleViewAdapter(this, shopEntries);
+        adapter = new shopRecycleViewAdapter(recyclerView.getContext(), shopEntries);
         adapter.setClickListener(this);
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(adapter);
@@ -65,25 +76,21 @@ public class CoinShopActivity extends AppCompatActivity implements itemClickList
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
                         Data_Controller.getInstance().addTrashCoins(-lastPrice);
-                        if (Build.VERSION.SDK_INT>=26)
-                            v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
-                        else
-                            v.vibrate(500);
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
+
                         break;
                 }
             }
         };
-
+        return root;
     }
 
 
-    @Override
     public void onItemClick(View view, int position) {
         // Ask if truly buy.
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(root.getContext());
         lastPrice = adapter.getItem(position).price;
         builder.setMessage("Vil du gerne købe " + adapter.getItem(position).title).setPositiveButton("Ja tak!", dialogClickListener)
                 .setNegativeButton("Nej tak.", dialogClickListener).show();

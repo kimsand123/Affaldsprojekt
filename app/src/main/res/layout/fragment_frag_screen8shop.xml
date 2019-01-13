@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/common_google_signin_btn_text_dark_focused"
-    tools:context=".CoinShopActivity">
+    tools:context=".Frag_screen8shop">
 
     <TextView
         android:id="@+id/txtCoinBox1"
-        android:layout_width="0dp"
+        android:layout_width="351dp"
         android:layout_height="44dp"
         android:layout_marginStart="18dp"
         android:layout_marginTop="8dp"
@@ -27,8 +26,8 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="53dp"
-        android:layout_height="0dp"
+        android:layout_width="194dp"
+        android:layout_height="218dp"
         android:layout_marginStart="28dp"
         app:layout_constraintBottom_toBottomOf="@+id/txtCoinBox1"
         app:layout_constraintStart_toStartOf="@+id/txtCoinBox1"
@@ -37,8 +36,8 @@
         app:srcCompat="@drawable/guldbaricon2" />
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="317dp"
+        android:layout_height="356dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -52,8 +51,8 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/coinShop_RecycleView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="6dp"
+            android:layout_height="21dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
@@ -66,5 +65,4 @@
             app:layout_constraintVertical_bias="0.043" />
     </android.support.constraint.ConstraintLayout>
 
-
-</android.support.constraint.ConstraintLayout>
+</FrameLayout>

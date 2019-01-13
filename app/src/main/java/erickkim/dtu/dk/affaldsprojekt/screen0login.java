@@ -152,7 +152,7 @@ public class screen0login extends Fragment implements Button.OnClickListener {
     }
 
     private void resetLoginFields() {
-        Toast.makeText(getContext(), "Login failed. ID not found.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Fejl. Dit ID findes ikke.", Toast.LENGTH_SHORT).show();
         loggingIn = false;
         loginIdText.setText("");
         loginIdText.setEnabled(true);

@@ -35,7 +35,7 @@ public class screen7sortingguide extends Fragment {
         root = inflater.inflate(R.layout.fragment_screen7sortingguide, container, false);
         txtCoinBox = root.findViewById(R.id.txtCoinBox1);
         web = root.findViewById(R.id.sortguide_Webview);
-        txtCoinBox.setText("GarbageCoins: " + Data_Controller.getInstance().getTrashCoins());
+        txtCoinBox.setText("" + Data_Controller.getInstance().getTrashCoins());
         web.loadUrl("http://www.naestved-affald.dk/information/affaldsvejviser/");
         return root;
     }

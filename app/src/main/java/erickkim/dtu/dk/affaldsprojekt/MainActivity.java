@@ -15,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
 
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startscreen = new screen1main();
         } else {
             startscreen = new screen0login();
+
         }
         fragmentTransaction
                     .add(R.id.fragmentContent, startscreen)
@@ -96,33 +99,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        Intent intent;
-        switch (id){
-            case R.id.my_profile:
-                break;
-            case R.id.competitions:
-                break;
-            case R.id.coinshop:
-                intent = new Intent(MainActivity.this, CoinShopActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.feedback:
-                intent = new Intent(MainActivity.this, FeedbackActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.about:
-                break;
-            case R.id.logout:
-                // TODO: Closes app entirely. We want this to simply go back to the screen0login fragment, but without messing up the activity stack.
-                Data_Controller.getInstance().removeDefaultLogin(getApplicationContext());
-                finish();
-                break;
-        }
+        if (Data_Controller.getInstance().performDefaultLogin(getApplicationContext())) {
+            int id = item.getItemId();
+            Intent intent;
+            switch (id){
+                case R.id.my_profile:
+                    break;
+                case R.id.competitions:
+                    break;
+                case R.id.coinshop:
+                    intent = new Intent(MainActivity.this, CoinShopActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.feedback:
+                    intent = new Intent(MainActivity.this, FeedbackActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.about:
+                    break;
+                case R.id.logout:
+                    // TODO: Closes app entirely. We want this to simply go back to the screen0login fragment, but without messing up the activity stack.
+                    Data_Controller.getInstance().removeDefaultLogin(getApplicationContext());
+                    finish();
+                    break;
+            }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+            return true;
+        } else {
+            Toast.makeText(getApplicationContext(), "Du er ikke logget ind endnu.", Toast.LENGTH_SHORT).show();
+            return true;
+        }
     }
 
 }

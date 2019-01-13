@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.data.PieEntry;
 import com.google.firebase.database.DataSnapshot;
@@ -82,7 +83,6 @@ public class Data_Controller {
             return false;
         } else {
             setUserId(defaultUserId);
-            getTrashCoins();
             return true;
         }
 
@@ -109,6 +109,11 @@ public class Data_Controller {
 
     public Data_DTO_deliveryCode getDeliveryCode() {
         return deliveryCode;
+    }
+
+    public void addTrashCoins(int trashCoins) {
+        this.trashCoins += trashCoins;
+        mref.getReference().child("users").child(userId).child("coins").setValue(this.trashCoins);
     }
 
     public void setTrashCoins(int trashCoins) {
