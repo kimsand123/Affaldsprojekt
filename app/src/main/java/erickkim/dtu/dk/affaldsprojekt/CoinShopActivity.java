@@ -1,10 +1,11 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
-import android.annotation.TargetApi;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.VibrationEffect;
-import android.support.annotation.RequiresApi;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ public class CoinShopActivity extends AppCompatActivity implements itemClickList
     private TextView txtCoinBox;
     private int lastPrice;
     private Vibrator v;
+    private Observer goldObserver;
+    private LiveData<Integer> goldLiveData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +41,11 @@ public class CoinShopActivity extends AppCompatActivity implements itemClickList
 
         // TODO: Get these from firebase.
         ArrayList<Data_DTO_shopEntry> shopEntries = new ArrayList<Data_DTO_shopEntry>();
-        shopEntries.add(new Data_DTO_shopEntry("2L Flaske Vin", "Den ideelle starter til enhver midaldrende kvinde med en svagtpræsterende mand.", R.drawable.alcoholicmother, 2000));
-        shopEntries.add(new Data_DTO_shopEntry("5L Flaske Vin", "Er du ekstra desperat? Så er denne vidst lige noget for dig.", R.drawable.alcoholicmother, 4000));
-        shopEntries.add(new Data_DTO_shopEntry("2L Flaske Vin", "Den ideelle starter til enhver midaldrende kvinde med en svagtpræsterende mand.", R.drawable.alcoholicmother, 2000));
-        shopEntries.add(new Data_DTO_shopEntry("5L Flaske Vin", "Er du ekstra desperat? Så er denne vidst lige noget for dig.", R.drawable.alcoholicmother, 4000));
-        shopEntries.add(new Data_DTO_shopEntry("2L Flaske Vin", "Den ideelle starter til enhver midaldrende kvinde med en svagtpræsterende mand.", R.drawable.alcoholicmother, 2000));
-        shopEntries.add(new Data_DTO_shopEntry("5L Flaske Vin", "Er du ekstra desperat? Så er denne vidst lige noget for dig.", R.drawable.alcoholicmother, 4000));
-        shopEntries.add(new Data_DTO_shopEntry("2L Flaske Vin", "Den ideelle starter til enhver midaldrende kvinde med en svagtpræsterende mand.", R.drawable.alcoholicmother, 2000));
-        shopEntries.add(new Data_DTO_shopEntry("5L Flaske Vin", "Er du ekstra desperat? Så er denne vidst lige noget for dig.", R.drawable.alcoholicmother, 4000));
+        shopEntries.add(new Data_DTO_shopEntry("13 Stk Snapseglas", "Snapseglas fra Holmegaard med en flot messingekant.", R.drawable.shop_glas, 120));
+        shopEntries.add(new Data_DTO_shopEntry("2 Stk Skaale", "Skaale fra Holmegaard lavet i et pænt drejet mønster", R.drawable.shop_skaale, 100));
+        shopEntries.add(new Data_DTO_shopEntry("2 stk Lysestage", "Lysestager i messing. Perfekt til når jordens energiforsyning er sluppet op.", R.drawable.shop_lys, 80));
+        shopEntries.add(new Data_DTO_shopEntry("Sanghæfter", "Gamle sanghæfter fra dengang børn ikke brugte 24 timer foran computeren.", R.drawable.shop_sanghaefte, 30));
+        shopEntries.add(new Data_DTO_shopEntry("En 80mm AT-Kanon", "Ja du læste rigtigt. Brug dit guld på at købe en kanon. Mon naboen endeligt tier stille.", R.drawable.shop_kanon, 200));
 
         // Set up the recyclerview
         RecyclerView recyclerView = findViewById(R.id.coinShop_RecycleView);
@@ -57,6 +57,10 @@ public class CoinShopActivity extends AppCompatActivity implements itemClickList
         adapter.setClickListener(this);
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(adapter);
+
+        goldLiveData = new goldLiveData();
+        goldObserver = new goldObserver();
+        goldLiveData.observe(this, goldObserver);
 
         // Setup the dialog to purchase items.
         dialogClickListener = new DialogInterface.OnClickListener() {
@@ -87,5 +91,19 @@ public class CoinShopActivity extends AppCompatActivity implements itemClickList
         lastPrice = adapter.getItem(position).price;
         builder.setMessage("Vil du gerne købe " + adapter.getItem(position).title).setPositiveButton("Ja tak!", dialogClickListener)
                 .setNegativeButton("Nej tak.", dialogClickListener).show();
+    }
+
+    public class goldLiveData extends LiveData<Integer> implements Observer {
+        @Override
+        public void onChanged(@Nullable Object o) {
+
+        }
+    }
+
+    private class goldObserver implements Observer {
+        @Override
+        public void onChanged(@Nullable Object o) {
+
+        }
     }
 }
