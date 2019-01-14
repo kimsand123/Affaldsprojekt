@@ -136,13 +136,4 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
          }
          return false;
      }
-
-     public class asyncTestFirebase extends AsyncTask {
-        @Override
-        protected Object doInBackground(Object[] objects) {
-            myref.child("message1").setValue("Hello 1");
-            myref.child("message2").setValue("Hello 2");
-            return null;
-        }
-    }
 }
