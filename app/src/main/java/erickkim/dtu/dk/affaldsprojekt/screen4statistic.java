@@ -180,8 +180,8 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                         //For hvert barn i datasnapshot.
                         for (DataSnapshot bigSnapShot : dataSnapshot.getChildren()) {
                             String date = bigSnapShot.getKey();
-                            for (DataSnapshot dateSnapShot : bigSnapShot.getChildren()) {
-                                Data_DTO_ChartBundle dataBundle =  dateSnapShot.getValue(Data_DTO_ChartBundle.class);
+                            for (DataSnapshot depositSnapShot : bigSnapShot.getChildren()) {
+                                Data_DTO_ChartBundle dataBundle =  depositSnapShot.getValue(Data_DTO_ChartBundle.class);
                                 if (Long.parseLong(date) >= Long.parseLong(Data_Controller.getInstance().getLongToday()) - 7776000000L) {
                                         if (lastdate.equals(date)||lastdate.equals("")) {
 
@@ -216,8 +216,19 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                             }
                         }
 
-                        textAnalyseBox.setText(Html.fromHtml(analysis.getHistoryAnalysis(yDataSetMetal, yDataSetBio, yDataSetPlastik, yDataSetRest)));
-                        co2TextBox2.setText("Du har på 90 dage sparet miljøet for " + analysis.co2SaverCalc()+ "g CO2");
+                        analysis.setAmounts((int)yDataSetMetal.get(yDataSetMetal.size()-1).getY(),
+                                            (int)yDataSetBio.get(yDataSetBio.size()-1).getY(),
+                                            (int)yDataSetPlastik.get(yDataSetPlastik.size()-1).getY(),
+                                            (int)yDataSetRest.get(yDataSetRest.size()-1).getY());
+                        textAnalyseBox.setText(Html.fromHtml(analysis.getAnalysis("<i><b>Din kvartalsaflevering har betydet</i></b>")));
+                        float co2Sparet = Integer.parseInt(analysis.co2SaverCalc());
+                        String txt = "";
+                        if(co2Sparet > 1000.0){
+                            txt = "Du har på 90 dage sparet miljøet for " + co2Sparet/1000.0 + "kg CO2 ";
+                        } else {
+                            txt = "Du har på 90 dage sparet miljøet for " + co2Sparet + "g CO2 ";
+                        }
+                        co2TextBox2.setText(txt);
                         drawChart(yDataSetMetal, yDataSetBio, yDataSetPlastik, yDataSetRest);
                     }
 

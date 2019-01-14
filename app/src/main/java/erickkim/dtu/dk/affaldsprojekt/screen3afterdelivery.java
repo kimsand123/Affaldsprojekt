@@ -71,7 +71,6 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         co2TextBox = root.findViewById(R.id.co2TextBox);
 
         //Hent data til TextViews.
-        txtInfoBox3.setText(Data_Controller.getInstance().getTip());
         txtCoinBox.setText("" + Data_Controller.getInstance().getTrashCoins());
         statisticButton.setOnClickListener(this);
         return root;
@@ -108,6 +107,11 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Data_DTO_delivery snapshotData;
+                        int metalAmount=0;
+                        int bioAmount=0;
+                        int plastikAmount=0;
+                        int restAmount=0;
+                        ArrayList<Integer> colors = new ArrayList<>();
                         //For hvert barn i datasnapshot.
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             snapshotData = snapshot.getValue(Data_DTO_delivery.class);
@@ -126,15 +130,55 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                                 }
                             }
                             ((ArrayList) values).add(new PieEntry(Integer.parseInt(snapshotData.getAmount()), snapshotData.getType()));
-                            analysis.recordDataForAnalysis(Integer.parseInt(snapshotData.getAmount()), snapshotData.getType());
+                            switch(snapshotData.getType()){
+                                case "Metal":
+                                    if (colors.contains(Color.LTGRAY)) {
+                                        colors.remove(colors.indexOf(Color.LTGRAY));
+
+                                    }
+                                    colors.add(Color.LTGRAY);
+                                    metalAmount = Integer.parseInt(snapshotData.getAmount());
+                                    break;
+                                case "Bio":
+                                    if (colors.contains(Color.GREEN)) {
+                                        colors.remove(colors.indexOf(Color.GREEN));
+                                    }
+                                    colors.add(Color.GREEN);
+                                    bioAmount = Integer.parseInt(snapshotData.getAmount());
+                                    break;
+                                case "Plastik":
+                                    if (colors.contains(Color.YELLOW)) {
+                                        colors.remove(colors.indexOf(Color.YELLOW));
+                                    }
+                                    colors.add(Color.YELLOW);
+                                    plastikAmount = Integer.parseInt(snapshotData.getAmount());
+                                    break;
+                                case "Rest":
+                                    if (colors.contains(Color.RED)) {
+                                        colors.remove(colors.indexOf(Color.RED));
+                                    }
+                                    colors.add(Color.RED);
+                                    restAmount =Integer.parseInt(snapshotData.getAmount());
+                                    break;
+                            }
+
+                            //analysis.recordDataForAnalysis(Integer.parseInt(snapshotData.getAmount()), snapshotData.getType());
 
 
                         }
                         //make analysis and write txt to view.
-                        txtInfoBox3.setText(Html.fromHtml(analysis.getDailyAnalysis()));
-                        //txtInfoBox3.setText(analysis.getDailyAnalysis());
-                        co2TextBox.setText("Du har i dag sparet miljøet for " + analysis.co2SaverCalc() + "g CO2");
-                        drawPieChart(values, labels);
+                        analysis.setAmounts(metalAmount, bioAmount, plastikAmount, restAmount);
+                        txtInfoBox3.setText(Html.fromHtml(analysis.getAnalysis("<i><b>Din aflevering i dag har betydet</i></b>")));
+                        //txtInfoBox3.setText(analysis.getAnalysis());
+                        String txt = "";
+                        float co2Sparet = Integer.parseInt(analysis.co2SaverCalc());
+                        if(co2Sparet > 1000.0){
+                            txt = "Du har i dag sparet miljøet for " + co2Sparet/1000.0 + "kg CO2 ";
+                        } else {
+                            txt = "Du har i dag sparet miljøet for " + co2Sparet + "g CO2 ";
+                        }
+                        co2TextBox.setText(txt);
+                        drawPieChart(values, labels, colors);
                     }
 
                     @Override
@@ -144,20 +188,24 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                 });
 
     }
-    public void drawPieChart(ArrayList<PieEntry> values, ArrayList<String> labels){
+    public void drawPieChart(ArrayList<PieEntry> values, ArrayList<String> labels, ArrayList<Integer> colors){
 
         //initialize dataset and pass the data
-        PieDataSet dataSet = new PieDataSet(values, "TEST" );
+        PieDataSet dataSet = new PieDataSet(values, "Dagens aflevering" );
 
         dataSet.setValueFormatter(new PercentFormatter());
         dataSet.setValueTextSize(11f);
         dataSet.setValueTextColor(Color.BLACK);
-        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+
+        //dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         dataSet.setValueFormatter(new PercentFormatter());
         dataSet.setSliceSpace(2f);
+        dataSet.setColors(colors);
 
         //Initialize PieData
         PieData data = new PieData(dataSet);
+
+        chart.setEntryLabelColor(Color.BLACK);
 
         chart.setUsePercentValues(true);
         chart.setDrawHoleEnabled(true);

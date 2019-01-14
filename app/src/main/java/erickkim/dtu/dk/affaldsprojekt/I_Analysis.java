@@ -7,11 +7,10 @@ import java.util.ArrayList;
 
 public interface I_Analysis {
 
-    public String getHistoryAnalysis(ArrayList<Entry> metalHist, ArrayList<Entry> bioHist, ArrayList<Entry> plastikHist, ArrayList<Entry> restAmountHist);
-    public String getDailyAnalysis();
+    public String getAnalysis(String startText);
     public String getFractionStory(String fraction, int fractionAmountInGrams, boolean multipleLines);
     public String co2SaverCalc();
-    public void recordDataForAnalysis(int amount, String type);
+    public void setAmounts (int metalAmount, int bioAmount, int plastikAmount, int restAmount);
 
 
 }

@@ -10,56 +10,14 @@ import java.util.Random;
 // for at illustrere eksemplet.
 
 public class Analysis implements I_Analysis {
-    int metalAmount, bioAmount, plastikAmount, restAmountDaily;
+    int metalAmount = 0;
+    int bioAmount = 0;
+    int plastikAmount = 0;
+    int restAmount = 0;
 
     @Override
-    public String getHistoryAnalysis(ArrayList<Entry> metalHist, ArrayList<Entry> bioHist, ArrayList<Entry> plastikHist, ArrayList<Entry> restHist) {
-        String text = "";
-        //getting last number of each fraction
-        int lastMetal = (int)metalHist.get(metalHist.size()-1).getY();
-        int lastBio = (int)bioHist.get(metalHist.size()-1).getY();
-        int lastPlastik = (int)plastikHist.get(metalHist.size()-1).getY();
-        int lastRest = (int)restHist.get(metalHist.size()-1).getY();
-
-
-
-        text = "<i><b>Din aflevering for de sidste 90 dage har betydet</i></b>";
-        if ( lastMetal !=0) {
-            text = text + "<br><br>" + getFractionStory("Metal", lastMetal, false);
-            metalAmount = lastMetal;
-        }
-        if ( lastBio !=0) {
-            text = text + "<br><br>" + getFractionStory("Bio", lastBio, true);
-            bioAmount = lastBio;
-        }
-        if ( lastPlastik !=0) {
-            text = text + "<br><br>" + getFractionStory("Plastik", lastBio, true);
-            plastikAmount = lastPlastik;
-        }
-        return text;
-    }
-
-    @Override
-    public void recordDataForAnalysis(int amount, String type){
-        switch(type){
-            case "Metal":
-                metalAmount = amount;
-                break;
-            case "Bio":
-                bioAmount = amount;
-                break;
-            case "Plastik":
-                plastikAmount = amount;
-                break;
-            case "Rest":
-                restAmountDaily =amount;
-                break;
-        }
-    }
-
-    @Override
-    public String getDailyAnalysis() {
-        String text = "<i><b>Din aflevering i dag har betydet</i></b>";
+    public String getAnalysis(String startText) {
+        String text = startText;
         if ( metalAmount !=0) {
             text = text + "<br><br>" + getFractionStory("Metal", metalAmount, false);
         }
@@ -74,7 +32,16 @@ public class Analysis implements I_Analysis {
     }
 
     @Override
+    public void setAmounts (int metalAmount, int bioAmount, int plastikAmount, int restAmount){
+        this.metalAmount = metalAmount;
+        this.bioAmount = bioAmount;
+        this.plastikAmount = plastikAmount;
+        this.restAmount = restAmount;
+    }
+
+    @Override
     public String co2SaverCalc (){
+
         String text="";
         double resultat;
         double co2plast = 2;                   //Der spares 2 kg. CO2 når 1 kg plastic genanvendes
