@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -36,7 +35,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
     private TextView textAnalyseBox;
     private TextView co2TextBox2;
     private LineChart statisticChart;
-    private I_Analysis analysis = new Analysis();
+    private I_Analysis analysis = new GenerateFeedback();
 
     public screen4statistic() {
         // Required empty public constructor

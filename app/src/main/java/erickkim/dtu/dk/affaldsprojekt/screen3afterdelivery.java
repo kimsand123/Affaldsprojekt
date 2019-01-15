@@ -18,7 +18,6 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -36,7 +35,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     private TextView txtInfoBox3;
     private TextView co2TextBox;
     private PieChart chart;
-    private I_Analysis analysis = new Analysis();
+    private I_Analysis analysis = new GenerateFeedback();
 
     public screen3afterdelivery() {
         // Required empty public constructor
