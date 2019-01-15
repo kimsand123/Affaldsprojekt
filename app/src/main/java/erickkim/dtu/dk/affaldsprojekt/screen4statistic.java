@@ -205,9 +205,9 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                                             yDataSetRest.add(new Entry(taller, restAmountDaily));
 
                                             //When this is commented out, it is the accumulated amount, otherwise it is the day to day
-                                            /*metalAmount=0;
+                                            /*metPlaGlaAmount=0;
                                             bioAmount=0;
-                                            plastikAmount=0;
+                                            papPapiAmount=0;
                                             restAmountDaily=0;*/
                                         }
                                 lastdate = date.toString();

@@ -107,9 +107,9 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Data_DTO_ChartBundle snapshotData;
-                        int metalAmount=0;
+                        int metPlaGlaAmount=0;
                         int bioAmount=0;
-                        int plastikAmount=0;
+                        int papPapiAmount=0;
                         int restAmount=0;
                         int gold =0;
                         ArrayList<Integer> colors = new ArrayList<>();
@@ -133,13 +133,13 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                             }
                             ((ArrayList) values).add(new PieEntry(Integer.parseInt(snapshotData.getAmount()), snapshotData.getType()));
                             switch(snapshotData.getType()){
-                                case "Metal":
+                                case "Metal/Plastik/Glas":
                                     if (colors.contains(Color.LTGRAY)) {
                                         colors.remove(colors.indexOf(Color.LTGRAY));
 
                                     }
                                     colors.add(Color.LTGRAY);
-                                    metalAmount = Integer.parseInt(snapshotData.getAmount());
+                                    metPlaGlaAmount = Integer.parseInt(snapshotData.getAmount());
                                     break;
                                 case "Bio":
                                     if (colors.contains(Color.GREEN)) {
@@ -148,12 +148,12 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                                     colors.add(Color.GREEN);
                                     bioAmount = Integer.parseInt(snapshotData.getAmount());
                                     break;
-                                case "Plastik":
+                                case "Pap/Papir":
                                     if (colors.contains(Color.YELLOW)) {
                                         colors.remove(colors.indexOf(Color.YELLOW));
                                     }
                                     colors.add(Color.YELLOW);
-                                    plastikAmount = Integer.parseInt(snapshotData.getAmount());
+                                    papPapiAmount = Integer.parseInt(snapshotData.getAmount());
                                     break;
                                 case "Rest":
                                     if (colors.contains(Color.RED)) {
@@ -169,15 +169,17 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
                         }
                         //make analysis and write txt to view.
-                        analysis.setAmounts(metalAmount, bioAmount, plastikAmount, restAmount);
+                        analysis.setAmounts(metPlaGlaAmount, bioAmount, papPapiAmount, restAmount);
                         txtInfoBox3.setText(Html.fromHtml(analysis.getAnalysis("<i><b>Din aflevering i dag har betydet</i></b>")));
                         //txtInfoBox3.setText(analysis.getAnalysis());
                         String txt = "";
                         float co2Sparet = Integer.parseInt(analysis.co2SaverCalc());
                         if(co2Sparet > 1000.0){
-                            txt = "Du har i dag sparet miljøet for " + co2Sparet/1000.0 + "kg CO2 ";
+                            txt = "Du har i dag sparet miljøet for " + co2Sparet/1000.0 + "kg CO2 \n" +
+                                    "Du har modtaget " + gold + " guld for din aflevering";
                         } else {
-                            txt = "Du har i dag sparet miljøet for " + co2Sparet + "g CO2 ";
+                            txt = "Du har i dag sparet miljøet for " + co2Sparet + "g CO2 \n" +
+                                    "Du har modtaget " + gold + " guld for din aflevering";
                         }
                         co2TextBox.setText(txt);
                         drawPieChart(values, labels, colors);

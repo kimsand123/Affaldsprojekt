@@ -54,7 +54,7 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
 
         deliveryButton = findViewById(R.id.button_deliver);
 
-        String[] typeArray = new String[]{"Metal", "Plastik", "Bio", "Rest"};
+        String[] typeArray = new String[]{"Metal/Plastik/Glas", "Pap/Papir", "Bio", "Rest"};
         ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeArray);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
