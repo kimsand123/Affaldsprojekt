@@ -136,7 +136,7 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
         protected Object doInBackground(Object[] objects) {
 
             int newGold = 0;
-            newGold = Data_Controller.getInstance().getTrashCoins() + goldInt;
+            newGold = Data_Controller.getInstance().getGold() + goldInt;
             Data_DTO_delivery dataBundle= new Data_DTO_delivery();
             dataBundle.setAmount(Integer.toString(amountInt));
             dataBundle.setType(typeString);
