@@ -12,17 +12,37 @@ public class GenerateFeedback implements I_GenerateFeedback {
     int papPapiAmount = 0;
     int restAmount = 0;
 
+
     @Override
-    public String getAnalysis(String startText) {
+    public String getAnalysis(String startText, String userID) {
         String text = startText;
-        if ( metPlaGlaAmount !=0) {
-            text = text + "<br><br>" + getFractionStory("Metal/Plastik/Glas", metPlaGlaAmount, false);
-        }
-        if ( bioAmount !=0) {
-            text = text + "<br><br>" + getFractionStory("Bio", bioAmount, true);
-        }
-        if ( papPapiAmount !=0) {
-            text = text + "<br><br>" + getFractionStory("Pap/Papir", papPapiAmount, true);
+        switch (userID){
+            case "virksomhed":
+                if (metPlaGlaAmount !=0){
+                    text = text + "<br><br>" + getFractionStoryCompany("Metal/Plastik/Glas", metPlaGlaAmount) + " for Metal/Plastik/Glas";
+                }
+                if ( bioAmount !=0) {
+                    text = text + "<br><br>" + getFractionStoryCompany("Bio", bioAmount)+ " for Bio";
+                }
+                if ( papPapiAmount !=0) {
+                    text = text + "<br><br>" + getFractionStoryCompany("Pap/Papir", papPapiAmount) + " for Pap/Papir";
+                }
+                if (restAmount !=0){
+                    text = text + "<br><br>" + getFractionStoryCompany("Rest", restAmount) + " for Rest Affald";
+                }
+
+                break;
+            case "borger":
+                if ( metPlaGlaAmount !=0) {
+                    text = text + "<br><br>" + getFractionStoryCitizen("Metal/Plastik/Glas", metPlaGlaAmount, false);
+                }
+                if ( bioAmount !=0) {
+                    text = text + "<br><br>" + getFractionStoryCitizen("Bio", bioAmount, true);
+                }
+                if ( papPapiAmount !=0) {
+                    text = text + "<br><br>" + getFractionStoryCitizen("Pap/Papir", papPapiAmount, true);
+                }
+                break;
         }
         text = text + "<br>";
         return text;
@@ -55,7 +75,31 @@ public class GenerateFeedback implements I_GenerateFeedback {
     }
 
     @Override
-    public String getFractionStory(String fraction, int fractionAmountInGrams, boolean multipleLines){
+    public String getFractionStoryCompany(String fraction, int FractionAmountInGrams){
+        DecimalFormat format = new DecimalFormat("#.####");
+        String text ="";
+        double faktor=0.0;
+        switch(fraction){
+            case "Metal/Plastik/Glass":
+                faktor=0.1;
+                break;
+            case "Bio":
+                faktor=0.035;
+                break;
+            case "Pap/Papir":
+                faktor=0.01;
+                break;
+            case "Rest":
+                faktor=0.001;
+                break;
+        }
+            text = text + "Virksomheden har indtjent " + format.format(FractionAmountInGrams * faktor) + " kr.";
+
+        return text;
+    }
+
+    @Override
+    public String getFractionStoryCitizen(String fraction, int fractionAmountInGrams, boolean multipleLines){
 
         String text="";
         int number = getRandom();
@@ -72,10 +116,10 @@ public class GenerateFeedback implements I_GenerateFeedback {
                         //Mobiltelefon 25% metal
                         double telefonMetal = 138.0*.25;
                         textEnding = "";
-                        textStart = "Man kunne";
+                        textStart = "Hvis det var metal, kunne man";
 
                         if (multipleLines){
-                            textStart = " Derudover kan man";
+                            textStart = " Derudover kan man, hvis det er metal, ";
                         }
                         resultat = fractionAmountInGrams/telefonMetal;
                         if (resultat >= 2.0){
@@ -85,19 +129,18 @@ public class GenerateFeedback implements I_GenerateFeedback {
                         break;
                     case 2:
                         //Cykel 200 dåser jern eller aluminium til et cykelstel
-                        double daase = 16.0;
-                        textEnding = "el.";
-                        textStart = "Du har";
-                        double antalDaaser = fractionAmountInGrams/daase;
-                        resultat = antalDaaser/200.0;
+                        double flaske = 150.0;
+                        textEnding = "e.";
+                        textStart = "Hvis det er glas har du";
+                        resultat = fractionAmountInGrams/flaske;
 
                         if (resultat >= 2.0){
-                            textEnding = "ler.";
+                            textEnding = "er.";
                         }
                         if (multipleLines) {
-                            textStart = " Du har også";
+                            textStart = " hvis det er glas har du også";
                         }
-                        text = text + textStart + " afleveret jern nok til at lave " + format.format(resultat) + " cyk" + textEnding;
+                        text = text + textStart + " afleveret nok til at lave " + format.format(resultat) + " flask" + textEnding;
                         break;
                     case 3:
                         //Mobiltelefon 56% plastik
@@ -141,6 +184,9 @@ public class GenerateFeedback implements I_GenerateFeedback {
 
                         text = text + textStart + " kan lade din telefon op i " + format.format(resultat) + " minutter med energien fra dit Bioaffald.";
                         break;
+                    case 3:
+                        break;
+
                 }
                 break;
 
@@ -151,6 +197,10 @@ public class GenerateFeedback implements I_GenerateFeedback {
 
                     case 2:
                         break;
+
+                    case 3:
+                        break;
+
 
                 }
                 break;

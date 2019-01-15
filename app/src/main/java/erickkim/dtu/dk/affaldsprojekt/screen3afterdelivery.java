@@ -36,7 +36,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     private TextView txtInfoBox3;
     private TextView co2TextBox;
     private PieChart chart;
-    private I_GenerateFeedback analysis = new Analysis();
+    private I_GenerateFeedback feedback = new GenerateFeedback();
     private ImageView imgGoldBox;
 
     public screen3afterdelivery() {
@@ -100,7 +100,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
         Data_Controller.getInstance().setToday();
         String date = Data_Controller.getInstance().getLongToday();
-        String userId = Data_Controller.getInstance().getUserId();
+        final String userId = Data_Controller.getInstance().getUserId();
 
         final ArrayList<PieEntry> values = new ArrayList<>();
 
@@ -166,18 +166,28 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                                     break;
                             }
                         }
-                        //make analysis and write txt to view.
-                        analysis.setAmounts(metPlaGlaAmount, bioAmount, papPapiAmount, restAmount);
-                        txtInfoBox3.setText(Html.fromHtml(analysis.getAnalysis("<i><b>Din aflevering i dag har betydet</i></b>")));
+                        //make feedback and write txt to view.
+                        feedback.setAmounts(metPlaGlaAmount, bioAmount, papPapiAmount, restAmount);
+                        String userType = Data_Controller.getInstance().getUserType();
                         String txt;
-                        float co2Sparet = Integer.parseInt(analysis.co2SaverCalc());
-                        if(co2Sparet > 1000.0){
-                            txt = "Du har i dag sparet miljøet for " + co2Sparet/1000.0 + "kg CO2 \n" +
-                                    "Du har modtaget " + gold + " guld for din aflevering";
-                        } else {
-                            txt = "Du har i dag sparet miljøet for " + co2Sparet + "g CO2 \n" +
-                                    "Du har modtaget " + gold + " guld for din aflevering";
+                        gold=Data_Controller.getInstance().getGold();
+                        float co2Sparet = Integer.parseInt(feedback.co2SaverCalc());
+
+                        if(userType == "virksomhed"){
+                            txtInfoBox3.setText((Html.fromHtml(feedback.getAnalysis("<i><b>Din aflevering i dag har givet følgende indtjening</i></b>","virksomhed"))));
+                        }else {
+                            txtInfoBox3.setText(Html.fromHtml(feedback.getAnalysis("<i><b>Din aflevering i dag har betydet</i></b>","borger")));
                         }
+
+                        if(co2Sparet > 1000.0){
+                            txt = "Du har i dag sparet miljøet for " + co2Sparet/1000.0 + "kg CO2";
+                            if (userType=="borger") {
+                                txt=txt+" \n Du har modtaget " + gold + " guld for din aflevering";
+                            }
+                        } else {
+                            txt = "Du har i dag sparet miljøet for " + co2Sparet + "g CO2";
+                        }
+
                         co2TextBox.setText(txt);
                         drawPieChart(values, colors);
                     }

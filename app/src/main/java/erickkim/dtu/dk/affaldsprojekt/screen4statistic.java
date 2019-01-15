@@ -36,7 +36,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
     private TextView textAnalyseBox;
     private TextView co2TextBox2;
     private LineChart statisticChart;
-    private I_GenerateFeedback analysis = new Analysis();
+    private I_GenerateFeedback feedback = new GenerateFeedback();
     private ImageView imgGoldBox;
 
     public screen4statistic() {
@@ -206,17 +206,28 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                             }
                         }
 
-                        analysis.setAmounts((int)yDataSetMetPlaGla.get(yDataSetMetPlaGla.size()-1).getY(),
+                        feedback.setAmounts((int)yDataSetMetPlaGla.get(yDataSetMetPlaGla.size()-1).getY(),
                                             (int)yDataSetBio.get(yDataSetBio.size()-1).getY(),
                                             (int)yDataSetPapPapi.get(yDataSetPapPapi.size()-1).getY(),
                                             (int)yDataSetRest.get(yDataSetRest.size()-1).getY());
-                        textAnalyseBox.setText(Html.fromHtml(analysis.getAnalysis("<i><b>Din kvartalsaflevering har betydet</i></b>")));
-                        float co2Sparet = Integer.parseInt(analysis.co2SaverCalc());
-                        String txt = "";
+
+                        String userType = Data_Controller.getInstance().getUserType();
+                        float co2Sparet = Integer.parseInt(feedback.co2SaverCalc());
+
+                        if(userType == "virksomhed"){
+                            textAnalyseBox.setText((Html.fromHtml(feedback.getAnalysis("<i><b>Din kvartalsaflevering har givet følgende indtjening</i></b>","virksomhed"))));
+                        }else {
+                            textAnalyseBox.setText(Html.fromHtml(feedback.getAnalysis("<i><b>Din aflevering har givet følgende indtjening</i></b>","borger")));
+                        }
+                        String txt;
+                        int gold=Data_Controller.getInstance().getGold();
                         if(co2Sparet > 1000.0){
-                            txt = "Du har på 90 dage sparet miljøet for " + co2Sparet/1000.0 + "kg CO2 ";
+                            txt = "Du har i dag sparet miljøet for " + co2Sparet/1000.0 + "kg CO2";
+                            if (userType=="borger") {
+                                txt=txt+" \n Du har modtaget " + gold + " guld for din aflevering";
+                            }
                         } else {
-                            txt = "Du har på 90 dage sparet miljøet for " + co2Sparet + "g CO2 ";
+                            txt = "Du har i dag sparet miljøet for " + co2Sparet + "g CO2";
                         }
                         co2TextBox2.setText(txt);
                         drawChart(yDataSetMetPlaGla, yDataSetBio, yDataSetPapPapi, yDataSetRest);
