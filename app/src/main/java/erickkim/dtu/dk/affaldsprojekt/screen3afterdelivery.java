@@ -106,7 +106,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Data_DTO_ChartBundle snapshotData;
+                        Data_DTO_delivery snapshotData;
                         int metPlaGlaAmount=0;
                         int bioAmount=0;
                         int papPapiAmount=0;
@@ -115,7 +115,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                         ArrayList<Integer> colors = new ArrayList<>();
                         //For hvert barn i datasnapshot.
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            snapshotData = snapshot.getValue(Data_DTO_ChartBundle.class);
+                            snapshotData = snapshot.getValue(Data_DTO_delivery.class);
 
                             ListIterator<PieEntry> listElements = values.listIterator();
                             //algoritme for at samle 2 deposits af den samme type eks. bio den samme dag

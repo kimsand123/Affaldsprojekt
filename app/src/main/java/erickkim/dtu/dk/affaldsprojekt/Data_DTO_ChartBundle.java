@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Data_DTO_ChartBundle {
 
-    String type;
-    String amount;
+    private String type;
+    private String amount;
     private String gold;
 
     public String getGold() {

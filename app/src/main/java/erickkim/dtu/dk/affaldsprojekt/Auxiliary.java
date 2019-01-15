@@ -137,7 +137,7 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
 
             int newGold = 0;
             newGold = Data_Controller.getInstance().getTrashCoins() + goldInt;
-            Data_DTO_ChartBundle dataBundle= new Data_DTO_ChartBundle();
+            Data_DTO_delivery dataBundle= new Data_DTO_delivery();
             dataBundle.setAmount(Integer.toString(amountInt));
             dataBundle.setType(typeString);
             dataBundle.setGold(Integer.toString(goldInt));
