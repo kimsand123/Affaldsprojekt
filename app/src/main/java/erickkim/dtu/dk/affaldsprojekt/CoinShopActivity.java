@@ -13,6 +13,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.Vibrator;
 
@@ -23,11 +24,12 @@ public class CoinShopActivity extends AppCompatActivity implements itemClickList
 
     shopRecycleViewAdapter adapter;
     private DialogInterface.OnClickListener dialogClickListener;
-    private TextView txtCoinBox;
+    private TextView txtGoldBox;
     private int lastPrice;
     private Vibrator v;
     private Observer goldObserver;
     private LiveData<Integer> goldLiveData;
+    private ImageView imgGoldBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +38,11 @@ public class CoinShopActivity extends AppCompatActivity implements itemClickList
 
         v = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
 
-        txtCoinBox = findViewById(R.id.txtCoinBox1);
-        txtCoinBox.setText("" + Data_Controller.getInstance().getTrashCoins());
+        txtGoldBox = findViewById(R.id.txtCoinBox1);
+        txtGoldBox.setText(Data_Controller.getInstance().getGoldBoxContent());
+        imgGoldBox = findViewById(R.id.imgGoldBox);
+        if (Data_Controller.getInstance().getUserType().equals("virksomhed"))
+            imgGoldBox.setVisibility(View.INVISIBLE);
 
         // TODO: Get these from firebase.
         ArrayList<Data_DTO_shopEntry> shopEntries = new ArrayList<Data_DTO_shopEntry>();
@@ -68,7 +73,7 @@ public class CoinShopActivity extends AppCompatActivity implements itemClickList
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        Data_Controller.getInstance().addTrashCoins(-lastPrice);
+                        Data_Controller.getInstance().addGold(-lastPrice);
                         if (Build.VERSION.SDK_INT>=26)
                             v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
                         else

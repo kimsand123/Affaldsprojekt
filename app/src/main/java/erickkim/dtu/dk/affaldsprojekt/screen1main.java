@@ -1,7 +1,6 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +12,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -25,8 +25,9 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
     private Button hubstatusButton;
     private Button hubplacementButton;
     private Button depositButton;
-    private TextView txtCoinBox;
+    private TextView txtGoldBox;
     private TextView txtInfoBox;
+    private ImageView imgGoldBox;
 
     private FirebaseDatabase mref;
     private DatabaseReference myref;
@@ -61,7 +62,7 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
 
         hubplacementButton = root.findViewById(R.id.hubplacementButton);
         depositButton = root.findViewById(R.id.depositButton);
-        txtCoinBox = root.findViewById(R.id.txtCoinBox1);
+        txtGoldBox = root.findViewById(R.id.txtCoinBox1);
         txtInfoBox = root.findViewById(R.id.txtInfoBox1);
 
         // setonclicklisteners for alle knapper.
@@ -79,7 +80,10 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
 
         // Hent data for TextViews
         txtInfoBox.setText(Data_Controller.getInstance().getTip());
-        txtCoinBox.setText("" + Data_Controller.getInstance().getTrashCoins());
+        txtGoldBox.setText(Data_Controller.getInstance().getGoldBoxContent());
+        imgGoldBox = root.findViewById(R.id.imgGoldBox);
+        if (Data_Controller.getInstance().getUserType().equals("virksomhed"))
+            imgGoldBox.setVisibility(View.INVISIBLE);
 
 
 

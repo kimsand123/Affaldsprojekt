@@ -6,11 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class screen7sortingguide extends Fragment {
 
-    private TextView txtCoinBox;
+    private TextView txtGoldBox;
+    private ImageView imgGoldBox;
     private View root;
     private WebView web;
 
@@ -33,9 +35,14 @@ public class screen7sortingguide extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_screen7sortingguide, container, false);
-        txtCoinBox = root.findViewById(R.id.txtCoinBox1);
+        txtGoldBox = root.findViewById(R.id.txtCoinBox1);
         web = root.findViewById(R.id.sortguide_Webview);
-        txtCoinBox.setText("" + Data_Controller.getInstance().getTrashCoins());
+
+        txtGoldBox.setText(Data_Controller.getInstance().getGoldBoxContent());
+        imgGoldBox = root.findViewById(R.id.imgGoldBox);
+        if (Data_Controller.getInstance().getUserType().equals("virksomhed"))
+            imgGoldBox.setVisibility(View.INVISIBLE);
+
         web.loadUrl("http://www.naestved-affald.dk/information/affaldsvejviser/");
         return root;
     }

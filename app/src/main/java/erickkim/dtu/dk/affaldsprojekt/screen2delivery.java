@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -21,7 +22,8 @@ public class screen2delivery extends Fragment implements View.OnClickListener, V
     private Button doneButton;
     private Button newIdButton;
     private TextView txtIdBox;
-    private TextView txtCoinBox;
+    private TextView txtGoldBox;
+    private ImageView imgGoldBox;
     private Button auxiliaryButton;
 
     final DecelerateInterpolator sDecelerator = new DecelerateInterpolator();
@@ -52,11 +54,15 @@ public class screen2delivery extends Fragment implements View.OnClickListener, V
         doneButton = root.findViewById(R.id.doneButton);
         newIdButton = root.findViewById(R.id.newIdButton);
         txtIdBox = root.findViewById(R.id.txtIdBox);
-        txtCoinBox = root.findViewById(R.id.txtCoinBox1);
+        txtGoldBox = root.findViewById(R.id.txtCoinBox1);
         auxiliaryButton = root.findViewById(R.id.button_auxiliary);
 
         //Hent data til textfelter.
-        txtCoinBox.setText("" + Data_Controller.getInstance().getTrashCoins());
+        txtGoldBox.setText(Data_Controller.getInstance().getGoldBoxContent());
+        imgGoldBox = root.findViewById(R.id.imgGoldBox);
+        if (Data_Controller.getInstance().getUserType().equals("virksomhed"))
+            imgGoldBox.setVisibility(View.INVISIBLE);
+
         setNewIdCode();
 
         doneButton.setOnClickListener(this);

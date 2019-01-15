@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 
 import com.github.mikephil.charting.data.PieEntry;
 import com.google.firebase.database.DataSnapshot;
@@ -35,22 +34,23 @@ public class Data_Controller {
     private long longDate;
     private long startdate;
     private int todaysDeliveryCounter;
-    private long trashCoins;
+    private long gold;
     private Data_DTO_deliveryCode deliveryCode;
     private FirebaseDatabase mref;
     private int usedDataDeliveryCode=0;
     private String userId;
+    private String userType;
     private String deliveredDate;
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
     private static Data_Controller dataBackgroundInstance = null;
     Data_DAO_deliveryCode dao_deliveryCode;
-    Data_DAO_trashCoins dao_trashCoins;
+    Data_DAO_gold dao_gold;
     Data_DAO_tips dao_tips;
 
     private Data_Controller() {
         dao_deliveryCode = new Data_DAO_deliveryCode();
-        dao_trashCoins = new Data_DAO_trashCoins();
+        dao_gold = new Data_DAO_gold();
         dao_tips = new Data_DAO_tips();
         mref = FirebaseDatabase.getInstance();
         setDeliveryCode(dao_deliveryCode.getAvailableDeliveryCode());
@@ -66,6 +66,7 @@ public class Data_Controller {
         sharedPref = context.getSharedPreferences("defaultLogin", Context.MODE_PRIVATE);
         editor = sharedPref.edit();
         editor.remove("userId");
+        editor.remove("userType");
         editor.apply();
     }
 
@@ -73,6 +74,7 @@ public class Data_Controller {
         sharedPref = context.getSharedPreferences("defaultLogin", Context.MODE_PRIVATE);
         editor = sharedPref.edit();
         editor.putString("userId", userId);
+        editor.putString("userType", userType);
         editor.apply();
     }
 
@@ -83,18 +85,19 @@ public class Data_Controller {
             return false;
         } else {
             setUserId(defaultUserId);
+            userType = sharedPref.getString("userType", null);
             return true;
         }
 
     }
 
-    public int getTrashCoins() {
+    public int getGold() {
         mref.getReference().child("users").child(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    if (snapshot.getKey().equals("coins")) {
-                        trashCoins = (long) snapshot.getValue();
+                    if (snapshot.getKey().equals("gold")) {
+                        gold = (long) snapshot.getValue();
                     }
                 }
             }
@@ -104,20 +107,31 @@ public class Data_Controller {
 
             }
         });
-        return (int) trashCoins;
+        return (int) gold;
+    }
+
+    // Different info depending on usertype:
+    public String getGoldBoxContent() {
+        String goldBoxContent = Data_Controller.getInstance().getUserType();
+        if (Data_Controller.getInstance().getUserType().equals("borger")) {
+            goldBoxContent = String.valueOf(Data_Controller.getInstance().getGold());
+        } else if (Data_Controller.getInstance().getUserType().equals("virksomhed")) {
+            goldBoxContent = "Penge sparet: " + String.valueOf(((long) Data_Controller.getInstance().getGold()/2) + " kr.");
+        }
+        return goldBoxContent;
     }
 
     public Data_DTO_deliveryCode getDeliveryCode() {
         return deliveryCode;
     }
 
-    public void addTrashCoins(int trashCoins) {
-        this.trashCoins += trashCoins;
-        mref.getReference().child("users").child(userId).child("coins").setValue(this.trashCoins);
+    public void addGold(int gold) {
+        this.gold += gold;
+        mref.getReference().child("users").child(userId).child("gold").setValue(this.gold);
     }
 
-    public void setTrashCoins(int trashCoins) {
-        this.trashCoins = trashCoins;
+    public void setGold(int gold) {
+        this.gold = gold;
     }
 
     public void setUsedDataDeliveryCode(int code){
@@ -134,6 +148,14 @@ public class Data_Controller {
 
     public void setUserId(String userId){
         this.userId = userId;
+    }
+
+    public void setUserType (String userType) {
+        this.userType = userType;
+    }
+
+    public String getUserType() {
+        return userType;
     }
 
     public void setDeliveredDate(String deliveredDate){
