@@ -6,7 +6,7 @@ import java.util.Random;
 // tal taget fra forskellige miljø/genbrugs/oplysnings hjemmesider, og skal betragtes som vejledende,
 // for at illustrere eksemplet.
 
-public class GenerateFeedback implements I_Analysis {
+public class GenerateFeedback implements I_GenerateFeedback {
     int metPlaGlaAmount = 0;
     int bioAmount = 0;
     int papPapiAmount = 0;

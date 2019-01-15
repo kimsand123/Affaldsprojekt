@@ -36,7 +36,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     private TextView txtInfoBox3;
     private TextView co2TextBox;
     private PieChart chart;
-    private I_Analysis analysis = new Analysis();
+    private I_GenerateFeedback analysis = new Analysis();
     private ImageView imgGoldBox;
 
     public screen3afterdelivery() {

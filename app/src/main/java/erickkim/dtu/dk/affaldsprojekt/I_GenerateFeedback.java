@@ -5,7 +5,7 @@ import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
 
-public interface I_Analysis {
+public interface I_GenerateFeedback {
 
     public String getAnalysis(String startText);
     public String getFractionStory(String fraction, int fractionAmountInGrams, boolean multipleLines);
