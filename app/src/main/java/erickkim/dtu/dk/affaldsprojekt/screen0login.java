@@ -123,6 +123,7 @@ public class screen0login extends Fragment implements Button.OnClickListener {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     if (loginId.equals(snapshot.getKey())) {
+                        Data_Controller.getInstance().setUserType(String.valueOf(snapshot.child("usertype").getValue()));
                         loginWithId(loginId);
                         return;
                     }
@@ -140,7 +141,7 @@ public class screen0login extends Fragment implements Button.OnClickListener {
     private void loginWithId(String loginId) {
         Data_Controller.getInstance().setUserId(loginId);
         Data_Controller.getInstance().setDefaultLogin(getContext());
-        Data_Controller.getInstance().getTrashCoins();
+        Data_Controller.getInstance().getGold();
         getFragmentManager().beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .replace(R.id.fragmentContent, new screen1main())

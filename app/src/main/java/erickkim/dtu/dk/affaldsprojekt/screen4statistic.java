@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -31,11 +33,12 @@ import java.util.ArrayList;
 public class screen4statistic extends Fragment implements View.OnClickListener, OnChartGestureListener, OnChartValueSelectedListener {
 
     private View root;
-    private TextView txtCoinBox;
+    private TextView txtGoldBox;
     private TextView textAnalyseBox;
     private TextView co2TextBox2;
     private LineChart statisticChart;
-    private I_Analysis analysis = new GenerateFeedback();
+    private I_Analysis analysis = new Analysis();
+    private ImageView imgGoldBox;
 
     public screen4statistic() {
         // Required empty public constructor
@@ -57,8 +60,13 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
       root = inflater.inflate(R.layout.fragment_screen4statistic, container, false);
 
-        txtCoinBox = root.findViewById(R.id.txtCoinBox1);
-        txtCoinBox.setText("" + Data_Controller.getInstance().getTrashCoins());
+        // statistic = root.findViewById(R.id.statistic);
+        txtGoldBox = root.findViewById(R.id.txtCoinBox1);
+        txtGoldBox.setText(Data_Controller.getInstance().getGoldBoxContent());
+        imgGoldBox = root.findViewById(R.id.imgGoldBox);
+        if (Data_Controller.getInstance().getUserType().equals("virksomhed"))
+            imgGoldBox.setVisibility(View.INVISIBLE);
+
         co2TextBox2 = root.findViewById(R.id.co2TextBox2);
         textAnalyseBox = root.findViewById(R.id.textAnalyseBox);
         statisticChart = root.findViewById(R.id.lineChart);

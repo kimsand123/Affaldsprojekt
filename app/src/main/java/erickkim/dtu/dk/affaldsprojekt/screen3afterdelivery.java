@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
@@ -31,11 +32,12 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     //instantier variable
     private View root;
     private Button statisticButton;
-    private TextView txtCoinBox;
+    private TextView txtGoldBox;
     private TextView txtInfoBox3;
     private TextView co2TextBox;
     private PieChart chart;
-    private I_Analysis analysis = new GenerateFeedback();
+    private I_Analysis analysis = new Analysis();
+    private ImageView imgGoldBox;
 
     public screen3afterdelivery() {
         // Required empty public constructor
@@ -64,12 +66,15 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
         //initialiser views
         statisticButton = root.findViewById(R.id.statisticButton);
-        txtCoinBox = root.findViewById(R.id.txtCoinBox1);
+        txtGoldBox = root.findViewById(R.id.txtCoinBox1);
         txtInfoBox3 = root.findViewById(R.id.txtInfoBox3);
         co2TextBox = root.findViewById(R.id.co2TextBox);
 
         //Hent data til TextViews.
-        txtCoinBox.setText("" + Data_Controller.getInstance().getTrashCoins());
+        txtGoldBox.setText(Data_Controller.getInstance().getGoldBoxContent());
+        imgGoldBox = root.findViewById(R.id.imgGoldBox);
+        if (Data_Controller.getInstance().getUserType().equals("virksomhed"))
+            imgGoldBox.setVisibility(View.INVISIBLE);
         statisticButton.setOnClickListener(this);
         return root;
     }

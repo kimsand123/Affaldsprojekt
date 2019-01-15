@@ -68,7 +68,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/imgGoldBox"
             android:layout_width="53dp"
             android:layout_height="0dp"
             android:layout_marginStart="28dp"
