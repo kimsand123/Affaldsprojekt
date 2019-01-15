@@ -106,15 +106,16 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Data_DTO_delivery snapshotData;
+                        Data_DTO_ChartBundle snapshotData;
                         int metalAmount=0;
                         int bioAmount=0;
                         int plastikAmount=0;
                         int restAmount=0;
+                        int gold =0;
                         ArrayList<Integer> colors = new ArrayList<>();
                         //For hvert barn i datasnapshot.
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            snapshotData = snapshot.getValue(Data_DTO_delivery.class);
+                            snapshotData = snapshot.getValue(Data_DTO_ChartBundle.class);
 
                             ListIterator<PieEntry> listElements = values.listIterator();
                             //algoritme for at samle 2 deposits af den samme type eks. bio den samme dag
@@ -122,6 +123,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                             while(listElements.hasNext()){
                                 String label = listElements.next().getLabel();
                                 String currentType = snapshotData.getType();
+                                 gold = gold + Integer.parseInt(snapshotData.getGold());
                                 if (label.equals(currentType)) {
                                     listElements.previous();
                                     float value = listElements.next().getValue();

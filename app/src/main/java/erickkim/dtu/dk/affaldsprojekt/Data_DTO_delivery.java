@@ -6,14 +6,6 @@ public class Data_DTO_delivery {
     private String type;
     private String amount;
 
-    public String getDeliveryId() {
-        return deliveryId;
-    }
-
-    public void setDeliveryId(String deliveryId) {
-        this.deliveryId = deliveryId;
-    }
-
     public String getAmount() {
         return amount;
     }
@@ -28,6 +20,15 @@ public class Data_DTO_delivery {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+
+    public String getDeliveryId() {
+        return deliveryId;
+    }
+
+    public void setDeliveryId(String deliveryId) {
+        this.deliveryId = deliveryId;
     }
 
 }

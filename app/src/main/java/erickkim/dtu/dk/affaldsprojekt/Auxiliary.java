@@ -1,8 +1,6 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,33 +12,21 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 
 public class Auxiliary extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener{
 
     private EditText deliveryCode;
     private EditText userId;
     private EditText amount;
-    private EditText coins;
+    private EditText gold;
     private Spinner typeSpinner;
     private String typeString;
     private String userIdString;
     private Button deliveryButton;
     private int amountInt;
-    private int coinsInt;
-    private String date;
+    private int goldInt;
     private FirebaseDatabase fireData;
     private DatabaseReference dataRef;
     private String deliveryCodeString;
@@ -62,7 +48,7 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
         userId = findViewById(R.id.text_userid);
         userId.setText(Data_Controller.getInstance().getUserId());
 
-        coins = findViewById(R.id.text_newCoins);
+        gold = findViewById(R.id.text_newCoins);
 
         amount = findViewById(R.id.text_amount);
 
@@ -106,8 +92,8 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
             return;
         }
 
-        coinsInt = Integer.parseInt(amount.getText().toString());
-        if (coinsInt == 0) {
+        goldInt = Integer.parseInt(gold.getText().toString());
+        if (goldInt == 0) {
             //MessageCenter.getInstance().showMessage("Amount missing");
             makeToast("Coins missing");
             return;
@@ -119,18 +105,10 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
             return;
         }
 
-        /*deliveryObject = new Data_DTO_delivery();
-        deliveryObject.setDate("22-Nov-18");
-        deliveryObject.setDeliveryCode(deliveryCodeInt);
-        deliveryObject.setAmount(amountInt);
-        deliveryObject.setType(typeString);
-        deliveryObject.setUserId(userIdString);
-        */
 
         asyncDeliver deliverTask = new asyncDeliver();
         deliverTask.execute();
-        //makeToast("Executed!");
-        //MessageCenter.getInstance().showMessage("Executed");
+
 
 
     }
@@ -139,7 +117,6 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
         Context context = getApplicationContext();
         CharSequence text = toastString;
         int duration = Toast.LENGTH_SHORT;
-
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
@@ -158,13 +135,14 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
         @Override
         protected Object doInBackground(Object[] objects) {
 
-            int newCoins = 0;
-            newCoins = Data_Controller.getInstance().getTrashCoins() + coinsInt;
+            int newGold = 0;
+            newGold = Data_Controller.getInstance().getTrashCoins() + goldInt;
             Data_DTO_ChartBundle dataBundle= new Data_DTO_ChartBundle();
             dataBundle.setAmount(Integer.toString(amountInt));
             dataBundle.setType(typeString);
+            dataBundle.setGold(Integer.toString(goldInt));
             dataRef.child("delivery").child(userIdString).child(Data_Controller.getInstance().getLongToday()).child(deliveryCodeString).setValue(dataBundle);
-            dataRef.child("users").child(userIdString).child("coins").setValue(newCoins);
+            dataRef.child("users").child(userIdString).child("gold").setValue(newGold);
             //dataRef.child(userIdString).child(Data_Controller.getInstance().getLongToday()).child(deliveryCodeString).child("amount").setValue("" + amountInt);
             //dataRef.child(userIdString).child(Data_Controller.getInstance().getLongToday()).child(deliveryCodeString).child("type").setValue("" + typeString);
             Data_Controller.getInstance().setDeliveredDate(Data_Controller.getInstance().getLongToday());
