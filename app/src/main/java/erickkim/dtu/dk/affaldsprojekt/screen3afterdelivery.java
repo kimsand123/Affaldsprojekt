@@ -173,7 +173,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                         gold=Data_Controller.getInstance().getGold();
                         float co2Sparet = Integer.parseInt(feedback.co2SaverCalc());
 
-                        if(userType == "virksomhed"){
+                        if(userType.equals("virksomhed")){
                             txtInfoBox3.setText((Html.fromHtml(feedback.getAnalysis("<i><b>Din aflevering i dag har givet følgende indtjening</i></b>","virksomhed"))));
                         }else {
                             txtInfoBox3.setText(Html.fromHtml(feedback.getAnalysis("<i><b>Din aflevering i dag har betydet</i></b>","borger")));
@@ -181,7 +181,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
                         if(co2Sparet > 1000.0){
                             txt = "Du har i dag sparet miljøet for " + co2Sparet/1000.0 + "kg CO2";
-                            if (userType=="borger") {
+                            if (userType.equals("borger")) {
                                 txt=txt+" \n Du har modtaget " + gold + " guld for din aflevering";
                             }
                         } else {

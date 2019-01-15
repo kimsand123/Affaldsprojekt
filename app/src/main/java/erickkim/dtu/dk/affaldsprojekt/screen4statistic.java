@@ -214,18 +214,16 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                         String userType = Data_Controller.getInstance().getUserType();
                         float co2Sparet = Integer.parseInt(feedback.co2SaverCalc());
 
-                        if(userType == "virksomhed"){
+                        if(userType.equals("virksomhed")){
                             textAnalyseBox.setText((Html.fromHtml(feedback.getAnalysis("<i><b>Din kvartalsaflevering har givet følgende indtjening</i></b>","virksomhed"))));
                         }else {
-                            textAnalyseBox.setText(Html.fromHtml(feedback.getAnalysis("<i><b>Din aflevering har givet følgende indtjening</i></b>","borger")));
+                            textAnalyseBox.setText(Html.fromHtml(feedback.getAnalysis("<i><b>Din kvartalsaflevering har betydet</i></b>","borger")));
                         }
                         String txt;
-                        int gold=Data_Controller.getInstance().getGold();
+
                         if(co2Sparet > 1000.0){
                             txt = "Du har i dag sparet miljøet for " + co2Sparet/1000.0 + "kg CO2";
-                            if (userType=="borger") {
-                                txt=txt+" \n Du har modtaget " + gold + " guld for din aflevering";
-                            }
+
                         } else {
                             txt = "Du har i dag sparet miljøet for " + co2Sparet + "g CO2";
                         }

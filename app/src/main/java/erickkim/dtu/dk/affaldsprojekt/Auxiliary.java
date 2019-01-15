@@ -55,6 +55,7 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
         deliveryButton = findViewById(R.id.button_deliver);
 
         String[] typeArray = new String[]{"Metal/Plastik/Glas", "Pap/Papir", "Bio", "Rest"};
+
         ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeArray);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -134,13 +135,17 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
     public class asyncDeliver extends AsyncTask {
         @Override
         protected Object doInBackground(Object[] objects) {
-
+            getTrashValue gettrashvalue = new getTrashValue();
             int newGold = 0;
             newGold = Data_Controller.getInstance().getGold() + goldInt;
             Data_DTO_delivery dataBundle= new Data_DTO_delivery();
             dataBundle.setAmount(Integer.toString(amountInt));
             dataBundle.setType(typeString);
-            dataBundle.setGold(Integer.toString(goldInt));
+            if (Data_Controller.getInstance().getUserType().equals("virksomhed")){
+                dataBundle.setGold(Double.toString((int)Math.round(gettrashvalue.convertToValue(typeString, amountInt))));
+            } else {
+                dataBundle.setGold(Integer.toString(goldInt));
+            }
             dataRef.child("delivery").child(userIdString).child(Data_Controller.getInstance().getLongToday()).child(deliveryCodeString).setValue(dataBundle);
             dataRef.child("users").child(userIdString).child("gold").setValue(newGold);
             //dataRef.child(userIdString).child(Data_Controller.getInstance().getLongToday()).child(deliveryCodeString).child("amount").setValue("" + amountInt);

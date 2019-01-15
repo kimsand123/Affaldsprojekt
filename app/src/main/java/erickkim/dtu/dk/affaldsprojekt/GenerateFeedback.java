@@ -68,33 +68,14 @@ public class GenerateFeedback implements I_GenerateFeedback {
         resultat = metPlaGlaAmount * co2metplagla;
         resultat = resultat + co2pappapi * papPapiAmount;
         resultat = resultat + bioAmount * co2bio;
-        metPlaGlaAmount =0;
-        papPapiAmount =0;
-        bioAmount=0;
         return format.format(resultat);
     }
 
     @Override
     public String getFractionStoryCompany(String fraction, int FractionAmountInGrams){
         DecimalFormat format = new DecimalFormat("#.####");
-        String text ="";
-        double faktor=0.0;
-        switch(fraction){
-            case "Metal/Plastik/Glass":
-                faktor=0.1;
-                break;
-            case "Bio":
-                faktor=0.035;
-                break;
-            case "Pap/Papir":
-                faktor=0.01;
-                break;
-            case "Rest":
-                faktor=0.001;
-                break;
-        }
-            text = text + "Virksomheden har indtjent " + format.format(FractionAmountInGrams * faktor) + " kr.";
-
+        getTrashValue getValue = new getTrashValue();
+        String text = "Virksomheden har indtjent " + format.format(Math.round(getValue.convertToValue(fraction, FractionAmountInGrams))) + " kr.";
         return text;
     }
 
