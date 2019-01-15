@@ -227,18 +227,18 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
 
         if(yDataSetMetPlaGla.size()!=0) {
-            LineDataSet lineDataSetMetal = new LineDataSet(yDataSetMetPlaGla, "Metal/Plastik/Glas");
+            LineDataSet lineDataSetMetPlaGla = new LineDataSet(yDataSetMetPlaGla, "Metal/Plastik/Glas");
 
-            lineDataSetMetal.setColor(Color.LTGRAY);
-            lineDataSetMetal.setCircleColor(Color.LTGRAY);
-            lineDataSetMetal.setLineWidth(1f);
-            lineDataSetMetal.setCircleRadius(2f);
-            lineDataSetMetal.setDrawCircleHole(false);
-            lineDataSetMetal.setValueTextSize(9f);
-            lineDataSetMetal.setDrawFilled(false);
-            lineDataSetMetal.setValueTextColor(Color.LTGRAY);
+            lineDataSetMetPlaGla.setColor(Color.LTGRAY);
+            lineDataSetMetPlaGla.setCircleColor(Color.LTGRAY);
+            lineDataSetMetPlaGla.setLineWidth(1f);
+            lineDataSetMetPlaGla.setCircleRadius(2f);
+            lineDataSetMetPlaGla.setDrawCircleHole(false);
+            lineDataSetMetPlaGla.setValueTextSize(9f);
+            lineDataSetMetPlaGla.setDrawFilled(false);
+            lineDataSetMetPlaGla.setValueTextColor(Color.LTGRAY);
 
-            dataSets.add(lineDataSetMetal);
+            dataSets.add(lineDataSetMetPlaGla);
         }
         if(yDataSetRest.size()!=0) {
             LineDataSet lineDataSetRest = new LineDataSet(yDataSetRest, "Rest");
@@ -269,18 +269,18 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
             dataSets.add(lineDataSetBio);
 
         } if(yDataSetPapPapi.size()!=0) {
-            LineDataSet lineDataSetPlastik = new LineDataSet(yDataSetPapPapi, "Pap/Papir");
+            LineDataSet lineDataSetPapPapi = new LineDataSet(yDataSetPapPapi, "Pap/Papir");
 
-            lineDataSetPlastik.setColor(Color.YELLOW);
-            lineDataSetPlastik.setCircleColor(Color.YELLOW);
-            lineDataSetPlastik.setLineWidth(1f);
-            lineDataSetPlastik.setCircleRadius(2f);
-            lineDataSetPlastik.setDrawCircleHole(false);
-            lineDataSetPlastik.setValueTextSize(9f);
-            lineDataSetPlastik.setDrawFilled(false);
-            lineDataSetPlastik.setValueTextColor(Color.YELLOW);
+            lineDataSetPapPapi.setColor(Color.YELLOW);
+            lineDataSetPapPapi.setCircleColor(Color.YELLOW);
+            lineDataSetPapPapi.setLineWidth(1f);
+            lineDataSetPapPapi.setCircleRadius(2f);
+            lineDataSetPapPapi.setDrawCircleHole(false);
+            lineDataSetPapPapi.setValueTextSize(9f);
+            lineDataSetPapPapi.setDrawFilled(false);
+            lineDataSetPapPapi.setValueTextColor(Color.YELLOW);
 
-            dataSets.add(lineDataSetPlastik);
+            dataSets.add(lineDataSetPapPapi);
         }
 
         LineData data = new LineData(dataSets);

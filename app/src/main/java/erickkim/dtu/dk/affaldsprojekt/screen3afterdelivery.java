@@ -35,7 +35,6 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     private TextView txtCoinBox;
     private TextView txtInfoBox3;
     private TextView co2TextBox;
-    private ArrayList<PieEntry> piedata;
     private PieChart chart;
     private I_Analysis analysis = new Analysis();
 
@@ -100,7 +99,6 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         String userId = Data_Controller.getInstance().getUserId();
 
         final ArrayList<PieEntry> values = new ArrayList<>();
-        final ArrayList<String> labels = new ArrayList<>();
 
         FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -163,16 +161,11 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                                     restAmount =Integer.parseInt(snapshotData.getAmount());
                                     break;
                             }
-
-                            //analysis.recordDataForAnalysis(Integer.parseInt(snapshotData.getAmount()), snapshotData.getType());
-
-
                         }
                         //make analysis and write txt to view.
                         analysis.setAmounts(metPlaGlaAmount, bioAmount, papPapiAmount, restAmount);
                         txtInfoBox3.setText(Html.fromHtml(analysis.getAnalysis("<i><b>Din aflevering i dag har betydet</i></b>")));
-                        //txtInfoBox3.setText(analysis.getAnalysis());
-                        String txt = "";
+                        String txt;
                         float co2Sparet = Integer.parseInt(analysis.co2SaverCalc());
                         if(co2Sparet > 1000.0){
                             txt = "Du har i dag sparet miljøet for " + co2Sparet/1000.0 + "kg CO2 \n" +
@@ -182,7 +175,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                                     "Du har modtaget " + gold + " guld for din aflevering";
                         }
                         co2TextBox.setText(txt);
-                        drawPieChart(values, labels, colors);
+                        drawPieChart(values, colors);
                     }
 
                     @Override
@@ -192,7 +185,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                 });
 
     }
-    public void drawPieChart(ArrayList<PieEntry> values, ArrayList<String> labels, ArrayList<Integer> colors){
+    public void drawPieChart(ArrayList<PieEntry> values, ArrayList<Integer> colors){
 
         //initialize dataset and pass the data
         PieDataSet dataSet = new PieDataSet(values, "Dagens aflevering" );
@@ -200,8 +193,6 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         dataSet.setValueFormatter(new PercentFormatter());
         dataSet.setValueTextSize(11f);
         dataSet.setValueTextColor(Color.BLACK);
-
-        //dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         dataSet.setValueFormatter(new PercentFormatter());
         dataSet.setSliceSpace(2f);
         dataSet.setColors(colors);
