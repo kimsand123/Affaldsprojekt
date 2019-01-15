@@ -1,31 +1,28 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
-import com.github.mikephil.charting.data.Entry;
-
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Random;
 
 // tal taget fra forskellige miljø/genbrugs/oplysnings hjemmesider, og skal betragtes som vejledende,
 // for at illustrere eksemplet.
 
 public class Analysis implements I_Analysis {
-    int metalAmount = 0;
+    int metPlaGlaAmount = 0;
     int bioAmount = 0;
-    int plastikAmount = 0;
+    int papPapiAmount = 0;
     int restAmount = 0;
 
     @Override
     public String getAnalysis(String startText) {
         String text = startText;
-        if ( metalAmount !=0) {
-            text = text + "<br><br>" + getFractionStory("Metal", metalAmount, false);
+        if ( metPlaGlaAmount !=0) {
+            text = text + "<br><br>" + getFractionStory("Metal/Plastik/Glas", metPlaGlaAmount, false);
         }
         if ( bioAmount !=0) {
             text = text + "<br><br>" + getFractionStory("Bio", bioAmount, true);
         }
-        if ( plastikAmount !=0) {
-            text = text + "<br><br>" + getFractionStory("Plastik", plastikAmount, true);
+        if ( papPapiAmount !=0) {
+            text = text + "<br><br>" + getFractionStory("Pap/Papir", papPapiAmount, true);
         }
         text = text + "<br>";
         return text;
@@ -33,27 +30,26 @@ public class Analysis implements I_Analysis {
 
     @Override
     public void setAmounts (int metalAmount, int bioAmount, int plastikAmount, int restAmount){
-        this.metalAmount = metalAmount;
+        this.metPlaGlaAmount = metalAmount;
         this.bioAmount = bioAmount;
-        this.plastikAmount = plastikAmount;
+        this.papPapiAmount = plastikAmount;
         this.restAmount = restAmount;
     }
 
     @Override
     public String co2SaverCalc (){
 
-        String text="";
         double resultat;
-        double co2plast = 2;                   //Der spares 2 kg. CO2 når 1 kg plastic genanvendes
-        double co2metal = 2;                   //Der spares 2 ton CO2, når 1 ton jern genanvendes
+        double co2pappapi = 2;                   //Der spares 2 kg. CO2 når 1 kg plastic genanvendes
+        double co2metplagla = 2;                   //Der spares 2 ton CO2, når 1 ton jern genanvendes
         double co2bio = 37000/1000000;         //Der spares en CO2 emission på 37 kg CO2 pr ton bioAffald
         DecimalFormat format = new DecimalFormat("#.###");
 
-        resultat = metalAmount * co2metal;
-        resultat = resultat + co2plast * plastikAmount;
+        resultat = metPlaGlaAmount * co2metplagla;
+        resultat = resultat + co2pappapi * papPapiAmount;
         resultat = resultat + bioAmount * co2bio;
-        metalAmount=0;
-        plastikAmount=0;
+        metPlaGlaAmount =0;
+        papPapiAmount =0;
         bioAmount=0;
         return format.format(resultat);
     }
@@ -70,18 +66,18 @@ public class Analysis implements I_Analysis {
 
         switch (fraction){
 
-            case "Metal":
+            case "Metal/Plastik/Glas":
                 switch(number){
                     case 1:
                         //Mobiltelefon 25% metal
-                        double telefon = 138.0*.25;
+                        double telefonMetal = 138.0*.25;
                         textEnding = "";
                         textStart = "Man kunne";
 
                         if (multipleLines){
                             textStart = " Derudover kan man";
                         }
-                        resultat = fractionAmountInGrams/telefon;
+                        resultat = fractionAmountInGrams/telefonMetal;
                         if (resultat >= 2.0){
                             textEnding = "er.";
                         }
@@ -103,6 +99,23 @@ public class Analysis implements I_Analysis {
                         }
                         text = text + textStart + " afleveret jern nok til at lave " + format.format(resultat) + " cyk" + textEnding;
                         break;
+                    case 3:
+                        //Mobiltelefon 56% plastik
+
+                        double telefonPlastik = 138*.56;
+                        textEnding = "";
+                        textStart = "Du har";
+
+                        if (multipleLines){
+                            textStart = " Derudover har du";
+                        }
+                        resultat = fractionAmountInGrams/telefonPlastik;
+                        if (resultat >= 2.0){
+                            textEnding = "er.";
+                        }
+                        text = text + textStart + " afleveret en mængde plastik der svarer til hvad man skal bruge for at lave " + format.format(resultat) + " mobiltelefon" + textEnding;
+                        break;
+
                 }
                 break;
 
@@ -131,31 +144,12 @@ public class Analysis implements I_Analysis {
                 }
                 break;
 
-            case "Plastik":
+            case "Pap/Papir":
                 switch(number){
                     case 1:
-                        //Mobiltelefon 56% plastik
-
-                        double telefon = 138*.56;
-                        textEnding = "";
-                        textStart = "Du har";
-
-                        if (multipleLines){
-                            textStart = " Derudover har du";
-                        }
-                        resultat = fractionAmountInGrams/telefon;
-                        if (resultat >= 2.0){
-                            textEnding = "er.";
-                        }
-                        text = text + textStart + " afleveret en mængde plastik der svarer til hvad man skal bruge for at lave " + format.format(resultat) + " mobiltelefon" + textEnding;
                         break;
 
                     case 2:
-                        //2 liter olie til at lave 1 kg ren plast
-                        double oliesSparet = 2.0;
-                        resultat = oliesSparet * fractionAmountInGrams;
-                        textStart = "Du har";
-                        text = text + textStart + " sparet " + format.format(resultat) + "g olie ved at aflevere " + fractionAmountInGrams + "g plastik";
                         break;
 
                 }

@@ -35,7 +35,6 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     private TextView txtGoldBox;
     private TextView txtInfoBox3;
     private TextView co2TextBox;
-    private ArrayList<PieEntry> piedata;
     private PieChart chart;
     private I_Analysis analysis = new Analysis();
     private ImageView imgGoldBox;
@@ -104,22 +103,21 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         String userId = Data_Controller.getInstance().getUserId();
 
         final ArrayList<PieEntry> values = new ArrayList<>();
-        final ArrayList<String> labels = new ArrayList<>();
 
         FirebaseDatabase.getInstance().getReference().child("delivery").child(userId).child(date)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Data_DTO_ChartBundle snapshotData;
-                        int metalAmount=0;
+                        Data_DTO_delivery snapshotData;
+                        int metPlaGlaAmount=0;
                         int bioAmount=0;
-                        int plastikAmount=0;
+                        int papPapiAmount=0;
                         int restAmount=0;
                         int gold =0;
                         ArrayList<Integer> colors = new ArrayList<>();
                         //For hvert barn i datasnapshot.
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            snapshotData = snapshot.getValue(Data_DTO_ChartBundle.class);
+                            snapshotData = snapshot.getValue(Data_DTO_delivery.class);
 
                             ListIterator<PieEntry> listElements = values.listIterator();
                             //algoritme for at samle 2 deposits af den samme type eks. bio den samme dag
@@ -137,13 +135,13 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                             }
                             ((ArrayList) values).add(new PieEntry(Integer.parseInt(snapshotData.getAmount()), snapshotData.getType()));
                             switch(snapshotData.getType()){
-                                case "Metal":
+                                case "Metal/Plastik/Glas":
                                     if (colors.contains(Color.LTGRAY)) {
                                         colors.remove(colors.indexOf(Color.LTGRAY));
 
                                     }
                                     colors.add(Color.LTGRAY);
-                                    metalAmount = Integer.parseInt(snapshotData.getAmount());
+                                    metPlaGlaAmount = Integer.parseInt(snapshotData.getAmount());
                                     break;
                                 case "Bio":
                                     if (colors.contains(Color.GREEN)) {
@@ -152,12 +150,12 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                                     colors.add(Color.GREEN);
                                     bioAmount = Integer.parseInt(snapshotData.getAmount());
                                     break;
-                                case "Plastik":
+                                case "Pap/Papir":
                                     if (colors.contains(Color.YELLOW)) {
                                         colors.remove(colors.indexOf(Color.YELLOW));
                                     }
                                     colors.add(Color.YELLOW);
-                                    plastikAmount = Integer.parseInt(snapshotData.getAmount());
+                                    papPapiAmount = Integer.parseInt(snapshotData.getAmount());
                                     break;
                                 case "Rest":
                                     if (colors.contains(Color.RED)) {
@@ -167,24 +165,21 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                                     restAmount =Integer.parseInt(snapshotData.getAmount());
                                     break;
                             }
-
-                            //analysis.recordDataForAnalysis(Integer.parseInt(snapshotData.getAmount()), snapshotData.getType());
-
-
                         }
                         //make analysis and write txt to view.
-                        analysis.setAmounts(metalAmount, bioAmount, plastikAmount, restAmount);
+                        analysis.setAmounts(metPlaGlaAmount, bioAmount, papPapiAmount, restAmount);
                         txtInfoBox3.setText(Html.fromHtml(analysis.getAnalysis("<i><b>Din aflevering i dag har betydet</i></b>")));
-                        //txtInfoBox3.setText(analysis.getAnalysis());
-                        String txt = "";
+                        String txt;
                         float co2Sparet = Integer.parseInt(analysis.co2SaverCalc());
                         if(co2Sparet > 1000.0){
-                            txt = "Du har i dag sparet miljøet for " + co2Sparet/1000.0 + "kg CO2 ";
+                            txt = "Du har i dag sparet miljøet for " + co2Sparet/1000.0 + "kg CO2 \n" +
+                                    "Du har modtaget " + gold + " guld for din aflevering";
                         } else {
-                            txt = "Du har i dag sparet miljøet for " + co2Sparet + "g CO2 ";
+                            txt = "Du har i dag sparet miljøet for " + co2Sparet + "g CO2 \n" +
+                                    "Du har modtaget " + gold + " guld for din aflevering";
                         }
                         co2TextBox.setText(txt);
-                        drawPieChart(values, labels, colors);
+                        drawPieChart(values, colors);
                     }
 
                     @Override
@@ -194,7 +189,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                 });
 
     }
-    public void drawPieChart(ArrayList<PieEntry> values, ArrayList<String> labels, ArrayList<Integer> colors){
+    public void drawPieChart(ArrayList<PieEntry> values, ArrayList<Integer> colors){
 
         //initialize dataset and pass the data
         PieDataSet dataSet = new PieDataSet(values, "Dagens aflevering" );
@@ -202,8 +197,6 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         dataSet.setValueFormatter(new PercentFormatter());
         dataSet.setValueTextSize(11f);
         dataSet.setValueTextColor(Color.BLACK);
-
-        //dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         dataSet.setValueFormatter(new PercentFormatter());
         dataSet.setSliceSpace(2f);
         dataSet.setColors(colors);

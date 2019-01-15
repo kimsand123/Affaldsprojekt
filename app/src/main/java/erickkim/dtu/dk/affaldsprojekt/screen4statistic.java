@@ -33,12 +33,10 @@ import java.util.ArrayList;
 public class screen4statistic extends Fragment implements View.OnClickListener, OnChartGestureListener, OnChartValueSelectedListener {
 
     private View root;
-    private Button becomeBetterButton;
     private TextView txtGoldBox;
     private TextView textAnalyseBox;
     private TextView co2TextBox2;
     private LineChart statisticChart;
-    private Data_DTO_ChartBundle[] dataBundle;
     private I_Analysis analysis = new Analysis();
     private ImageView imgGoldBox;
 
@@ -62,11 +60,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
       root = inflater.inflate(R.layout.fragment_screen4statistic, container, false);
 
-        becomeBetterButton = root.findViewById(R.id.hvordanBliverJegBedreButton);
-        becomeBetterButton.setOnClickListener(this);
-
         // statistic = root.findViewById(R.id.statistic);
-
         txtGoldBox = root.findViewById(R.id.txtCoinBox1);
         txtGoldBox.setText(Data_Controller.getInstance().getGoldBoxContent());
         imgGoldBox = root.findViewById(R.id.imgGoldBox);
@@ -85,21 +79,11 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
 
     @Override
     public void onClick(View v) {
-        //check view objektet og skift til den tilhørende case.
-        switch(v.getId()) {
-              case R.id.hvordanBliverJegBedreButton:
-                //kør fragmentet for Screen2delivery.
-               /*getFragmentManager().beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.fragmentContent, new screen5becomebetter())
-                        .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                        .addToBackStack(null)
-                        .commit();*/
-                break;
-        }
+
     }
 
-    //from https://www.studytutorial.in/android-line-chart-or-line-graph-using-mpandroid-library-tutorial
+    //Alt omkring Chart i denne klasse er inspireret fra
+    //https://www.studytutorial.in/android-line-chart-or-line-graph-using-mpandroid-library-tutorial
     @Override
     public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
         Log.d("Gesture","Start, x: " + me.getX() + ", y: " + me.getY());
@@ -171,49 +155,50 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
                         //ArrayList<String> xDataSet = new ArrayList<>();
-                        ArrayList<Entry> yDataSetMetal = new ArrayList<>();
-                        yDataSetMetal.add(new Entry(0,0));
+                        ArrayList<Entry> yDataSetMetPlaGla = new ArrayList<>();
+                        yDataSetMetPlaGla.add(new Entry(0,0));
                         ArrayList<Entry> yDataSetBio = new ArrayList<>();
                         yDataSetBio.add(new Entry(0,0));
-                        ArrayList<Entry> yDataSetPlastik = new ArrayList<>();
-                        yDataSetPlastik.add(new Entry(0,0));
+                        ArrayList<Entry> yDataSetPapPapi = new ArrayList<>();
+                        yDataSetPapPapi.add(new Entry(0,0));
                         ArrayList<Entry> yDataSetRest = new ArrayList<>();
                         yDataSetRest.add(new Entry(0,0));
 
                         int taller=1;
                         String lastdate="";
-                        int metalAmountDaily=0, plastikAmountDaily=0, restAmountDaily=0, bioAmountDaily=0;
+                        int metPlaGlaAmountDaily=0, papPapiAmountDaily=0, restAmountDaily=0, bioAmountDaily=0;
+                        Long nintyDaysAgo = Long.parseLong(Data_Controller.getInstance().getLongToday())-7776000000L;
                         //For hvert barn i datasnapshot.
                         for (DataSnapshot bigSnapShot : dataSnapshot.getChildren()) {
                             String date = bigSnapShot.getKey();
                             for (DataSnapshot depositSnapShot : bigSnapShot.getChildren()) {
-                                Data_DTO_ChartBundle dataBundle =  depositSnapShot.getValue(Data_DTO_ChartBundle.class);
-                                if (Long.parseLong(date) >= Long.parseLong(Data_Controller.getInstance().getLongToday()) - 7776000000L) {
+                                Data_DTO_delivery dataBundle =  depositSnapShot.getValue(Data_DTO_delivery.class);
+                                if (Long.parseLong(date) >= nintyDaysAgo) {
                                         if (lastdate.equals(date)||lastdate.equals("")) {
 
                                             switch (dataBundle.getType()) {
                                                 case "Bio":
                                                     bioAmountDaily = bioAmountDaily + Integer.parseInt(dataBundle.getAmount());
                                                     break;
-                                                case "Metal":
-                                                    metalAmountDaily = metalAmountDaily + Integer.parseInt(dataBundle.getAmount());
+                                                case "Metal/Plastik/Glas":
+                                                    metPlaGlaAmountDaily = metPlaGlaAmountDaily + Integer.parseInt(dataBundle.getAmount());
                                                     break;
-                                                case "Plastik":
-                                                    plastikAmountDaily = plastikAmountDaily + Integer.parseInt(dataBundle.getAmount());
+                                                case "Pap/Papir":
+                                                    papPapiAmountDaily = papPapiAmountDaily + Integer.parseInt(dataBundle.getAmount());
                                                     break;
                                                 case "Rest":
                                                     restAmountDaily = restAmountDaily + Integer.parseInt(dataBundle.getAmount());
                                                     break;
                                             }
                                             yDataSetBio.add(new Entry(taller, bioAmountDaily));
-                                            yDataSetMetal.add(new Entry(taller, metalAmountDaily));
-                                            yDataSetPlastik.add(new Entry(taller, plastikAmountDaily));
+                                            yDataSetMetPlaGla.add(new Entry(taller, metPlaGlaAmountDaily));
+                                            yDataSetPapPapi.add(new Entry(taller, papPapiAmountDaily));
                                             yDataSetRest.add(new Entry(taller, restAmountDaily));
 
                                             //When this is commented out, it is the accumulated amount, otherwise it is the day to day
-                                            /*metalAmount=0;
+                                            /*metPlaGlaAmount=0;
                                             bioAmount=0;
-                                            plastikAmount=0;
+                                            papPapiAmount=0;
                                             restAmountDaily=0;*/
                                         }
                                 lastdate = date.toString();
@@ -222,9 +207,9 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                             }
                         }
 
-                        analysis.setAmounts((int)yDataSetMetal.get(yDataSetMetal.size()-1).getY(),
+                        analysis.setAmounts((int)yDataSetMetPlaGla.get(yDataSetMetPlaGla.size()-1).getY(),
                                             (int)yDataSetBio.get(yDataSetBio.size()-1).getY(),
-                                            (int)yDataSetPlastik.get(yDataSetPlastik.size()-1).getY(),
+                                            (int)yDataSetPapPapi.get(yDataSetPapPapi.size()-1).getY(),
                                             (int)yDataSetRest.get(yDataSetRest.size()-1).getY());
                         textAnalyseBox.setText(Html.fromHtml(analysis.getAnalysis("<i><b>Din kvartalsaflevering har betydet</i></b>")));
                         float co2Sparet = Integer.parseInt(analysis.co2SaverCalc());
@@ -235,7 +220,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                             txt = "Du har på 90 dage sparet miljøet for " + co2Sparet + "g CO2 ";
                         }
                         co2TextBox2.setText(txt);
-                        drawChart(yDataSetMetal, yDataSetBio, yDataSetPlastik, yDataSetRest);
+                        drawChart(yDataSetMetPlaGla, yDataSetBio, yDataSetPapPapi, yDataSetRest);
                     }
 
                     @Override
@@ -245,32 +230,34 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                 });
     }
 
-    private void drawChart(ArrayList<Entry> yDataSetMetal, ArrayList<Entry> yDataSetBio, ArrayList<Entry>yDataSetPlastik, ArrayList<Entry>yDataSetRest) {
+    private void drawChart(ArrayList<Entry> yDataSetMetPlaGla, ArrayList<Entry> yDataSetBio, ArrayList<Entry>yDataSetPapPapi, ArrayList<Entry>yDataSetRest) {
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
 
-        if(yDataSetMetal.size()!=0) {
-            LineDataSet lineDataSetMetal = new LineDataSet(yDataSetMetal, "Metal");
+        if(yDataSetMetPlaGla.size()!=0) {
+            LineDataSet lineDataSetMetPlaGla = new LineDataSet(yDataSetMetPlaGla, "Metal/Plastik/Glas");
 
-            lineDataSetMetal.setColor(Color.LTGRAY);
-            lineDataSetMetal.setCircleColor(Color.LTGRAY);
-            lineDataSetMetal.setLineWidth(1f);
-            lineDataSetMetal.setCircleRadius(3f);
-            lineDataSetMetal.setDrawCircleHole(false);
-            lineDataSetMetal.setValueTextSize(9f);
-            lineDataSetMetal.setDrawFilled(false);
+            lineDataSetMetPlaGla.setColor(Color.LTGRAY);
+            lineDataSetMetPlaGla.setCircleColor(Color.LTGRAY);
+            lineDataSetMetPlaGla.setLineWidth(1f);
+            lineDataSetMetPlaGla.setCircleRadius(2f);
+            lineDataSetMetPlaGla.setDrawCircleHole(false);
+            lineDataSetMetPlaGla.setValueTextSize(9f);
+            lineDataSetMetPlaGla.setDrawFilled(false);
+            lineDataSetMetPlaGla.setValueTextColor(Color.LTGRAY);
 
-            dataSets.add(lineDataSetMetal);
+            dataSets.add(lineDataSetMetPlaGla);
         }
         if(yDataSetRest.size()!=0) {
-            LineDataSet lineDataSetRest = new LineDataSet(yDataSetRest, "Reest");
+            LineDataSet lineDataSetRest = new LineDataSet(yDataSetRest, "Rest");
 
             lineDataSetRest.setColor(Color.RED);
             lineDataSetRest.setCircleColor(Color.RED);
             lineDataSetRest.setLineWidth(1f);
-            lineDataSetRest.setCircleRadius(3f);
+            lineDataSetRest.setCircleRadius(2f);
             lineDataSetRest.setDrawCircleHole(false);
             lineDataSetRest.setValueTextSize(9f);
             lineDataSetRest.setDrawFilled(false);
+            lineDataSetRest.setValueTextColor(Color.RED);
 
             dataSets.add(lineDataSetRest);
 
@@ -280,25 +267,27 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
             lineDataSetBio.setColor(Color.GREEN);
             lineDataSetBio.setCircleColor(Color.GREEN);
             lineDataSetBio.setLineWidth(1f);
-            lineDataSetBio.setCircleRadius(3f);
+            lineDataSetBio.setCircleRadius(2f);
             lineDataSetBio.setDrawCircleHole(false);
             lineDataSetBio.setValueTextSize(9f);
             lineDataSetBio.setDrawFilled(false);
+            lineDataSetBio.setValueTextColor(Color.GREEN);
 
             dataSets.add(lineDataSetBio);
 
-        } if(yDataSetPlastik.size()!=0) {
-            LineDataSet lineDataSetPlastik = new LineDataSet(yDataSetPlastik, "Plastik");
+        } if(yDataSetPapPapi.size()!=0) {
+            LineDataSet lineDataSetPapPapi = new LineDataSet(yDataSetPapPapi, "Pap/Papir");
 
-            lineDataSetPlastik.setColor(Color.YELLOW);
-            lineDataSetPlastik.setCircleColor(Color.YELLOW);
-            lineDataSetPlastik.setLineWidth(1f);
-            lineDataSetPlastik.setCircleRadius(3f);
-            lineDataSetPlastik.setDrawCircleHole(false);
-            lineDataSetPlastik.setValueTextSize(9f);
-            lineDataSetPlastik.setDrawFilled(false);
+            lineDataSetPapPapi.setColor(Color.YELLOW);
+            lineDataSetPapPapi.setCircleColor(Color.YELLOW);
+            lineDataSetPapPapi.setLineWidth(1f);
+            lineDataSetPapPapi.setCircleRadius(2f);
+            lineDataSetPapPapi.setDrawCircleHole(false);
+            lineDataSetPapPapi.setValueTextSize(9f);
+            lineDataSetPapPapi.setDrawFilled(false);
+            lineDataSetPapPapi.setValueTextColor(Color.YELLOW);
 
-            dataSets.add(lineDataSetPlastik);
+            dataSets.add(lineDataSetPapPapi);
         }
 
         LineData data = new LineData(dataSets);

@@ -54,7 +54,7 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
 
         deliveryButton = findViewById(R.id.button_deliver);
 
-        String[] typeArray = new String[]{"Metal", "Plastik", "Bio", "Rest"};
+        String[] typeArray = new String[]{"Metal/Plastik/Glas", "Pap/Papir", "Bio", "Rest"};
         ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeArray);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -136,8 +136,8 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
         protected Object doInBackground(Object[] objects) {
 
             int newGold = 0;
-            newGold = Data_Controller.getInstance().getGold() + goldInt;
-            Data_DTO_ChartBundle dataBundle= new Data_DTO_ChartBundle();
+            newGold = Data_Controller.getInstance().getTrashCoins() + goldInt;
+            Data_DTO_delivery dataBundle= new Data_DTO_delivery();
             dataBundle.setAmount(Integer.toString(amountInt));
             dataBundle.setType(typeString);
             dataBundle.setGold(Integer.toString(goldInt));
