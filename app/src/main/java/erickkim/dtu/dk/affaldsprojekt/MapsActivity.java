@@ -8,6 +8,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -127,11 +128,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 }
 
+                // Create the marker and set the color depending on hub status. Is slightly hardcoded.
                 LatLng hub = new LatLng(coordinates[0], coordinates[1]);
                 if (hubName.equals("")) {
                     mMap.addMarker(new MarkerOptions().position(hub).title("DebugFailedToCatchName"));
                 } else {
-                    mMap.addMarker(new MarkerOptions().position(hub).title(hubName).snippet("Status: " + hubStatus));
+                    if (hubStatus.equals("Running. ")) {
+                        mMap.addMarker(new MarkerOptions().position(hub).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).title(hubName).snippet("Status: " + hubStatus));
+                    }
+                    else {
+                        mMap.addMarker(new MarkerOptions().position(hub).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title(hubName).snippet("Status: " + hubStatus));
+                    }
                 }
 
             }
