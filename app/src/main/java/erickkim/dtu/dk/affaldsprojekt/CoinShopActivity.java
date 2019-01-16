@@ -3,6 +3,7 @@ package erickkim.dtu.dk.affaldsprojekt;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.content.DialogInterface;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.support.annotation.NonNull;
@@ -27,6 +28,8 @@ import java.util.ArrayList;
 
 public class CoinShopActivity extends AppCompatActivity implements itemClickListener {
 
+    // MediaPlayer for Sound:
+    // final MediaPlayer mp = MediaPlayer.create(this, R.raw.goldbuyshopsound);
 
     shopRecycleViewAdapter adapter;
     private DialogInterface.OnClickListener dialogClickListener;
@@ -71,6 +74,7 @@ public class CoinShopActivity extends AppCompatActivity implements itemClickList
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
+                        // mp.start();
                         Data_Controller.getInstance().addGold(-lastPrice);
                         if (Build.VERSION.SDK_INT>=26)
                             v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
