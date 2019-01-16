@@ -73,7 +73,7 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-database:16.0.5'
     implementation 'com.google.firebase:firebase-core:16.0.5'
-
+    implementation 'pl.bclogic:pulsator4droid:1.0.3'
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.8@aar') {
         transitive = true;
     }

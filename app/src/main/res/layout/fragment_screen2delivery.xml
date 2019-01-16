@@ -58,6 +58,22 @@
             app:layout_constraintVertical_bias="0.444"
             app:srcCompat="@drawable/guldbaricon2" />
 
+        <pl.bclogic.pulsator4droid.library.PulsatorLayout
+            android:id="@+id/pulsator"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:layout_constraintBottom_toBottomOf="@+id/doneButton"
+            app:layout_constraintEnd_toEndOf="@+id/doneButton"
+            app:layout_constraintStart_toStartOf="@+id/doneButton"
+            app:layout_constraintTop_toTopOf="@+id/doneButton"
+            app:pulse_color="@color/colorPrimaryDark"
+            app:pulse_count="1"
+            app:pulse_duration="7000"
+            app:pulse_interpolator="Linear"
+            app:pulse_repeat="0"
+            app:pulse_startFromScratch="true">
+        </pl.bclogic.pulsator4droid.library.PulsatorLayout>
+
         <Button
             android:id="@+id/doneButton"
             android:layout_width="wrap_content"

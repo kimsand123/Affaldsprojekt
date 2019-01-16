@@ -31,6 +31,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
+import pl.bclogic.pulsator4droid.library.PulsatorLayout;
+
 public class screen3afterdelivery extends Fragment implements View.OnClickListener, Button.OnTouchListener {
 
     //instantier variable
@@ -72,7 +74,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         chart.setNoDataText(" ");
         chart.setNoDataTextColor(Color.BLACK);
         getDataForPieChart();
-
+        PulsatorLayout pulsator =  root.findViewById(R.id.pulsator);
         //initialiser views
         statisticButton = root.findViewById(R.id.statisticButton);
         txtInfoBox3 = root.findViewById(R.id.txtInfoBox3);
@@ -82,6 +84,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
         statisticButton.setOnClickListener(this);
         statisticButton.setOnTouchListener(this);
+        pulsator.start();
         return root;
     }
 

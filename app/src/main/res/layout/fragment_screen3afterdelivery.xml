@@ -75,7 +75,7 @@
             android:paddingTop="10dp"
             android:paddingRight="30dp"
             android:paddingBottom="10dp"
-            android:textAlignment="viewStart"
+
             android:textColor="@android:color/white"
             android:textSize="12dp"
             android:textStyle="italic"
@@ -85,22 +85,40 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtCoinBox1" />
 
+        <pl.bclogic.pulsator4droid.library.PulsatorLayout
+            android:id="@+id/pulsator"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            app:layout_constraintBottom_toBottomOf="@+id/statisticButton"
+            app:layout_constraintEnd_toEndOf="@+id/statisticButton"
+            app:layout_constraintStart_toStartOf="@+id/statisticButton"
+            app:layout_constraintTop_toTopOf="@+id/statisticButton"
+            app:pulse_color="@color/colorPrimaryDark"
+            app:pulse_count="1"
+            app:pulse_duration="7000"
+            app:pulse_interpolator="Linear"
+            app:pulse_repeat="0"
+            app:pulse_startFromScratch="true">
+        </pl.bclogic.pulsator4droid.library.PulsatorLayout>
+
         <Button
             android:id="@+id/statisticButton"
             android:layout_width="wrap_content"
             android:layout_height="85dp"
             android:background="@drawable/button_roundcorners_dark"
-
             android:elevation="12dp"
             android:fontFamily="@font/roboto"
             android:lineSpacingExtra="4sp"
             android:text="Gå til \n Statistik "
+            android:textSize="12dp"
             android:textAlignment="center"
             android:textColor="@color/hvid"
             app:layout_constraintBottom_toBottomOf="@+id/pieChart"
             app:layout_constraintEnd_toEndOf="@+id/pieChart"
             app:layout_constraintStart_toStartOf="@+id/pieChart"
             app:layout_constraintTop_toTopOf="@+id/pieChart" />
+
+
 
         <TextView
             android:id="@+id/co2TextBox"

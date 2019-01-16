@@ -20,6 +20,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import pl.bclogic.pulsator4droid.library.PulsatorLayout;
+
 
 public class screen2delivery extends Fragment implements View.OnClickListener, View.OnTouchListener {
 
@@ -67,12 +69,13 @@ public class screen2delivery extends Fragment implements View.OnClickListener, V
         //Hent data til textfelter.
         updateGoldBox();
         setNewIdCode();
-
+        PulsatorLayout pulsar = root.findViewById(R.id.pulsator);
         doneButton.setOnClickListener(this);
         doneButton.setOnTouchListener(this);
         newIdButton.setOnClickListener(this);
         newIdButton.setOnTouchListener(this);
         auxiliaryButton.setOnClickListener(this);
+        pulsar.start();
         return root;
     }
 
