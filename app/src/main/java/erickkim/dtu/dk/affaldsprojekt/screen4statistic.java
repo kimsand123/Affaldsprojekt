@@ -205,13 +205,13 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
 
                                 lastdate = date.toString();
                                 }
-                                totalBio = totalBio + bioAmountDaily;
-                                totalPlaGla = totalPlaGla + metPlaGlaAmountDaily;
-                                totalMetPapPapi = totalMetPapPapi + papPapiAmountDaily;
-                                totalRest = totalRest + restAmountDaily;
-                                // tilføj opsummeret data til datasets
-
                             }
+                            totalBio = totalBio + bioAmountDaily;
+                            totalPlaGla = totalPlaGla + metPlaGlaAmountDaily;
+                            totalMetPapPapi = totalMetPapPapi + papPapiAmountDaily;
+                            totalRest = totalRest + restAmountDaily;
+
+                            // tilføj opsummeret data til datasets
                             yDataSetBio.add(new Entry(taller, totalBio));
                             yDataSetMetPlaGla.add(new Entry(taller, totalPlaGla));
                             yDataSetPapPapi.add(new Entry(taller, totalMetPapPapi));
