@@ -100,11 +100,11 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
 
         if(Data_Controller.getInstance().getUserType().equals("borger")){
             goldInt = Integer.parseInt(gold.getText().toString());
-            if (goldInt == 0) {
+            if (goldInt < 0) {
                 //MessageCenter.getInstance().showMessage("Amount missing");
                 makeToast("Coins missing");
+                return;
             }
-            return;
         }
 
         if (typeString.equals("")) {
