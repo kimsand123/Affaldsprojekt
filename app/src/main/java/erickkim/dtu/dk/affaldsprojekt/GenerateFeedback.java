@@ -163,7 +163,7 @@ public class GenerateFeedback implements I_GenerateFeedback {
                         resultat = watthprminut*watthpramount;
 
 
-                        text = text + textStart + " kan lade din telefon op i " + format.format(resultat) + " minutter med energien fra dit Bioaffald.";
+                        text = text + textStart + "Du kan lade din telefon op i " + format.format(resultat) + " minutter med energien fra dit Bioaffald.";
                         break;
                     case 3:
                         break;
