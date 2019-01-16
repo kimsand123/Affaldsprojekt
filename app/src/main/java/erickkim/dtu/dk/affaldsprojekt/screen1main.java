@@ -2,6 +2,7 @@ package erickkim.dtu.dk.affaldsprojekt;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -14,8 +15,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class screen1main extends Fragment implements View.OnClickListener, Button.OnTouchListener{
 
@@ -30,7 +35,6 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
     private ImageView imgGoldBox;
 
     private FirebaseDatabase mref;
-    private DatabaseReference myref;
 
     final DecelerateInterpolator sDecelerator = new DecelerateInterpolator();
     final OvershootInterpolator sOvershooter = new OvershootInterpolator(5f);
@@ -62,7 +66,6 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
 
         hubplacementButton = root.findViewById(R.id.hubplacementButton);
         depositButton = root.findViewById(R.id.depositButton);
-        txtGoldBox = root.findViewById(R.id.txtCoinBox1);
         txtInfoBox = root.findViewById(R.id.txtInfoBox1);
 
         // setonclicklisteners for alle knapper.
@@ -75,15 +78,9 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
         depositButton.setOnClickListener(this);
         depositButton.setOnTouchListener(this);
 
-        // Create firebase link
-        mref = FirebaseDatabase.getInstance();
-
         // Hent data for TextViews
         txtInfoBox.setText(Data_Controller.getInstance().getTip());
-        txtGoldBox.setText(Data_Controller.getInstance().getGoldBoxContent());
-        imgGoldBox = root.findViewById(R.id.imgGoldBox);
-        if (Data_Controller.getInstance().getUserType().equals("virksomhed"))
-            imgGoldBox.setVisibility(View.INVISIBLE);
+        updateGoldBox();
 
 
 
@@ -142,5 +139,35 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
              v.animate().setInterpolator(sOvershooter).scaleX(1f).scaleY(1f);
          }
          return false;
+     }
+
+
+     // Method to update gold box contents, reflecting usertype and update when data is received.
+     public void updateGoldBox() {
+         mref = FirebaseDatabase.getInstance();
+         txtGoldBox = root.findViewById(R.id.txtCoinBox1);
+         imgGoldBox = root.findViewById(R.id.imgGoldBox);
+         txtGoldBox.setText(String.valueOf(Data_Controller.getInstance().getGold()));
+         mref.getReference().child("users").child(Data_Controller.getInstance().getUserId()).child("gold").addValueEventListener(new ValueEventListener() {
+             @Override
+             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                 long gold = (long) dataSnapshot.getValue();
+                 int goldInt = (int) gold;
+                 String goldBoxContent = "";
+                 if (Data_Controller.getInstance().getUserType().equals("borger")) {
+                     goldBoxContent = "" + goldInt;
+                 } else if (Data_Controller.getInstance().getUserType().equals("virksomhed")) {
+                     goldBoxContent = "Penge sparet: " + String.valueOf(gold) + " kr.";
+                 }
+                 Data_Controller.getInstance().setGold(goldInt);
+                 txtGoldBox.setText(goldBoxContent);
+             }
+
+             @Override
+             public void onCancelled(@NonNull DatabaseError databaseError) {
+             }
+         });
+         if (Data_Controller.getInstance().getUserType().equals("virksomhed"))
+             imgGoldBox.setVisibility(View.INVISIBLE);
      }
 }

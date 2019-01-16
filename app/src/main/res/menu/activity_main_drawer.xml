@@ -9,9 +9,9 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="Min Profil" />
         <item
-            android:id="@+id/competitions"
+            android:id="@+id/notifications"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Konkurrencer" />
+            android:title="Notifikationer" />
         <item
             android:id="@+id/coinshop"
             android:icon="@drawable/guldbaricon"

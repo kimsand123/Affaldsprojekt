@@ -104,11 +104,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             switch (id){
                 case R.id.my_profile:
                     break;
-                case R.id.competitions:
+                case R.id.notifications:
+                    intent = new Intent(MainActivity.this, NotificationActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.coinshop:
-                    intent = new Intent(MainActivity.this, CoinShopActivity.class);
-                    startActivity(intent);
+                    if (Data_Controller.getInstance().getUserType().equals("borger")) {
+                        intent = new Intent(MainActivity.this, CoinShopActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Guldbutikken kan ikke bruges af virksomheder.", Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case R.id.feedback:
                     intent = new Intent(MainActivity.this, FeedbackActivity.class);

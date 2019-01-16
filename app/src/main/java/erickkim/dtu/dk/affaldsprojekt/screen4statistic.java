@@ -2,6 +2,7 @@ package erickkim.dtu.dk.affaldsprojekt;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.util.Log;
@@ -39,6 +40,8 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
     private I_GenerateFeedback feedback = new GenerateFeedback();
     private ImageView imgGoldBox;
 
+    private FirebaseDatabase mref;
+
     public screen4statistic() {
         // Required empty public constructor
     }
@@ -72,6 +75,8 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
         statisticChart.setOnChartGestureListener(this);
         statisticChart.setOnChartValueSelectedListener(this);
         createLineChart();
+
+        updateGoldBox();
 
         return root;
     }
@@ -324,5 +329,33 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
         statisticChart.setData(data);
         statisticChart.invalidate();
 
+    }
+
+    public void updateGoldBox() {
+        mref = FirebaseDatabase.getInstance();
+        txtGoldBox = root.findViewById(R.id.txtCoinBox1);
+        imgGoldBox = root.findViewById(R.id.imgGoldBox);
+        txtGoldBox.setText(String.valueOf(Data_Controller.getInstance().getGold()));
+        mref.getReference().child("users").child(Data_Controller.getInstance().getUserId()).child("gold").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                long gold = (long) dataSnapshot.getValue();
+                int goldInt = (int) gold;
+                String goldBoxContent = "";
+                if (Data_Controller.getInstance().getUserType().equals("borger")) {
+                    goldBoxContent = "" + goldInt;
+                } else if (Data_Controller.getInstance().getUserType().equals("virksomhed")) {
+                    goldBoxContent = "Penge sparet: " + String.valueOf(gold) + " kr.";
+                }
+                Data_Controller.getInstance().setGold(goldInt);
+                txtGoldBox.setText(goldBoxContent);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+        if (Data_Controller.getInstance().getUserType().equals("virksomhed"))
+            imgGoldBox.setVisibility(View.INVISIBLE);
     }
 }

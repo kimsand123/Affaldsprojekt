@@ -3,6 +3,7 @@ package erickkim.dtu.dk.affaldsprojekt;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
@@ -39,6 +40,8 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     private I_GenerateFeedback feedback = new GenerateFeedback();
     private ImageView imgGoldBox;
 
+    private FirebaseDatabase mref;
+
     public screen3afterdelivery() {
         // Required empty public constructor
     }
@@ -66,15 +69,11 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
         //initialiser views
         statisticButton = root.findViewById(R.id.statisticButton);
-        txtGoldBox = root.findViewById(R.id.txtCoinBox1);
         txtInfoBox3 = root.findViewById(R.id.txtInfoBox3);
         co2TextBox = root.findViewById(R.id.co2TextBox);
 
-        //Hent data til TextViews.
-        txtGoldBox.setText(Data_Controller.getInstance().getGoldBoxContent());
-        imgGoldBox = root.findViewById(R.id.imgGoldBox);
-        if (Data_Controller.getInstance().getUserType().equals("virksomhed"))
-            imgGoldBox.setVisibility(View.INVISIBLE);
+        updateGoldBox();
+
         statisticButton.setOnClickListener(this);
         return root;
     }
@@ -229,6 +228,34 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
         chart.highlightValues(null);
         chart.invalidate();
+    }
+
+    public void updateGoldBox() {
+        mref = FirebaseDatabase.getInstance();
+        txtGoldBox = root.findViewById(R.id.txtCoinBox1);
+        imgGoldBox = root.findViewById(R.id.imgGoldBox);
+        txtGoldBox.setText(String.valueOf(Data_Controller.getInstance().getGold()));
+        mref.getReference().child("users").child(Data_Controller.getInstance().getUserId()).child("gold").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                long gold = (long) dataSnapshot.getValue();
+                int goldInt = (int) gold;
+                String goldBoxContent = "";
+                if (Data_Controller.getInstance().getUserType().equals("borger")) {
+                    goldBoxContent = "" + goldInt;
+                } else if (Data_Controller.getInstance().getUserType().equals("virksomhed")) {
+                    goldBoxContent = "Penge sparet: " + String.valueOf(gold) + " kr.";
+                }
+                Data_Controller.getInstance().setGold(goldInt);
+                txtGoldBox.setText(goldBoxContent);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+        if (Data_Controller.getInstance().getUserType().equals("virksomhed"))
+            imgGoldBox.setVisibility(View.INVISIBLE);
     }
 }
 

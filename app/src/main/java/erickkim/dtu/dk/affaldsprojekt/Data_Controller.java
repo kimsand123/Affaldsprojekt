@@ -34,7 +34,7 @@ public class Data_Controller {
     private long longDate;
     private long startdate;
     private int todaysDeliveryCounter;
-    private long gold;
+    private int gold;
     private Data_DTO_deliveryCode deliveryCode;
     private FirebaseDatabase mref;
     private int usedDataDeliveryCode=0;
@@ -92,32 +92,12 @@ public class Data_Controller {
     }
 
     public int getGold() {
-        mref.getReference().child("users").child(userId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    if (snapshot.getKey().equals("gold")) {
-                        gold = (long) snapshot.getValue();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        return (int) gold;
+        return gold;
     }
 
     // Different info depending on usertype:
     public String getGoldBoxContent() {
         String goldBoxContent = Data_Controller.getInstance().getUserType();
-        if (Data_Controller.getInstance().getUserType().equals("borger")) {
-            goldBoxContent = String.valueOf(Data_Controller.getInstance().getGold());
-        } else if (Data_Controller.getInstance().getUserType().equals("virksomhed")) {
-            goldBoxContent = "Penge sparet: " + String.valueOf(((long) Data_Controller.getInstance().getGold()/2) + " kr.");
-        }
         return goldBoxContent;
     }
 
