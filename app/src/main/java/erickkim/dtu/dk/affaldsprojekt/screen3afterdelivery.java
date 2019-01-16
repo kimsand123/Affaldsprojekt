@@ -8,8 +8,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-public class screen3afterdelivery extends Fragment implements View.OnClickListener {
+public class screen3afterdelivery extends Fragment implements View.OnClickListener, Button.OnTouchListener {
 
     //instantier variable
     private View root;
@@ -39,6 +42,9 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     private PieChart chart;
     private I_GenerateFeedback feedback = new GenerateFeedback();
     private ImageView imgGoldBox;
+
+    final DecelerateInterpolator sDecelerator = new DecelerateInterpolator();
+    final OvershootInterpolator sOvershooter = new OvershootInterpolator(5f);
 
     private FirebaseDatabase mref;
 
@@ -75,9 +81,20 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         updateGoldBox();
 
         statisticButton.setOnClickListener(this);
+        statisticButton.setOnTouchListener(this);
         return root;
     }
 
+    @Override
+    public boolean onTouch(View v, MotionEvent me) {
+        v.animate().setDuration(200);
+        if (me.getAction() == MotionEvent.ACTION_DOWN) {
+            v.animate().setInterpolator(sDecelerator).scaleX(.7f).scaleY(.7f);
+        } else if (me.getAction() == MotionEvent.ACTION_UP) {
+            v.animate().setInterpolator(sOvershooter).scaleX(1f).scaleY(1f);
+        }
+        return false;
+    }
     @Override
     public void onClick(View v) {
 
@@ -219,7 +236,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         chart.setUsePercentValues(true);
         chart.setDrawHoleEnabled(true);
         chart.setTransparentCircleRadius(30f);
-        chart.setHoleRadius(30f);
+        chart.setHoleRadius(10f);
         chart.getLegend().setEnabled(false);
         //Vi easer en lille smule mod slutningen af animationen.
         chart.animateXY(1400, 1400, Easing.EaseOutCubic);

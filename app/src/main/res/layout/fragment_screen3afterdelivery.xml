@@ -90,8 +90,8 @@
             android:layout_width="wrap_content"
             android:layout_height="85dp"
             android:background="@drawable/button_roundcorners_dark"
-            android:backgroundTint="@color/colorPrimary"
-            android:elevation="2dp"
+
+            android:elevation="12dp"
             android:fontFamily="@font/roboto"
             android:lineSpacingExtra="4sp"
             android:text="Gå til \n Statistik "

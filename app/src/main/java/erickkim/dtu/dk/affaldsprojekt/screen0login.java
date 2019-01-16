@@ -69,15 +69,16 @@ public class screen0login extends Fragment implements Button.OnClickListener {
         root = inflater.inflate(R.layout.fragment_screen0login, container, false);
 
         loginIdText = root.findViewById(R.id.login_editText);
+
         loginButton = root.findViewById(R.id.login_loginButton);
         loadSpinner = root.findViewById(R.id.login_progressBar);
 
         loginButton.setOnClickListener(this);
         loggingIn = false;
-        loginIdText.addTextChangedListener(new TextWatcher() {
+        /*loginIdText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                loginButton.setEnabled(true);
             }
 
             @Override
@@ -90,11 +91,9 @@ public class screen0login extends Fragment implements Button.OnClickListener {
                 if (!loggingIn)
                     loginButton.setEnabled(true);
             }
-        });
-
+        });*/
+        loginIdText.setText("1111111111");
         mref = FirebaseDatabase.getInstance();
-
-        loginButton.setEnabled(false);
         loadSpinner.setVisibility(GONE);
 
         return root;

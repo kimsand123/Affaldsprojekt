@@ -8,9 +8,9 @@
         <shape android:shape="rectangle">
           <corners android:radius="40dp"/>
           <solid android:color="@color/colorPrimary"/>
-          <stroke
+          <!--<stroke
               android:width="3dp"
-              android:color="@color/colorPrimaryDark" />
+              android:color="@color/colorPrimaryDark" />-->
         </shape>
       </item>
 
@@ -20,9 +20,9 @@
         <shape android:shape="rectangle">
           <corners android:radius="40dp"/>
           <solid android:color="@color/colorPrimary"/>
-          <stroke
+          <!--<stroke
               android:width="3dp"
-              android:color="@color/colorPrimaryDark" />
+              android:color="@color/colorPrimaryDark" />-->
         </shape>
       </item>
     </selector>
