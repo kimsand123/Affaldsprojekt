@@ -49,6 +49,11 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
         userId.setText(Data_Controller.getInstance().getUserId());
 
         gold = findViewById(R.id.text_newCoins);
+        if(Data_Controller.getInstance().getUserType().equals("virksomhed")){
+            gold.setVisibility(View.INVISIBLE);
+        }else{
+            gold.setVisibility(View.VISIBLE);
+        }
 
         amount = findViewById(R.id.text_amount);
 
@@ -93,10 +98,12 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
             return;
         }
 
-        goldInt = Integer.parseInt(gold.getText().toString());
-        if (goldInt == 0) {
-            //MessageCenter.getInstance().showMessage("Amount missing");
-            makeToast("Coins missing");
+        if(Data_Controller.getInstance().getUserType().equals("borger")){
+            goldInt = Integer.parseInt(gold.getText().toString());
+            if (goldInt == 0) {
+                //MessageCenter.getInstance().showMessage("Amount missing");
+                makeToast("Coins missing");
+            }
             return;
         }
 
@@ -137,14 +144,18 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
         protected Object doInBackground(Object[] objects) {
             getTrashValue gettrashvalue = new getTrashValue();
             int newGold = 0;
-            newGold = Data_Controller.getInstance().getGold() + goldInt;
+            newGold = Data_Controller.getInstance().getGold();
             Data_DTO_delivery dataBundle= new Data_DTO_delivery();
             dataBundle.setAmount(Integer.toString(amountInt));
             dataBundle.setType(typeString);
+
+            //Hvis usertypen er virksomhed er det kronerne der skal gemmes i guld, ellers er det guld.
             if (Data_Controller.getInstance().getUserType().equals("virksomhed")){
-                dataBundle.setGold(Double.toString((int)Math.round(gettrashvalue.convertToValue(typeString, amountInt))));
+                dataBundle.setGold(Integer.toString((int)Math.round(gettrashvalue.convertToValue(typeString, amountInt))));
+                newGold=newGold+amountInt;
             } else {
                 dataBundle.setGold(Integer.toString(goldInt));
+                newGold=newGold+goldInt;
             }
             dataRef.child("delivery").child(userIdString).child(Data_Controller.getInstance().getLongToday()).child(deliveryCodeString).setValue(dataBundle);
             dataRef.child("users").child(userIdString).child("gold").setValue(newGold);

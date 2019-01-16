@@ -167,65 +167,86 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                         String lastdate="";
                         int metPlaGlaAmountDaily=0, papPapiAmountDaily=0, restAmountDaily=0, bioAmountDaily=0;
                         Long nintyDaysAgo = Long.parseLong(Data_Controller.getInstance().getLongToday())-7776000000L;
-                        //For hvert barn i datasnapshot.
+                        int totalBio=0, totalPlaGla=0, totalMetPapPapi=0, totalRest=0;
+                        //Hent Alle data for konkret bruger
                         for (DataSnapshot bigSnapShot : dataSnapshot.getChildren()) {
+                            //næste dato
                             String date = bigSnapShot.getKey();
+                            // snapshot for hver deposit
                             for (DataSnapshot depositSnapShot : bigSnapShot.getChildren()) {
+                                //hent deposit data
                                 Data_DTO_delivery dataBundle =  depositSnapShot.getValue(Data_DTO_delivery.class);
+
+                                //Hvis datoen er større end for 90 dage siden.
                                 if (Long.parseLong(date) >= nintyDaysAgo) {
-                                        if (lastdate.equals(date)||lastdate.equals("")) {
+                                        // Hvis det er samme dato og der er flere af samme type deposit eller 1. gang
+                                        // Så skal de deposits lægges sammen inden de registreres i datastrukturen.
+                                    if (!(lastdate.equals(date)||lastdate.equals(""))) {
+                                        metPlaGlaAmountDaily=0;
+                                        bioAmountDaily=0;
+                                        papPapiAmountDaily=0;
+                                        restAmountDaily=0;
+                                    }
+                                    switch (dataBundle.getType()) {
+                                        case "Bio":
+                                            bioAmountDaily = bioAmountDaily + Integer.parseInt(dataBundle.getAmount());
+                                            break;
+                                        case "Metal/Plastik/Glas":
+                                            metPlaGlaAmountDaily = metPlaGlaAmountDaily + Integer.parseInt((dataBundle.getAmount()));
+                                            break;
+                                        case "Pap/Papir":
+                                            papPapiAmountDaily = papPapiAmountDaily + Integer.parseInt(dataBundle.getAmount());
+                                            break;
+                                        case "Rest":
+                                            restAmountDaily = Integer.parseInt(dataBundle.getAmount());
+                                            break;
+                                    }
 
-                                            switch (dataBundle.getType()) {
-                                                case "Bio":
-                                                    bioAmountDaily = bioAmountDaily + Integer.parseInt(dataBundle.getAmount());
-                                                    break;
-                                                case "Metal/Plastik/Glas":
-                                                    metPlaGlaAmountDaily = metPlaGlaAmountDaily + Integer.parseInt(dataBundle.getAmount());
-                                                    break;
-                                                case "Pap/Papir":
-                                                    papPapiAmountDaily = papPapiAmountDaily + Integer.parseInt(dataBundle.getAmount());
-                                                    break;
-                                                case "Rest":
-                                                    restAmountDaily = restAmountDaily + Integer.parseInt(dataBundle.getAmount());
-                                                    break;
-                                            }
-                                            yDataSetBio.add(new Entry(taller, bioAmountDaily));
-                                            yDataSetMetPlaGla.add(new Entry(taller, metPlaGlaAmountDaily));
-                                            yDataSetPapPapi.add(new Entry(taller, papPapiAmountDaily));
-                                            yDataSetRest.add(new Entry(taller, restAmountDaily));
 
-                                            //When this is commented out, it is the accumulated amount, otherwise it is the day to day
-                                            /*metPlaGlaAmount=0;
-                                            bioAmount=0;
-                                            papPapiAmount=0;
-                                            restAmountDaily=0;*/
-                                        }
                                 lastdate = date.toString();
                                 }
-                                taller++;
+                                totalBio = totalBio + bioAmountDaily;
+                                totalPlaGla = totalPlaGla + metPlaGlaAmountDaily;
+                                totalMetPapPapi = totalMetPapPapi + papPapiAmountDaily;
+                                totalRest = totalRest + restAmountDaily;
+                                // tilføj opsummeret data til datasets
+
                             }
+                            yDataSetBio.add(new Entry(taller, totalBio));
+                            yDataSetMetPlaGla.add(new Entry(taller, totalPlaGla));
+                            yDataSetPapPapi.add(new Entry(taller, totalMetPapPapi));
+                            yDataSetRest.add(new Entry(taller, totalRest));
+
+                            //When this is commented out, it is the accumulated amount, otherwise it is the day to day
+                                        /*metPlaGlaAmount=0;
+                                          bioAmount=0;
+                                          papPapiAmount=0;
+                                          restAmountDaily=0;*/
+                            taller++;
                         }
 
+                        //Send det akkumulerede total tal for hver fraction til feedback
                         feedback.setAmounts((int)yDataSetMetPlaGla.get(yDataSetMetPlaGla.size()-1).getY(),
                                             (int)yDataSetBio.get(yDataSetBio.size()-1).getY(),
                                             (int)yDataSetPapPapi.get(yDataSetPapPapi.size()-1).getY(),
                                             (int)yDataSetRest.get(yDataSetRest.size()-1).getY());
-
+                        //Hent user type
                         String userType = Data_Controller.getInstance().getUserType();
+                        //Hent co2 besparelse
                         float co2Sparet = Integer.parseInt(feedback.co2SaverCalc());
 
                         if(userType.equals("virksomhed")){
-                            textAnalyseBox.setText((Html.fromHtml(feedback.getAnalysis("<i><b>Din kvartalsaflevering har givet følgende indtjening</i></b>","virksomhed"))));
+                            textAnalyseBox.setText((Html.fromHtml(feedback.getAnalysis("<i><b>Jeres kvartalsaflevering har givet følgende indtjening</i></b>","virksomhed"))));
                         }else {
                             textAnalyseBox.setText(Html.fromHtml(feedback.getAnalysis("<i><b>Din kvartalsaflevering har betydet</i></b>","borger")));
                         }
                         String txt;
 
                         if(co2Sparet > 1000.0){
-                            txt = "Du har i dag sparet miljøet for " + co2Sparet/1000.0 + "kg CO2";
+                            txt = "I har i dag sparet miljøet for " + co2Sparet/1000.0 + "kg CO2";
 
                         } else {
-                            txt = "Du har i dag sparet miljøet for " + co2Sparet + "g CO2";
+                            txt = "I har i dag sparet miljøet for " + co2Sparet + "g CO2";
                         }
                         co2TextBox2.setText(txt);
                         drawChart(yDataSetMetPlaGla, yDataSetBio, yDataSetPapPapi, yDataSetRest);

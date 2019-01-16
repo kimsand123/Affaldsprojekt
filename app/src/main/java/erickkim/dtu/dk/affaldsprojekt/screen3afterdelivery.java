@@ -115,13 +115,14 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                         int restAmount=0;
                         int gold =0;
                         ArrayList<Integer> colors = new ArrayList<>();
-                        //For hvert barn i datasnapshot.
+
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             snapshotData = snapshot.getValue(Data_DTO_delivery.class);
 
                             ListIterator<PieEntry> listElements = values.listIterator();
-                            //algoritme for at samle 2 deposits af den samme type eks. bio den samme dag
-                            //til et deposit i datastrukturen indeholdende PieEntries, før PieChart bliver tegnet.
+
+                            //algoritme for at samle 2 deposits af den samme type eks. 2 bio den samme dag
+                            //til ér deposit i datastrukturen indeholdende PieEntries, før PieChart bliver tegnet.
                             while(listElements.hasNext()){
                                 String label = listElements.next().getLabel();
                                 String currentType = snapshotData.getType();
