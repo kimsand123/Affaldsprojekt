@@ -15,8 +15,10 @@ import java.util.List;
 // Create basic adapter extending from recyclerview.adapter, specifying our custom viewholder.
 public class notificationRecycleViewAdapter extends RecyclerView.Adapter<notificationRecycleViewAdapter.ViewHolder> {
 
+    private itemClickListener mClickListener;
+
     // Holds references to each view inside data.
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView title;
         public TextView date;
@@ -30,6 +32,12 @@ public class notificationRecycleViewAdapter extends RecyclerView.Adapter<notific
             date = (TextView) itemView.findViewById(R.id.notification_entry_date);
             body = (TextView) itemView.findViewById(R.id.notification_entry_body);
             status = (ImageView) itemView.findViewById(R.id.notification_entry_imageview);
+        }
+
+
+        @Override
+        public void onClick(View view) {
+            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
 
 
@@ -71,5 +79,9 @@ public class notificationRecycleViewAdapter extends RecyclerView.Adapter<notific
     @Override
     public int getItemCount() {
         return notificationList.size();
+    }
+
+    public void setClickListener(itemClickListener itemClickListener) {
+        this.mClickListener = itemClickListener;
     }
 }

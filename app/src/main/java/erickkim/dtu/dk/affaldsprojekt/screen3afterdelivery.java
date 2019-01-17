@@ -261,7 +261,6 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
     public void updateGoldBox() {
         mref = FirebaseDatabase.getInstance();
-
         imgGoldBox = root.findViewById(R.id.imgGoldBox);
         coinBoxButton.setText(String.valueOf(Data_Controller.getInstance().getGold()));
         mref.getReference().child("users").child(Data_Controller.getInstance().getUserId()).child("gold").addValueEventListener(new ValueEventListener() {

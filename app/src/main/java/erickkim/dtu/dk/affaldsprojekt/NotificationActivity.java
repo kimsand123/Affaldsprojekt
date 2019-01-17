@@ -1,6 +1,10 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
+import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -20,12 +24,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class NotificationActivity extends AppCompatActivity {
+public class NotificationActivity extends AppCompatActivity implements itemClickListener {
 
-    RecyclerView recyclerViewNotifications;
-    ProgressBar progressBar;
-    ArrayList<Data_DTO_Notification> notifications;
-    FirebaseDatabase mref;
+    private RecyclerView recyclerViewNotifications;
+    private ProgressBar progressBar;
+    private ArrayList<Data_DTO_Notification> notifications;
+    private FirebaseDatabase mref;
+    private Vibrator v;
+    private notificationRecycleViewAdapter notificationAdapter;
+    private LinearLayoutManager layoutManagerNotifications;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +43,24 @@ public class NotificationActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.notification_progressbar);
 
         notifications = new ArrayList<Data_DTO_Notification>();
+        Data_DTO_Notification tempData = new Data_DTO_Notification();
+        tempData.setStatus(0);
+        tempData.setText("");
+        tempData.setTitle("");
+        tempData.setDate(new Date(111110));
+        notifications.add(tempData);
         mref = FirebaseDatabase.getInstance();
+        v = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
 
-        final LinearLayoutManager layoutManagerNotifications = new LinearLayoutManager(this);
+        // Initialize RecView
+        notificationAdapter = new notificationRecycleViewAdapter(notifications);
+        notificationAdapter.setClickListener(this);
+        layoutManagerNotifications = new LinearLayoutManager(this);
+        recyclerViewNotifications.setLayoutManager(layoutManagerNotifications);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewNotifications.getContext(),
+                layoutManagerNotifications.getOrientation());
+        recyclerViewNotifications.addItemDecoration(dividerItemDecoration);
+        recyclerViewNotifications.setAdapter(notificationAdapter);
 
         mref.getReference().child("messages").child(Data_Controller.getInstance().getUserId()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -52,18 +74,12 @@ public class NotificationActivity extends AppCompatActivity {
                     Date newDate = new Date(Long.parseLong(snapshot.getKey()));
                     notification.setDate(newDate);
                     notification.setStatus(Integer.parseInt(String.valueOf(snapshot.child("status").getValue())));
-
                     notifications.add(notification);
                 }
                 Collections.sort(notifications);
                 Collections.reverse(notifications);
-                notificationRecycleViewAdapter notificationAdapter = new notificationRecycleViewAdapter(notifications);
-                recyclerViewNotifications.setLayoutManager(layoutManagerNotifications);
-                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewNotifications.getContext(),
-                        layoutManagerNotifications.getOrientation());
-                recyclerViewNotifications.addItemDecoration(dividerItemDecoration);
-                recyclerViewNotifications.setAdapter(notificationAdapter);
                 progressBar.setVisibility(View.INVISIBLE);
+                notificationAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -71,9 +87,19 @@ public class NotificationActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+    @Override
+    public void onItemClick(View view, int position) {
 
-        // ArrayAdapter<Data_DTO_Notification> adapter = new ArrayAdapter<Data_DTO_Notification>(this,
-        //         android.R.layout.simple_list_item_1, myStringArray);
+        if (notifications.get(position).getStatus() == 0) {
+            if (Build.VERSION.SDK_INT>=26)
+                v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+            else
+                v.vibrate(500);
+            notifications.get(position).setStatus(1);
+            mref.getReference().child("messages").child(Data_Controller.getInstance().getUserId()).child(notifications.get(position).getDate().toString()).child("status").setValue(1);
+            notificationAdapter.notifyDataSetChanged();
+        }
     }
 }

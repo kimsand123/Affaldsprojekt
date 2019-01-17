@@ -46,16 +46,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textAnalyseBox" />
 
-        <ImageView
-            android:id="@+id/imgGoldBox"
-            android:layout_width="53dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="28dp"
-            app:layout_constraintBottom_toBottomOf="@+id/txtCoinButton4"
-            app:layout_constraintStart_toStartOf="@+id/txtCoinButton4"
-            app:layout_constraintTop_toTopOf="@+id/txtCoinButton4"
-            app:layout_constraintVertical_bias="0.444"
-            app:srcCompat="@drawable/guldbaricon2" />
 
         <Button
             android:id="@+id/txtCoinButton4"
@@ -78,6 +68,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/guldbaricon2"
             />
+
+        <ImageView
+            android:id="@+id/imgGoldBox"
+            android:layout_width="53dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="28dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtCoinButton4"
+            app:layout_constraintStart_toStartOf="@+id/txtCoinButton4"
+            app:layout_constraintTop_toTopOf="@+id/txtCoinButton4"
+            app:layout_constraintVertical_bias="0.444"
+            app:srcCompat="@drawable/guldbaricon2" />
 
 
         <TextView
