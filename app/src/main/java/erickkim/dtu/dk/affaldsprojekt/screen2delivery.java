@@ -30,9 +30,10 @@ public class screen2delivery extends Fragment implements View.OnClickListener, V
     private Button doneButton;
     private Button newIdButton;
     private TextView txtIdBox;
-    private TextView txtGoldBox;
+    private TextView goldBox;
     private ImageView imgGoldBox;
     private Button auxiliaryButton;
+    private Button coinBoxButton;
 
     private FirebaseDatabase mref;
 
@@ -65,17 +66,21 @@ public class screen2delivery extends Fragment implements View.OnClickListener, V
         newIdButton = root.findViewById(R.id.newIdButton);
         txtIdBox = root.findViewById(R.id.txtIdBox);
         auxiliaryButton = root.findViewById(R.id.button_auxiliary);
+        coinBoxButton = root.findViewById(R.id.txtCoinButton2);
 
-        //Hent data til textfelter.
-        updateGoldBox();
-        setNewIdCode();
         PulsatorLayout pulsar = root.findViewById(R.id.pulsator);
+
         doneButton.setOnClickListener(this);
         doneButton.setOnTouchListener(this);
         newIdButton.setOnClickListener(this);
         newIdButton.setOnTouchListener(this);
         auxiliaryButton.setOnClickListener(this);
+        coinBoxButton.setOnClickListener(this);
+        coinBoxButton.setOnTouchListener(this);
         pulsar.start();
+
+        updateGoldBox();
+        setNewIdCode();
         return root;
     }
 
@@ -102,6 +107,10 @@ public class screen2delivery extends Fragment implements View.OnClickListener, V
             case R.id.newIdButton:
                 setNewIdCode();
                 break;
+            case R.id.txtCoinButton2:
+                Intent intent = new Intent(screen2delivery.this.getActivity(), CoinShopActivity.class);
+                startActivity(intent);
+                break;
                 // Test button to enter Auxiliary activity.
             case R.id.button_auxiliary:
                 Intent auxIntent;
@@ -123,9 +132,11 @@ public class screen2delivery extends Fragment implements View.OnClickListener, V
 
     public void updateGoldBox() {
         mref = FirebaseDatabase.getInstance();
-        txtGoldBox = root.findViewById(R.id.txtCoinBox1);
+        goldBox = root.findViewById(R.id.txtCoinButton2);
         imgGoldBox = root.findViewById(R.id.imgGoldBox);
-        txtGoldBox.setText(String.valueOf(Data_Controller.getInstance().getGold()));
+
+
+        goldBox.setText(String.valueOf(Data_Controller.getInstance().getGold()));
         mref.getReference().child("users").child(Data_Controller.getInstance().getUserId()).child("gold").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -138,7 +149,7 @@ public class screen2delivery extends Fragment implements View.OnClickListener, V
                     goldBoxContent = "Penge sparet: " + String.valueOf(gold) + " kr.";
                 }
                 Data_Controller.getInstance().setGold(goldInt);
-                txtGoldBox.setText(goldBoxContent);
+                goldBox.setText(goldBoxContent);
             }
 
             @Override

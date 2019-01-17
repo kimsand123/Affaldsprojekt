@@ -1,17 +1,22 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -30,15 +35,18 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 
-public class screen4statistic extends Fragment implements View.OnClickListener, OnChartGestureListener, OnChartValueSelectedListener {
+public class screen4statistic extends Fragment implements View.OnClickListener, Button.OnTouchListener, OnChartGestureListener, OnChartValueSelectedListener {
 
     private View root;
-    private TextView txtGoldBox;
+
     private TextView textAnalyseBox;
     private TextView co2TextBox2;
     private LineChart statisticChart;
     private I_GenerateFeedback feedback = new GenerateFeedback();
     private ImageView imgGoldBox;
+    private Button coinBoxButton;
+    final DecelerateInterpolator sDecelerator = new DecelerateInterpolator();
+    final OvershootInterpolator sOvershooter = new OvershootInterpolator(5f);
 
     private FirebaseDatabase mref;
 
@@ -63,8 +71,8 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
       root = inflater.inflate(R.layout.fragment_screen4statistic, container, false);
 
         // statistic = root.findViewById(R.id.statistic);
-        txtGoldBox = root.findViewById(R.id.txtCoinBox1);
-        txtGoldBox.setText(Data_Controller.getInstance().getGoldBoxContent());
+        coinBoxButton = root.findViewById(R.id.txtCoinButton4);
+        coinBoxButton.setText(Data_Controller.getInstance().getGoldBoxContent());
         imgGoldBox = root.findViewById(R.id.imgGoldBox);
         if (Data_Controller.getInstance().getUserType().equals("virksomhed"))
             imgGoldBox.setVisibility(View.INVISIBLE);
@@ -74,6 +82,10 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
         statisticChart = root.findViewById(R.id.lineChart);
         statisticChart.setOnChartGestureListener(this);
         statisticChart.setOnChartValueSelectedListener(this);
+
+        coinBoxButton.setOnClickListener(this);
+        coinBoxButton.setOnTouchListener(this);
+
         createLineChart();
 
         updateGoldBox();
@@ -82,7 +94,26 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
     }
 
     @Override
+    public boolean onTouch(View v, MotionEvent me) {
+        v.animate().setDuration(200);
+        if (me.getAction() == MotionEvent.ACTION_DOWN) {
+            v.animate().setInterpolator(sDecelerator).scaleX(.7f).scaleY(.7f);
+        } else if (me.getAction() == MotionEvent.ACTION_UP) {
+            v.animate().setInterpolator(sOvershooter).scaleX(1f).scaleY(1f);
+        }
+        return false;
+    }
+
+    @Override
     public void onClick(View v) {
+
+        //check view objektet, og skift til den tilhørende case
+        switch(v.getId()){
+            case R.id.txtCoinButton4:
+                Intent intent = new Intent(screen4statistic.this.getActivity(), CoinShopActivity.class);
+                startActivity(intent);
+                break;
+        }
 
     }
 
@@ -333,9 +364,8 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
 
     public void updateGoldBox() {
         mref = FirebaseDatabase.getInstance();
-        txtGoldBox = root.findViewById(R.id.txtCoinBox1);
         imgGoldBox = root.findViewById(R.id.imgGoldBox);
-        txtGoldBox.setText(String.valueOf(Data_Controller.getInstance().getGold()));
+        coinBoxButton.setText(String.valueOf(Data_Controller.getInstance().getGold()));
         mref.getReference().child("users").child(Data_Controller.getInstance().getUserId()).child("gold").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -348,7 +378,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                     goldBoxContent = "Penge sparet: " + String.valueOf(gold) + " kr.";
                 }
                 Data_Controller.getInstance().setGold(goldInt);
-                txtGoldBox.setText(goldBoxContent);
+                coinBoxButton.setText(goldBoxContent);
             }
 
             @Override

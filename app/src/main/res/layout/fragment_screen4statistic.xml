@@ -46,37 +46,39 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textAnalyseBox" />
 
-
-        <TextView
-            android:id="@+id/txtCoinBox1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="18dp"
-            android:background="@drawable/text_roundcorners_gold"
-            android:fontFamily="@font/roboto"
-            android:gravity="top|left"
-            android:padding="5dp"
-            android:textAlignment="center"
-            android:textColor="@color/beige"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <ImageView
             android:id="@+id/imgGoldBox"
             android:layout_width="53dp"
             android:layout_height="0dp"
             android:layout_marginStart="28dp"
-            app:layout_constraintBottom_toBottomOf="@+id/txtCoinBox1"
-            app:layout_constraintStart_toStartOf="@+id/txtCoinBox1"
-            app:layout_constraintTop_toTopOf="@+id/txtCoinBox1"
+            app:layout_constraintBottom_toBottomOf="@+id/txtCoinButton4"
+            app:layout_constraintStart_toStartOf="@+id/txtCoinButton4"
+            app:layout_constraintTop_toTopOf="@+id/txtCoinButton4"
             app:layout_constraintVertical_bias="0.444"
             app:srcCompat="@drawable/guldbaricon2" />
+
+        <Button
+            android:id="@+id/txtCoinButton4"
+            android:layout_width="0dp"
+            android:layout_height="42sp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:elevation="0dp"
+            android:background="@drawable/text_roundcorners_gold"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/gold"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/textAnalyseBox"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/guldbaricon2"
+            />
+
 
         <TextView
             android:id="@+id/textAnalyseBox"
@@ -99,7 +101,7 @@
             app:layout_constraintBottom_toTopOf="@+id/lineChart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtCoinBox1" />
+            app:layout_constraintTop_toBottomOf="@+id/txtCoinButton4" />
 
         <TextView
             android:id="@+id/co2TextBox2"

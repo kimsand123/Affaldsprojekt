@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -30,9 +29,10 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
     private Button hubstatusButton;
     private Button hubplacementButton;
     private Button depositButton;
-    private TextView txtGoldBox;
+    private ImageButton goldBox;
     private TextView txtInfoBox;
     private ImageView imgGoldBox;
+    private Button coinBoxButton;
 
     private FirebaseDatabase mref;
 
@@ -63,20 +63,20 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
 
         // initialiser de forskellige views i fragmentet
         garbageButton = root.findViewById(R.id.garbageButton);
-
         hubplacementButton = root.findViewById(R.id.hubplacementButton);
         depositButton = root.findViewById(R.id.depositButton);
         txtInfoBox = root.findViewById(R.id.txtInfoBox1);
+        coinBoxButton = root.findViewById(R.id.txtCoinButton1);
 
-        // setonclicklisteners for alle knapper.
+        // setonclick and ontouch listeners for alle knapper.
         garbageButton.setOnClickListener(this);
         garbageButton.setOnTouchListener(this);
-
-
         hubplacementButton.setOnClickListener(this);
         hubplacementButton.setOnTouchListener(this);
         depositButton.setOnClickListener(this);
         depositButton.setOnTouchListener(this);
+        coinBoxButton.setOnClickListener(this);
+        coinBoxButton.setOnTouchListener(this);
 
         // Hent data for TextViews
         txtInfoBox.setText(Data_Controller.getInstance().getTip());
@@ -102,14 +102,10 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
                         .addToBackStack(null)
                         .commit();
                 break;
-           /* case R.id.sendButton:
-                getFragmentManager().beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.fragmentContent, new screen5hubstatus())
-                        .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                        .addToBackStack(null)
-                        .commit();
-                break;*/
+           case R.id.txtCoinButton1:
+                   Intent intent = new Intent(screen1main.this.getActivity(), CoinShopActivity.class);
+                   startActivity(intent);
+                break;
             case R.id.hubplacementButton:
                 Intent mapIntent;
                 mapIntent = new Intent(this.getContext(), MapsActivity.class);
@@ -145,9 +141,11 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
      // Method to update gold box contents, reflecting usertype and update when data is received.
      public void updateGoldBox() {
          mref = FirebaseDatabase.getInstance();
-         txtGoldBox = root.findViewById(R.id.txtCoinBox1);
+
+         coinBoxButton = root.findViewById(R.id.txtCoinButton1);
          imgGoldBox = root.findViewById(R.id.imgGoldBox);
-         txtGoldBox.setText(String.valueOf(Data_Controller.getInstance().getGold()));
+
+         coinBoxButton.setText(String.valueOf(Data_Controller.getInstance().getGold()));
          mref.getReference().child("users").child(Data_Controller.getInstance().getUserId()).child("gold").addValueEventListener(new ValueEventListener() {
              @Override
              public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -160,7 +158,7 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
                      goldBoxContent = "Penge sparet: " + String.valueOf(gold) + " kr.";
                  }
                  Data_Controller.getInstance().setGold(goldInt);
-                 txtGoldBox.setText(goldBoxContent);
+                 coinBoxButton.setText(goldBoxContent);
              }
 
              @Override
@@ -168,6 +166,7 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
              }
          });
          if (Data_Controller.getInstance().getUserType().equals("virksomhed"))
+
              imgGoldBox.setVisibility(View.INVISIBLE);
      }
 }

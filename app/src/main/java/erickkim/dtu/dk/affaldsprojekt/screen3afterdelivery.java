@@ -1,6 +1,7 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -38,12 +39,13 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     //instantier variable
     private View root;
     private Button statisticButton;
-    private TextView txtGoldBox;
+    private TextView goldBox;
     private TextView txtInfoBox3;
     private TextView co2TextBox;
     private PieChart chart;
     private I_GenerateFeedback feedback = new GenerateFeedback();
     private ImageView imgGoldBox;
+    private Button coinBoxButton;
 
     final DecelerateInterpolator sDecelerator = new DecelerateInterpolator();
     final OvershootInterpolator sOvershooter = new OvershootInterpolator(5f);
@@ -79,9 +81,11 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         statisticButton = root.findViewById(R.id.statisticButton);
         txtInfoBox3 = root.findViewById(R.id.txtInfoBox3);
         co2TextBox = root.findViewById(R.id.co2TextBox);
+        coinBoxButton = root.findViewById(R.id.txtCoinButton3);
 
         updateGoldBox();
-
+        coinBoxButton.setOnClickListener(this);
+        coinBoxButton.setOnTouchListener(this);
         statisticButton.setOnClickListener(this);
         statisticButton.setOnTouchListener(this);
         pulsator.start();
@@ -98,6 +102,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         }
         return false;
     }
+
     @Override
     public void onClick(View v) {
 
@@ -111,6 +116,10 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                         .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                         .addToBackStack(null)
                         .commit();
+                break;
+            case R.id.txtCoinButton3:
+                Intent intent = new Intent(screen3afterdelivery.this.getActivity(), CoinShopActivity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -252,9 +261,9 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
     public void updateGoldBox() {
         mref = FirebaseDatabase.getInstance();
-        txtGoldBox = root.findViewById(R.id.txtCoinBox1);
+
         imgGoldBox = root.findViewById(R.id.imgGoldBox);
-        txtGoldBox.setText(String.valueOf(Data_Controller.getInstance().getGold()));
+        coinBoxButton.setText(String.valueOf(Data_Controller.getInstance().getGold()));
         mref.getReference().child("users").child(Data_Controller.getInstance().getUserId()).child("gold").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -267,7 +276,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                     goldBoxContent = "Penge sparet: " + String.valueOf(gold) + " kr.";
                 }
                 Data_Controller.getInstance().setGold(goldInt);
-                txtGoldBox.setText(goldBoxContent);
+                coinBoxButton.setText(goldBoxContent);
             }
 
             @Override
