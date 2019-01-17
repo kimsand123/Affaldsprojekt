@@ -44,8 +44,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // TODO: Start different fragment depending on whether already logged in.
-       // if(savedInstanceState==null){
+        //Startup af NotificationService
+        //Intent i = new Intent(this,NotificationService.class);
+
+        startService(new Intent(MainActivity.this   , NotificationService.class));
+
+
         Fragment startscreen;
         if (Data_Controller.getInstance().performDefaultLogin(getApplicationContext())) {
             startscreen = new screen1main();
@@ -56,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .add(R.id.fragmentContent, startscreen)
                     .commit();
         //}
+
 
 
     }

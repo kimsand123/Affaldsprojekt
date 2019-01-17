@@ -37,10 +37,6 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.activity_auxiliary);
 
         Data_Controller.getInstance().setToday();
-       /* if(!(Data_Controller.getInstance().getToday().equals(Data_Controller.getInstance().getDeliveredDate()))){
-            Data_Controller.getInstance().setTodaysDeliveryCounter(0);
-        }*/
-
         deliveryCode = findViewById(R.id.text_deliverycode);
         int ID = Data_Controller.getInstance().getUsedDataDeliveryCode();
         deliveryCode.setText(Data_Controller.getInstance().getTodaysDeliveryCounter() + "_" + Integer.toString(ID));
