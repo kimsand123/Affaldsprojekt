@@ -103,6 +103,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 double coordinates[] = {0.0, 0.0};
                 String hubName = "";
                 String hubStatus = "";
+                int errors = 0;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     if (snapshot.getKey().equals("hubname")) {
                         hubName = ((String) snapshot.getValue());
@@ -115,14 +116,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                     if (snapshot.getKey().equals("towers")) {
                         // TODO: Make towers indepedent of what is actually in the hub to allow for more tower types.
-                        if (!snapshot.child("resttower").getValue().toString().equals("ok"))
+                        if (!snapshot.child("resttower").getValue().toString().equals("ok")) {
+                            errors++;
                             hubStatus += "RestT Fail. ";
-                        if (!snapshot.child("plastictower").getValue().toString().equals("ok"))
+                        }
+                        if (!snapshot.child("plastictower").getValue().toString().equals("ok")) {
+                            errors++;
                             hubStatus += "PlasticT Fail. ";
-                        if (!snapshot.child("metaltower").getValue().toString().equals("ok"))
+                        }
+                        if (!snapshot.child("metaltower").getValue().toString().equals("ok")) {
                             hubStatus += "MetalT Fail. ";
-                        if (!snapshot.child("biotower").getValue().toString().equals("ok"))
+                            errors++;
+                        }
+                        if (!snapshot.child("biotower").getValue().toString().equals("ok")) {
                             hubStatus += "BioT Fail. ";
+                            errors++;
+                        }
                         if (hubStatus.isEmpty())
                             hubStatus += "Running. ";
                     }
@@ -132,15 +141,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LatLng hub = new LatLng(coordinates[0], coordinates[1]);
                 if (hubName.equals("")) {
                     mMap.addMarker(new MarkerOptions().position(hub).title("DebugFailedToCatchName"));
+
+                    // Create the marker but with different colours depending on how many errors are present. Hardcoded limit to 4.
                 } else {
-                    if (hubStatus.equals("Running. ")) {
-                        mMap.addMarker(new MarkerOptions().position(hub).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).title(hubName).snippet("Status: " + hubStatus));
-                    }
-                    else {
-                        mMap.addMarker(new MarkerOptions().position(hub).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title(hubName).snippet("Status: " + hubStatus));
+                    switch (errors) {
+                        case 0:
+                            mMap.addMarker(new MarkerOptions().position(hub).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).title(hubName).snippet("Status: " + hubStatus));
+                            break;
+                        case 1:
+                        case 2:
+                        case 3:
+                            mMap.addMarker(new MarkerOptions().position(hub).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)).title(hubName).snippet("Status: " + hubStatus));
+                            break;
+                        case 4:
+                            mMap.addMarker(new MarkerOptions().position(hub).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title(hubName).snippet("Status: " + hubStatus));
+                            break;
                     }
                 }
-
             }
 
             @Override

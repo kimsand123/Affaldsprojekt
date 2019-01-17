@@ -17,6 +17,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class NotificationActivity extends AppCompatActivity {
 
@@ -53,6 +55,8 @@ public class NotificationActivity extends AppCompatActivity {
 
                     notifications.add(notification);
                 }
+                Collections.sort(notifications);
+                Collections.reverse(notifications);
                 notificationRecycleViewAdapter notificationAdapter = new notificationRecycleViewAdapter(notifications);
                 recyclerViewNotifications.setLayoutManager(layoutManagerNotifications);
                 DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewNotifications.getContext(),
