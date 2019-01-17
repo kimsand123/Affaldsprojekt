@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,7 +39,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
 
     //instantier variable
     private View root;
-    private Button statisticButton;
+    private ImageButton statisticButton;
     private TextView goldBox;
     private TextView txtInfoBox3;
     private TextView co2TextBox;

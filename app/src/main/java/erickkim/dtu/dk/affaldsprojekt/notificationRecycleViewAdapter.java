@@ -39,8 +39,10 @@ public class notificationRecycleViewAdapter extends RecyclerView.Adapter<notific
         public void onClick(View view) {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
+    }
 
-
+    void setClickListener(itemClickListener itemClickListener) {
+        this.mClickListener = itemClickListener;
     }
 
     // Store notifications in a list
@@ -81,7 +83,4 @@ public class notificationRecycleViewAdapter extends RecyclerView.Adapter<notific
         return notificationList.size();
     }
 
-    public void setClickListener(itemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
-    }
 }

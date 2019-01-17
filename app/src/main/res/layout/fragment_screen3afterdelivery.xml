@@ -105,18 +105,13 @@
             app:pulse_startFromScratch="true">
         </pl.bclogic.pulsator4droid.library.PulsatorLayout>
 
-        <Button
+        <ImageButton
             android:id="@+id/statisticButton"
             android:layout_width="wrap_content"
             android:layout_height="85dp"
             android:background="@drawable/button_roundcorners_dark"
             android:elevation="12dp"
-            android:fontFamily="@font/roboto"
-            android:lineSpacingExtra="4sp"
-            android:text="Gå til \n Statistik "
-            android:textSize="12dp"
-            android:textAlignment="center"
-            android:textColor="@color/hvid"
+            android:src="@drawable/graphs"
             app:layout_constraintBottom_toBottomOf="@+id/pieChart"
             app:layout_constraintEnd_toEndOf="@+id/pieChart"
             app:layout_constraintStart_toStartOf="@+id/pieChart"

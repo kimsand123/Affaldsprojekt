@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -73,7 +74,8 @@ public class NotificationActivity extends AppCompatActivity implements itemClick
                     notification.setText(snapshot.child("body").getValue().toString());
                     Date newDate = new Date(Long.parseLong(snapshot.getKey()));
                     notification.setDate(newDate);
-                    notification.setStatus(Integer.parseInt(String.valueOf(snapshot.child("status").getValue())));
+                    int status = Integer.valueOf(String.valueOf(snapshot.child("status").getValue()));
+                    notification.setStatus(status);
                     notifications.add(notification);
                 }
                 Collections.sort(notifications);
@@ -91,7 +93,7 @@ public class NotificationActivity extends AppCompatActivity implements itemClick
 
     @Override
     public void onItemClick(View view, int position) {
-
+        Toast.makeText(this, "Du klikkede på " + position, Toast.LENGTH_SHORT).show();
         if (notifications.get(position).getStatus() == 0) {
             if (Build.VERSION.SDK_INT>=26)
                 v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
