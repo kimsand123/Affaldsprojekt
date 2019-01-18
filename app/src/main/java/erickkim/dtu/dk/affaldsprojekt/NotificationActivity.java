@@ -63,10 +63,10 @@ public class NotificationActivity extends AppCompatActivity implements itemClick
         recyclerViewNotifications.addItemDecoration(dividerItemDecoration);
         recyclerViewNotifications.setAdapter(notificationAdapter);
 
+        progressBar.setVisibility(View.VISIBLE);
         mref.getReference().child("messages").child(Data_Controller.getInstance().getUserId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                progressBar.setVisibility(View.VISIBLE);
                 notifications.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Data_DTO_Notification notification = new Data_DTO_Notification();
@@ -99,9 +99,9 @@ public class NotificationActivity extends AppCompatActivity implements itemClick
                 v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
             else
                 v.vibrate(500);
-            notifications.get(position).setStatus(1);
-            mref.getReference().child("messages").child(Data_Controller.getInstance().getUserId()).child(notifications.get(position).getDate().toString()).child("status").setValue(1);
-            notificationAdapter.notifyDataSetChanged();
+            long date = notifications.get(position).getDate().getTime();
+            progressBar.setVisibility(View.VISIBLE);
+            mref.getReference().child("messages").child(Data_Controller.getInstance().getUserId()).child(String.valueOf(date)).child("status").setValue(1);
         }
     }
 }

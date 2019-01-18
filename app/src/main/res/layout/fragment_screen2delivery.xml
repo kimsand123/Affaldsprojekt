@@ -80,20 +80,16 @@
             app:pulse_startFromScratch="true">
         </pl.bclogic.pulsator4droid.library.PulsatorLayout>
 
-        <Button
+        <ImageButton
             android:id="@+id/doneButton"
             android:layout_width="wrap_content"
-            android:layout_height="92sp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="13dp"
             android:layout_marginBottom="140dp"
             android:background="@drawable/button_roundcorners_dark"
             android:elevation="0dp"
-            android:fontFamily="@font/roboto"
-            android:lineSpacingExtra="4sp"
-            android:textColor="@android:color/white"
-            android:text="Tryk\nnår\nfærdig"
-            android:textAlignment="center"
+            android:src="@drawable/flueben"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

@@ -3,7 +3,6 @@ package erickkim.dtu.dk.affaldsprojekt;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +31,7 @@ public class notificationRecycleViewAdapter extends RecyclerView.Adapter<notific
             date = (TextView) itemView.findViewById(R.id.notification_entry_date);
             body = (TextView) itemView.findViewById(R.id.notification_entry_body);
             status = (ImageView) itemView.findViewById(R.id.notification_entry_imageview);
+            itemView.setOnClickListener(this);
         }
 
 
@@ -72,6 +72,8 @@ public class notificationRecycleViewAdapter extends RecyclerView.Adapter<notific
         viewHolder.body.setText(notification.getText());
         if (notification.getStatus() == 1) {
             viewHolder.status.setVisibility(View.INVISIBLE);
+        } else if (notification.getStatus() == 0){
+            viewHolder.status.setVisibility(View.VISIBLE);
         }
         String date = notification.getFormatDate();
         viewHolder.date.setText(date);

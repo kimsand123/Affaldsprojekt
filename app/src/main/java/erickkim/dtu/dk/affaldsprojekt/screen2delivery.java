@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,7 +28,7 @@ public class screen2delivery extends Fragment implements View.OnClickListener, V
 
     //instantier variable.
     private View root;
-    private Button doneButton;
+    private ImageButton doneButton;
     private Button newIdButton;
     private TextView txtIdBox;
     private TextView goldBox;

@@ -27,7 +27,7 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
     private View root;
     private ImageButton garbageButton;
     private Button hubstatusButton;
-    private Button hubplacementButton;
+    private ImageButton hubplacementButton;
     private Button depositButton;
     private ImageButton goldBox;
     private TextView txtInfoBox;
