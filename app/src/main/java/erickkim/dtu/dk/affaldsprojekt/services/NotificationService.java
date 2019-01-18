@@ -47,7 +47,7 @@ public class NotificationService extends Service {
 
                         if(ShortcutBadger.isBadgeCounterSupported(getApplicationContext())) {
                             ShortcutBadger.applyCount(getApplicationContext(), numberOfMessages);
-                            makeToast(Integer.toString(numberOfMessages));
+                            makeToast("Du har " + numberOfMessages + " ulæste beskeder. Du kan læse dem ved at gå til notifikationer i menuen.");
                         }
 
                     }
