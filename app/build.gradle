@@ -50,6 +50,7 @@ android {
     }
 }
 
+//This for MPAndroidChart
 repositories {
     maven { url 'https://jitpack.io' }
 }
@@ -65,7 +66,7 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
     // Pulsator view is from https://github.com/booncol/Pulsator4Droid
     implementation 'pl.bclogic:pulsator4droid:1.0.3'
-    // Badges from com.github.arturogutierrez
+    // Badges from https://github.com/leolin310148/ShortcutBadger
     implementation "me.leolin:ShortcutBadger:1.1.22@aar"
 
 

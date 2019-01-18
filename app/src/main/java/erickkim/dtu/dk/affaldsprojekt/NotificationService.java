@@ -4,10 +4,9 @@ import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.IBinder;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,15 +38,14 @@ public class NotificationService extends Service {
                         Data_DTO_messages messageData;
                         for (DataSnapshot ds : dataSnapshot.getChildren()) {
                             messageData = ds.getValue(Data_DTO_messages.class);
-                            if (messageData.getState() == 0) {
+                            if (messageData.status == 0) {
                                 numberOfMessages = numberOfMessages + 1;
                             }
                         }
 
                         if(ShortcutBadger.isBadgeCounterSupported(getApplicationContext())) {
-                            //ShortcutBadger.applyCount(.getDrawable(getApplicationContext(), R.drawable.ic_launcher_foreground, numberOfMessages);
                             ShortcutBadger.applyCount(getApplicationContext(), numberOfMessages);
-
+                            makeToast(Integer.toString(numberOfMessages));
                         }
 
                     }
@@ -65,12 +63,18 @@ public class NotificationService extends Service {
     @Override
     public void onCreate(){
         super.onCreate();
-        Log.d(getPackageName(), "NotificationService is created");
     }
 
     @Override
     public ComponentName startService(Intent service) {
-
         return super.startService(service);
+    }
+
+    public void makeToast(String toastString){
+        Context context = getApplicationContext();
+        CharSequence text = toastString;
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 }

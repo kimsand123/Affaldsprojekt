@@ -267,21 +267,24 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                                             (int)yDataSetRest.get(yDataSetRest.size()-1).getY());
                         //Hent user type
                         String userType = Data_Controller.getInstance().getUserType();
+                        String startText="";
                         //Hent co2 besparelse
                         float co2Sparet = Integer.parseInt(feedback.co2SaverCalc());
 
                         if(userType.equals("virksomhed")){
+                            startText = "I";
                             textAnalyseBox.setText((Html.fromHtml(feedback.getAnalysis("<i><b>Jeres kvartalsaflevering har givet følgende indtjening</i></b>","virksomhed"))));
                         }else {
+                            startText = "Du";
                             textAnalyseBox.setText(Html.fromHtml(feedback.getAnalysis("<i><b>Din kvartalsaflevering har betydet</i></b>","borger")));
                         }
                         String txt;
 
                         if(co2Sparet > 1000.0){
-                            txt = "I har i dag sparet miljøet for " + co2Sparet/1000.0 + "kg CO2";
+                            txt = startText + " har i dag sparet miljøet for " + co2Sparet/1000.0 + "kg CO2";
 
                         } else {
-                            txt = "I har i dag sparet miljøet for " + co2Sparet + "g CO2";
+                            txt = startText + " har i dag sparet miljøet for " + co2Sparet + "g CO2";
                         }
                         co2TextBox2.setText(txt);
                         drawChart(yDataSetMetPlaGla, yDataSetBio, yDataSetPapPapi, yDataSetRest);

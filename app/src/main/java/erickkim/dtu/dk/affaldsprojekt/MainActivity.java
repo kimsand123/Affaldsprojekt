@@ -1,5 +1,6 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
+import me.leolin.shortcutbadger.ShortcutBadger;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -46,7 +48,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //Virker ikke endnu. Dataopsamling virker som den skal, og onDataChange,
         //Men jeg kan ikke sætte et badge på iconet. Kan ikke finde ud af at lave den rette context
-        //startService(new Intent(MainActivity.this   , NotificationService.class));
+
+        startService(new Intent(MainActivity.this   , NotificationService.class));
 
         Fragment startscreen;
         if (Data_Controller.getInstance().performDefaultLogin(getApplicationContext())) {
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (fragmentManager.findFragmentById(R.id.fragmentContent) instanceof screen1main) {
             finish();
@@ -124,6 +128,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     startActivity(intent);
                     break;
                 case R.id.about:
+                    intent = new Intent(MainActivity.this, AboutActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.logout:
                     // TODO: Closes app entirely. We want this to simply go back to the screen0login fragment, but without messing up the activity stack.
@@ -136,9 +142,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             drawer.closeDrawer(GravityCompat.START);
             return true;
         } else {
-            Toast.makeText(getApplicationContext(), "Du er ikke logget ind endnu.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),
+                    "Du er ikke logget ind endnu.", Toast.LENGTH_SHORT).show();
             return true;
         }
     }
+
 
 }
