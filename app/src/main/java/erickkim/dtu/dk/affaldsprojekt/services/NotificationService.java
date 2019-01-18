@@ -1,4 +1,4 @@
-package erickkim.dtu.dk.affaldsprojekt;
+package erickkim.dtu.dk.affaldsprojekt.services;
 
 import android.app.Service;
 import android.content.ComponentName;

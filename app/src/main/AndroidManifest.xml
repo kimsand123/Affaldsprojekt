@@ -31,7 +31,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <service
-            android:name=".NotificationService"
+            android:name=".services.NotificationService"
             android:enabled="true">
         </service>
 

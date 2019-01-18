@@ -22,6 +22,7 @@ import com.crashlytics.android.Crashlytics;
 import erickkim.dtu.dk.affaldsprojekt.fragments.screen0login;
 import erickkim.dtu.dk.affaldsprojekt.fragments.screen1main;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
+import erickkim.dtu.dk.affaldsprojekt.services.NotificationService;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

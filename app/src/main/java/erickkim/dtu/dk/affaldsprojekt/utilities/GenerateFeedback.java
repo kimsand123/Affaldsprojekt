@@ -1,7 +1,9 @@
-package erickkim.dtu.dk.affaldsprojekt;
+package erickkim.dtu.dk.affaldsprojekt.utilities;
 
 import java.text.DecimalFormat;
 import java.util.Random;
+
+import erickkim.dtu.dk.affaldsprojekt.interfaces.I_GenerateFeedback;
 
 // tal taget fra forskellige miljø/genbrugs/oplysnings hjemmesider, og skal betragtes som vejledende,
 // for at illustrere eksemplet.

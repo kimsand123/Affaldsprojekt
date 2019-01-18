@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import erickkim.dtu.dk.affaldsprojekt.interfaces.itemClickListener;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_DTO_Notification;
 
 // Create basic adapter extending from recyclerview.adapter, specifying our custom viewholder.

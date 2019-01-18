@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import erickkim.dtu.dk.affaldsprojekt.interfaces.itemClickListener;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_DTO_shopEntry;
 
 public class shopRecycleViewAdapter extends RecyclerView.Adapter<shopRecycleViewAdapter.ViewHolder> {

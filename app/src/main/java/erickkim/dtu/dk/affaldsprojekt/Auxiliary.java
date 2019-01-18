@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_DTO_delivery;
+import erickkim.dtu.dk.affaldsprojekt.utilities.getTrashValue;
 
 public class Auxiliary extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener{
 
