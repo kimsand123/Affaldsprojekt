@@ -109,12 +109,8 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
             return;
         }
 
-
         asyncDeliver deliverTask = new asyncDeliver();
         deliverTask.execute();
-
-
-
     }
 
     public void makeToast(String toastString){

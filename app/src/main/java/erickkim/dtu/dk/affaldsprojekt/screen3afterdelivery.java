@@ -155,7 +155,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                             while(listElements.hasNext()){
                                 String label = listElements.next().getLabel();
                                 String currentType = snapshotData.getType();
-                                 gold = gold + Integer.parseInt(snapshotData.getGold());
+                                gold = gold + Integer.parseInt(snapshotData.getGold());
                                 if (label.equals(currentType)) {
                                     listElements.previous();
                                     float value = listElements.next().getValue();

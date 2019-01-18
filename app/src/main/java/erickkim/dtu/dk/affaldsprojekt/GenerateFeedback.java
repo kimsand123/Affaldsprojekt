@@ -161,11 +161,13 @@ public class GenerateFeedback implements I_GenerateFeedback {
                         double watthpramount = watthprgram * fractionAmountInGrams;
                         double watthprminut = 230000.0/9986400.0;
                         resultat = watthprminut*watthpramount;
-
-
-                        text = text + textStart + "Du kan lade din telefon op i " + format.format(resultat) + " minutter med energien fra dit Bioaffald.";
+                        text = text + "Du kan lade din telefon op i " + format.format(resultat) + " minutter med energien fra dit Bioaffald.";
                         break;
                     case 3:
+                        //DETTE ER IKKE RIGTIGT. FRI FANTASI. Har ikke tid til at lede efter flere eksempler
+                        double faktor = 1/600;
+                        resultat = fractionAmountInGrams/faktor;
+                        text = text + textStart + " Du kan varme dit hus op i " + format.format(resultat) + " minutter med energien fra dit Bioaffald.";
                         break;
 
                 }
@@ -174,15 +176,30 @@ public class GenerateFeedback implements I_GenerateFeedback {
             case "Pap/Papir":
                 switch(number){
                     case 1:
+                        //DETTE ER IKKE RIGTIGT. FRI FANTASI. Har ikke tid til at lede efter flere eksempler
+                        double papirVaegt = 10.0;
+                        double svind = 0.80;
+                        resultat = fractionAmountInGrams / papirVaegt * svind;
+                        text = text + "Man kan producere " + format.format(resultat) + " stk A4 papir af mængden af dit afleverede papir/pap";
+
                         break;
 
                     case 2:
+                        //DETTE ER IKKE RIGTIGT. FRI FANTASI. Har ikke tid til at lede efter flere eksempler
+                        papirVaegt = 1.0;
+                        svind = 0.80;
+                        double laengde = 10;
+                        resultat = fractionAmountInGrams / papirVaegt * svind * laengde;
+                        text = text + "Du kan producere " + format.format(resultat) + " cm. toiletpapir af dit afleverede papir/pap";
                         break;
 
                     case 3:
+                        //DETTE ER IKKE RIGTIGT. FRI FANTASI. Har ikke tid til at lede efter flere eksempler
+                        double soendaegsberlingerVaegt = 2500;
+                        svind = 0.8;
+                        resultat = fractionAmountInGrams/soendaegsberlingerVaegt*svind;
+                        text = text + "Man kunne lave " + format.format(resultat) + " Søndags Berlingere af dit afleverede papir/pap";
                         break;
-
-
                 }
                 break;
         }

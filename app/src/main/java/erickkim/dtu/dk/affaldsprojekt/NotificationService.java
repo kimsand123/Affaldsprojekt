@@ -2,96 +2,75 @@ package erickkim.dtu.dk.affaldsprojekt;
 
 import android.app.Service;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.IBinder;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.DividerItemDecoration;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.View;
 
-import com.github.arturogutierrez.Badges;
-import com.github.arturogutierrez.BadgesNotSupportedException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.Date;
-
-import androidx.annotation.Nullable;
-import erickkim.dtu.dk.affaldsprojekt.TEST_Data_Backend.Data_DTO_messages;
+import me.leolin.shortcutbadger.ShortcutBadger;
 
 public class NotificationService extends Service {
-    final String TAG = getClass().getName();
-    FirebaseDatabase mref = FirebaseDatabase.getInstance();
-
-
-    @Override
-    public ComponentName startService(Intent service) {
-
-        String userId=Data_Controller.getInstance().getUserId();
-
-        FirebaseDatabase.getInstance().getReference().child("message").child(userId)
-                .addValueEventListener(new ValueEventListener(){
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                int numberOfMessages=0;
-                for (DataSnapshot ds: dataSnapshot.getChildren()){
-                    Data_DTO_messages messageData = ds.getValue(Data_DTO_messages.class);
-                    if(messageData.getState().equals("0")){
-                        numberOfMessages=numberOfMessages+1;
-                    }
-                }
-
-                try {
-                    Badges.setBadge(getApplicationContext(), numberOfMessages);
-                } catch (BadgesNotSupportedException badgesNotSupportedException) {
-                    Log.d(TAG, badgesNotSupportedException.getMessage());
-                }
-
-
-                try {
-                    Badges.removeBadge(getApplicationContext());
-                } catch (BadgesNotSupportedException badgesNotSupportedException) {
-                    Log.d(TAG, badgesNotSupportedException.getMessage());
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.d("Failed to read value.", error.getMessage());
-            }
-        });
-
-
-        return super.startService(service);
-
+    public NotificationService() {
     }
 
-    @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        // TODO: Return the communication channel to the service.
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId){
+        String userId = Data_Controller.getInstance().getUserId();
+        DatabaseReference mref = FirebaseDatabase.getInstance().getReference();
+        mref.child("messages").child(userId).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        int numberOfMessages = 0;
+                        Data_DTO_messages messageData;
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            messageData = ds.getValue(Data_DTO_messages.class);
+                            if (messageData.getState() == 0) {
+                                numberOfMessages = numberOfMessages + 1;
+                            }
+                        }
+
+                        if(ShortcutBadger.isBadgeCounterSupported(getApplicationContext())) {
+                            //ShortcutBadger.applyCount(.getDrawable(getApplicationContext(), R.drawable.ic_launcher_foreground, numberOfMessages);
+                            ShortcutBadger.applyCount(getApplicationContext(), numberOfMessages);
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        // Failed to read value
+                        Log.d("Failed to read value.", error.getMessage());
+                    }
+                });
+
+        return START_STICKY;
     }
 
     @Override
     public void onCreate(){
-
+        super.onCreate();
+        Log.d(getPackageName(), "NotificationService is created");
     }
 
     @Override
-    public void onDestroy(){
+    public ComponentName startService(Intent service) {
 
-    }
-
-    public int onStartCommand(Intent intent, int flags, int startId){
-
-        //Check for on datachange
-
-        return START_STICKY;
+        return super.startService(service);
     }
 }

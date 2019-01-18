@@ -66,7 +66,7 @@ dependencies {
     // Pulsator view is from https://github.com/booncol/Pulsator4Droid
     implementation 'pl.bclogic:pulsator4droid:1.0.3'
     // Badges from com.github.arturogutierrez
-    implementation 'com.github.arturogutierrez:badges:1.0.5@aar'
+    implementation "me.leolin:ShortcutBadger:1.1.22@aar"
 
 
 

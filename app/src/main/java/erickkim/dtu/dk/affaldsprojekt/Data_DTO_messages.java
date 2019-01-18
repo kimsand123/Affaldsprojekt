@@ -1,9 +1,11 @@
-package erickkim.dtu.dk.affaldsprojekt.TEST_Data_Backend;
+package erickkim.dtu.dk.affaldsprojekt;
 
 public class Data_DTO_messages {
     String body;
-    String state;
     String title;
+    int state;
+
+
 
     public String getBody() {
         return body;
@@ -13,12 +15,12 @@ public class Data_DTO_messages {
         this.body = body;
     }
 
-    public String getState() {
+    public int getState() {
         return state;
     }
 
-    public void setState(String date) {
-        this.state = date;
+    public void setState(int state) {
+        this.state = state;
     }
 
     public String getTitle() {

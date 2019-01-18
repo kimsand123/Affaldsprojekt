@@ -44,11 +44,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //Startup af NotificationService
-        //Intent i = new Intent(this,NotificationService.class);
-
-        startService(new Intent(MainActivity.this   , NotificationService.class));
-
+        //Virker ikke endnu. Dataopsamling virker som den skal, og onDataChange,
+        //Men jeg kan ikke sætte et badge på iconet. Kan ikke finde ud af at lave den rette context
+        //startService(new Intent(MainActivity.this   , NotificationService.class));
 
         Fragment startscreen;
         if (Data_Controller.getInstance().performDefaultLogin(getApplicationContext())) {
