@@ -1,9 +1,5 @@
 package erickkim.dtu.dk.affaldsprojekt.TEST_Data_Backend;
 
-import android.os.AsyncTask;
-import android.support.annotation.NonNull;
-
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieEntry;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -12,15 +8,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 
 
-import erickkim.dtu.dk.affaldsprojekt.Data_DTO_delivery;
-import erickkim.dtu.dk.affaldsprojekt.Data_DTO_deliveryCode;
+import erickkim.dtu.dk.affaldsprojekt.model.Data_DTO_delivery;
+import erickkim.dtu.dk.affaldsprojekt.model.Data_DTO_deliveryCode;
 
 public class TEST_Database {
     static FirebaseDatabase mref;

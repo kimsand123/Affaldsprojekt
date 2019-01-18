@@ -33,6 +33,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
+import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
+import erickkim.dtu.dk.affaldsprojekt.model.Data_DTO_delivery;
 import pl.bclogic.pulsator4droid.library.PulsatorLayout;
 
 public class screen3afterdelivery extends Fragment implements View.OnClickListener, Button.OnTouchListener {

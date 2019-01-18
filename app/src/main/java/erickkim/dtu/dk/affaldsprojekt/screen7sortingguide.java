@@ -15,6 +15,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
+
 public class screen7sortingguide extends Fragment {
 
     private TextView txtGoldBox;

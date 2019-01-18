@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
+
 public class screen5hubstatus extends Fragment {
 
     //variable instantiering

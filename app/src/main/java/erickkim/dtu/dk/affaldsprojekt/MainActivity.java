@@ -1,6 +1,5 @@
 package erickkim.dtu.dk.affaldsprojekt;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -19,8 +18,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+
+import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
 import io.fabric.sdk.android.Fabric;
-import me.leolin.shortcutbadger.ShortcutBadger;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

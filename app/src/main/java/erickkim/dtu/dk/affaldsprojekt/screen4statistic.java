@@ -33,6 +33,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
+import erickkim.dtu.dk.affaldsprojekt.model.Data_DTO_delivery;
+
 
 public class screen4statistic extends Fragment implements View.OnClickListener, Button.OnTouchListener, OnChartGestureListener, OnChartValueSelectedListener {
 

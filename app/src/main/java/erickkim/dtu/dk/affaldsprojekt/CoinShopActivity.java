@@ -3,7 +3,6 @@ package erickkim.dtu.dk.affaldsprojekt;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.content.DialogInterface;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.support.annotation.NonNull;
@@ -25,6 +24,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
+import erickkim.dtu.dk.affaldsprojekt.model.Data_DTO_shopEntry;
 
 public class CoinShopActivity extends AppCompatActivity implements itemClickListener {
 

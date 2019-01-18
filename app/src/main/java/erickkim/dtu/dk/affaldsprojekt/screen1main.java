@@ -21,6 +21,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
+
 public class screen1main extends Fragment implements View.OnClickListener, Button.OnTouchListener{
 
     //variable instantiering

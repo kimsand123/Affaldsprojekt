@@ -1,9 +1,8 @@
-package erickkim.dtu.dk.affaldsprojekt;
+package erickkim.dtu.dk.affaldsprojekt.model;
 
 import android.support.annotation.NonNull;
 
 import java.text.SimpleDateFormat;
-import java.util.Comparator;
 import java.util.Date;
 
 public class Data_DTO_Notification implements /*Comparator<Data_DTO_Notification>,*/ Comparable<Data_DTO_Notification> {

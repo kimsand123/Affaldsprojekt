@@ -1,4 +1,4 @@
-package erickkim.dtu.dk.affaldsprojekt;
+package erickkim.dtu.dk.affaldsprojekt.model;
 
 import erickkim.dtu.dk.affaldsprojekt.TEST_Data_Backend.TEST_Database;
 
