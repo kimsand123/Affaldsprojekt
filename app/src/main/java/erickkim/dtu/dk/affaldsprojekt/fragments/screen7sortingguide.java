@@ -1,4 +1,4 @@
-package erickkim.dtu.dk.affaldsprojekt;
+package erickkim.dtu.dk.affaldsprojekt.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import erickkim.dtu.dk.affaldsprojekt.R;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
 
 public class screen7sortingguide extends Fragment {

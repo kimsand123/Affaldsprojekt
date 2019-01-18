@@ -1,4 +1,4 @@
-package erickkim.dtu.dk.affaldsprojekt;
+package erickkim.dtu.dk.affaldsprojekt.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +21,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import erickkim.dtu.dk.affaldsprojekt.Auxiliary;
+import erickkim.dtu.dk.affaldsprojekt.CoinShopActivity;
+import erickkim.dtu.dk.affaldsprojekt.R;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_DTO_deliveryCode;
 import pl.bclogic.pulsator4droid.library.PulsatorLayout;

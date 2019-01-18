@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screen2delivery"
+    tools:context=".fragments.screen2delivery"
     android:background="#000000">
 
     <android.support.constraint.ConstraintLayout

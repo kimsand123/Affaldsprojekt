@@ -1,4 +1,4 @@
-package erickkim.dtu.dk.affaldsprojekt;
+package erickkim.dtu.dk.affaldsprojekt.fragments;
 
 
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import erickkim.dtu.dk.affaldsprojekt.R;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
 
 public class screen5hubstatus extends Fragment {

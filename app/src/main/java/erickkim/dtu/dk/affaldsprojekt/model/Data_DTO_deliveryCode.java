@@ -1,4 +1,4 @@
-package erickkim.dtu.dk.affaldsprojekt;
+package erickkim.dtu.dk.affaldsprojekt.model;
 
 public class Data_DTO_deliveryCode {
     private int code;
