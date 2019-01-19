@@ -31,8 +31,9 @@ public class NotificationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
         String userId = Data_Controller.getInstance().getUserId();
+
         DatabaseReference mref = FirebaseDatabase.getInstance().getReference();
-        mref.child("messages").child(userId).addValueEventListener(new ValueEventListener() {
+          mref.child("messages").child(userId).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 

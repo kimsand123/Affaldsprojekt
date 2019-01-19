@@ -148,7 +148,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                         int bioAmount=0;
                         int papPapiAmount=0;
                         int restAmount=0;
-                        int gold =0;
+                        int gold = 0;
                         ArrayList<Integer> colors = new ArrayList<>();
 
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -161,7 +161,6 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                             while(listElements.hasNext()){
                                 String label = listElements.next().getLabel();
                                 String currentType = snapshotData.getType();
-                                gold = gold + Integer.parseInt(snapshotData.getGold());
                                 if (label.equals(currentType)) {
                                     listElements.previous();
                                     float value = listElements.next().getValue();
@@ -170,6 +169,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                                 }
                             }
                             ((ArrayList) values).add(new PieEntry(Integer.parseInt(snapshotData.getAmount()), snapshotData.getType()));
+                            gold = gold + Integer.parseInt(snapshotData.getGold());
                             switch(snapshotData.getType()){
                                 case "Metal/Plastik/Glas":
                                     if (colors.contains(Color.LTGRAY)) {
@@ -206,7 +206,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                         feedback.setAmounts(metPlaGlaAmount, bioAmount, papPapiAmount, restAmount);
                         String userType = Data_Controller.getInstance().getUserType();
                         String txt;
-                        gold=Data_Controller.getInstance().getGold();
+
                         float co2Sparet = Integer.parseInt(feedback.co2SaverCalc());
 
                         if(userType.equals("virksomhed")){

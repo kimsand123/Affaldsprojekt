@@ -22,9 +22,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import erickkim.dtu.dk.affaldsprojekt.CoinShopActivity;
+import erickkim.dtu.dk.affaldsprojekt.MainActivity;
 import erickkim.dtu.dk.affaldsprojekt.MapsActivity;
 import erickkim.dtu.dk.affaldsprojekt.R;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
+import erickkim.dtu.dk.affaldsprojekt.services.NotificationService;
 
 public class screen1main extends Fragment implements View.OnClickListener, Button.OnTouchListener{
 
@@ -63,6 +65,8 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        getActivity().startService(new Intent(getActivity()   , NotificationService.class));
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_screen1main, container, false);
 

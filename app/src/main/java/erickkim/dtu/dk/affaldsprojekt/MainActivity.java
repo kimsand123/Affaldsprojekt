@@ -22,7 +22,6 @@ import com.crashlytics.android.Crashlytics;
 import erickkim.dtu.dk.affaldsprojekt.fragments.screen0login;
 import erickkim.dtu.dk.affaldsprojekt.fragments.screen1main;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
-import erickkim.dtu.dk.affaldsprojekt.services.NotificationService;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -51,8 +50,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //Virker ikke endnu. Dataopsamling virker som den skal, og onDataChange,
         //Men jeg kan ikke sætte et badge på iconet. Kan ikke finde ud af at lave den rette context
-
-        startService(new Intent(MainActivity.this   , NotificationService.class));
 
         Fragment startscreen;
         if (Data_Controller.getInstance().performDefaultLogin(getApplicationContext())) {
