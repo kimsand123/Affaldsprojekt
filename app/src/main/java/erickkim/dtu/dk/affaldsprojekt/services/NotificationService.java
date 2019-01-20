@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -46,9 +47,11 @@ public class NotificationService extends Service {
                             }
                         }
 
-                        if(ShortcutBadger.isBadgeCounterSupported(getApplicationContext())) {
-                            ShortcutBadger.applyCount(getApplicationContext(), numberOfMessages);
-                            makeToast("Du har " + numberOfMessages + " ulæste beskeder. Du kan læse dem ved at gå til notifikationer i menuen.");
+                        if(Data_Controller.getInstance().getNotificationSettings()==true) {
+                            if (ShortcutBadger.isBadgeCounterSupported(getApplicationContext())) {
+                                ShortcutBadger.applyCount(getApplicationContext(), numberOfMessages);
+                                makeToast("Du har " + numberOfMessages + " ulæste beskeder. Du kan læse dem ved at gå til notifikationer i menuen.");
+                            }
                         }
 
                     }

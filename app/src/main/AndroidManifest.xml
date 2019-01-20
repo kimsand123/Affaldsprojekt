@@ -2,16 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="erickkim.dtu.dk.affaldsprojekt">
-
     <!-- Samsung -->
     <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />
-    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" />
-    <!-- Sony -->
-    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" />
-    <!-- HTC -->
+    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" /> <!-- Sony -->
+    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" /> <!-- HTC -->
     <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS" />
     <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <!--
@@ -29,11 +25,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="erickkim.dtu.dk.affaldsprojekt.MainActivity" />
+        </activity>
 
         <service
             android:name=".services.NotificationService"
-            android:enabled="true">
-        </service>
+            android:enabled="true"></service>
 
         <activity
             android:name=".MainActivity"
@@ -46,7 +49,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".Auxiliary" />
         <activity android:name=".FeedbackActivity" />
         <!--
@@ -71,7 +73,7 @@
             android:value="73eac0c996075ade79815048a7e215f7e1ee8e0e" />
 
         <activity android:name=".NotificationActivity" />
-        <activity android:name=".AboutActivity"/>
+        <activity android:name=".AboutActivity" />
     </application>
 
 </manifest>

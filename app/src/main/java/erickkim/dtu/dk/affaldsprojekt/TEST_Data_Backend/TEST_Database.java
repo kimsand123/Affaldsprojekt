@@ -30,38 +30,35 @@ public class TEST_Database {
 
     private static TEST_Database testDatabaseInstance = null;
 
-    public static String tips[] = {"Danmark har EU-rekord i skrald - danskerne smider 802 " +
-            "kg skrald ud per indbygger om året. \n \n kilde: Eurostat - tal fra 2010 ",
+    public static String tips[] = {
+            "Danmark har EU-rekord i skrald - danskerne smider 802 " +
+            "kg skrald ud per indbygger om året.",
 
             "Ca. 30 plastflasker kan blive til en fleecetrøje og ca. 500 " +
-            "dåser kan blive til at cykelstel",
+            "dåser kan blive til at cykelstel.",
 
             "Et kilo aviser bliver til 32 æggebakker og i to konservesdåser " +
-            "er der materiale nok til at lave 1 ringeklokke til en cykel",
+            "er der materiale nok til at lave 1 ringeklokke til en cykel.",
 
             "Stryhns laver 100.000 bakker leverpostej om dagen, i 106 foliebakker " +
-            "Er der materiale nok til rammen til en bærbar computer",
+            "Er der materiale nok til rammen til en bærbar computer.",
 
             "Et kg aluminium udvundet af bauxit skaber ca. 85 kg affald. Det skaber " +
-            "kun 3.5 kg affald at genbruge et kg aluminium",
+            "kun 3.5 kg affald at genbruge et kg aluminium.",
 
             "Der bliver brugt cirka 1,5 tons råstoffer til at producere en computer og " +
-            "cirka 75 kilo til en mobiltelefon. Det meste bliver brugt ved fremstillingen "+
-            "og er ikke en del af det færdige produkt, men bliver til affald.",
+            "cirka 75 kilo til en mobiltelefon. Størstedelen af forbruget bliver til affald.",
 
-            "Koncentrationen af ædelmetaller er ca. 3 gange så stor i elektronikskrot " +
-            "pr. ton, sammenlignet med normal minedrift. Dermed spares der store mængder " +
-            "energi og CO2 ved denne form for genvinding.",
+            "Mængden af ædelmetaller er ca. 3 gange større i elektronikskrot end i normal " +
+            "minedrift. Dermed spares der store mængder CO2 ved denne form for genvinding.",
 
             "hvis alle levede som danskerne, ville det kræve 4 jordkloder for at dække " +
-            "vores forbrug?",
+            "vores forbrug.",
 
             "For at lave en cykel skal der ikke samles mere end 200 dåser aluminium eller jern.",
 
-            "Et ton forbehandlet bioaffald kan gøde 466 m2 landbrugsjord. Det svarer omtrent til "+
-                    "en parcelhusgrund. Samtidig undgås en CO2 emission på 37 kg CO2 pr ton " +
-                    "forbehandlet bioaffald, fordi kulstoffet føres tilbage til jorden, hvor "+
-                    "det lagres og forbedrer dyrkningsegenskaberne.",
+            "Et ton bioaffald kan gøde landbrugsjord, hvad der svarer til størrelsen på en " +
+            "parcelhusgrund. Der spares 37 kg CO2 pr ton, fordi kulstoffet føres tilbage til jorden.",
 
     };
 
@@ -143,63 +140,11 @@ public class TEST_Database {
         return output;
     }
 
-    public static String getTip() {
-        Random r = new Random();
-        int tipToGet = r.nextInt(tips.length);
+    public static String getTip(int tipToGet) {
+
         return tips[tipToGet];
     }
 
-    public static String getFraktion1DisposalStatus(){
-        String status="";
-        int statcode;
-        Random statrnd = new Random();
-        statcode = statrnd.nextInt(10);
-        if (statcode <= 8){
-            status = "ok";
-        } else {
-            status = "Fejl, virker ikke";
-        }
-        return status;
-    }
-
-    public static String getFraktion2DisposalStatus(){
-        String status="";
-        int statcode;
-        Random statrnd = new Random();
-        statcode = statrnd.nextInt(10);
-        if (statcode <= 8){
-            status = "ok";
-        } else {
-            status = "Fejl, virker ikke";
-        }
-        return status;
-    }
-
-    public static String getFraktion3DisposalStatus(){
-        String status="";
-        int statcode;
-        Random statrnd = new Random();
-        statcode = statrnd.nextInt(10);
-        if (statcode <= 8){
-            status = "ok";
-        } else {
-            status = "Fejl, virker ikke";
-        }
-        return status;
-    }
-
-    public static String getFraktion4DisposalStatus(){
-        String status="";
-        int statcode;
-        Random statrnd = new Random();
-        statcode = statrnd.nextInt(10);
-        if (statcode <= 8){
-            status = "ok";
-        } else {
-            status = "Fejl, virker ikke";
-        }
-        return status;
-    }
 
 
     public ArrayList<PieEntry> getFraktionAmount(final int usedDataDeliveryCode, final String userId, final String date) {

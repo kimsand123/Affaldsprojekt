@@ -43,6 +43,7 @@ public class Data_Controller {
     Data_DAO_deliveryCode dao_deliveryCode;
     Data_DAO_gold dao_gold;
     Data_DAO_tips dao_tips;
+    private boolean yesno;
 
     private Data_Controller() {
         dao_deliveryCode = new Data_DAO_deliveryCode();
@@ -97,6 +98,13 @@ public class Data_Controller {
         return goldBoxContent;
     }
 
+    public void setNotificationSettings(boolean yesno){
+        this.yesno = yesno;
+    }
+
+    public boolean getNotificationSettings(){
+        return this.yesno;
+    }
 
     public Data_DTO_deliveryCode getDeliveryCode() {
         return deliveryCode;
@@ -147,22 +155,13 @@ public class Data_Controller {
         this.deliveryCode = deliveryCode;
     }
 
-    public String getTip() {
-        return dao_tips.getTip();
+    public String getTip(int tipnr) {
+        return dao_tips.getTip(tipnr);
     }
 
     public Data_DTO_deliveryCode getNewDeliveryCode() {
         setDeliveryCode(dao_deliveryCode.getAvailableDeliveryCode());
         return deliveryCode;
-    }
-
-    public String[] getHubStatus(){
-        String[] hubStatus = new String[4];
-        hubStatus[0]=TEST_Database.getFraktion1DisposalStatus();
-        hubStatus[1]=TEST_Database.getFraktion2DisposalStatus();
-        hubStatus[2]=TEST_Database.getFraktion3DisposalStatus();
-        hubStatus[3]=TEST_Database.getFraktion4DisposalStatus();
-        return hubStatus;
     }
 
     public ArrayList<PieEntry> getPieData(){

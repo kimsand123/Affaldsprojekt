@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.Random;
 
 import erickkim.dtu.dk.affaldsprojekt.interfaces.I_GenerateFeedback;
+import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
 
 // tal taget fra forskellige miljø/genbrugs/oplysnings hjemmesider, og skal betragtes som vejledende,
 // for at illustrere eksemplet.
@@ -18,33 +19,32 @@ public class GenerateFeedback implements I_GenerateFeedback {
     @Override
     public String getAnalysis(String startText, String userID) {
         String text = startText;
+        int choseStory = getRandom(3);
         switch (userID){
             case "virksomhed":
-                if (metPlaGlaAmount !=0){
+                if (metPlaGlaAmount !=0 && choseStory==1){
                     text = text + "<br><br>" + getFractionStoryCompany("Metal/Plastik/Glas", metPlaGlaAmount) + " for Metal/Plastik/Glas";
                 }
-                if ( bioAmount !=0) {
+                if ( bioAmount !=0 && choseStory==2) {
                     text = text + "<br><br>" + getFractionStoryCompany("Bio", bioAmount)+ " for Bio";
                 }
-                if ( papPapiAmount !=0) {
+                if ( papPapiAmount !=0 && choseStory==3) {
                     text = text + "<br><br>" + getFractionStoryCompany("Pap/Papir", papPapiAmount) + " for Pap/Papir";
                 }
-                if (restAmount !=0){
-                    text = text + "<br><br>" + getFractionStoryCompany("Rest", restAmount) + " for Rest Affald";
-                }
-
                 break;
+
             case "borger":
-                if ( metPlaGlaAmount !=0) {
+                if ( metPlaGlaAmount !=0 && choseStory==1) {
                     text = text + "<br><br>" + getFractionStoryCitizen("Metal/Plastik/Glas", metPlaGlaAmount, false);
                 }
-                if ( bioAmount !=0) {
+                if ( bioAmount !=0 && choseStory==2) {
                     text = text + "<br><br>" + getFractionStoryCitizen("Bio", bioAmount, true);
                 }
-                if ( papPapiAmount !=0) {
+                if ( papPapiAmount !=0 && choseStory==3) {
                     text = text + "<br><br>" + getFractionStoryCitizen("Pap/Papir", papPapiAmount, true);
                 }
                 break;
+
         }
         text = text + "<br>";
         return text;
@@ -85,7 +85,7 @@ public class GenerateFeedback implements I_GenerateFeedback {
     public String getFractionStoryCitizen(String fraction, int fractionAmountInGrams, boolean multipleLines){
 
         String text="";
-        int number = getRandom();
+        int number = getRandom(3);
         double resultat;
         String textEnding="";
         String textStart="";
@@ -167,8 +167,8 @@ public class GenerateFeedback implements I_GenerateFeedback {
                         break;
                     case 3:
                         //DETTE ER IKKE RIGTIGT. FRI FANTASI. Har ikke tid til at lede efter flere eksempler
-                        double faktor = 1/600;
-                        resultat = fractionAmountInGrams/faktor;
+                        double faktor = 1.0/600.0;
+                        resultat = fractionAmountInGrams*faktor;
                         text = text + textStart + " Du kan varme dit hus op i " + format.format(resultat) + " minutter med energien fra dit Bioaffald.";
                         break;
 
@@ -208,9 +208,14 @@ public class GenerateFeedback implements I_GenerateFeedback {
         return text;
     }
 
-    private int getRandom(){
+    public String getTip(){
+        int tipnr = getRandom(10);
+        return Data_Controller.getInstance().getTip(tipnr);
+    }
+
+    private int getRandom(int between1and){
         Random rnd = new Random();
-        int number = rnd.nextInt(2)+1;
+        int number = rnd.nextInt(between1and)+1;
         return number;
     }
 }

@@ -27,6 +27,7 @@ import erickkim.dtu.dk.affaldsprojekt.MapsActivity;
 import erickkim.dtu.dk.affaldsprojekt.R;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
 import erickkim.dtu.dk.affaldsprojekt.services.NotificationService;
+import erickkim.dtu.dk.affaldsprojekt.utilities.GenerateFeedback;
 
 public class screen1main extends Fragment implements View.OnClickListener, Button.OnTouchListener{
 
@@ -65,7 +66,7 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        GenerateFeedback feedback = new GenerateFeedback();
         getActivity().startService(new Intent(getActivity()   , NotificationService.class));
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_screen1main, container, false);
@@ -88,10 +89,8 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
         coinBoxButton.setOnTouchListener(this);
 
         // Hent data for TextViews
-        txtInfoBox.setText(Data_Controller.getInstance().getTip());
+        txtInfoBox.setText(feedback.getTip());
         updateGoldBox();
-
-
 
         return root;
     }
