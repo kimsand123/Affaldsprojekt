@@ -25,6 +25,7 @@
             android:background="@drawable/button_blround_dark"
             android:elevation="0dp"
             android:src="@drawable/marker"
+            android:padding="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/garbageButton"
             app:layout_constraintStart_toStartOf="parent"
