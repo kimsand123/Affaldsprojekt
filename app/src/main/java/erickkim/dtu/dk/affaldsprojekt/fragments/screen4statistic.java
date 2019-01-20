@@ -288,10 +288,10 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                         String txt;
 
                         if(co2Sparet > 1000.0){
-                            txt = startText + " har i dag sparet miljøet for " + co2Sparet/1000.0 + "kg CO2";
+                            txt = startText + " har i dag sparet miljøet for " + co2Sparet/1000.0 + "kg CO2 ";
 
                         } else {
-                            txt = startText + " har i dag sparet miljøet for " + co2Sparet + "g CO2";
+                            txt = startText + " har i dag sparet miljøet for " + co2Sparet + "g CO2 ";
                         }
                         co2TextBox2.setText(txt);
                         drawChart(yDataSetMetPlaGla, yDataSetBio, yDataSetPapPapi, yDataSetRest);

@@ -216,12 +216,12 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                         }
 
                         if(co2Sparet > 1000.0){
-                            txt = "Du har i dag sparet miljøet for " + co2Sparet/1000.0 + "kg CO2";
+                            txt = "Du har i dag sparet miljøet for " + co2Sparet/1000.0 + "kg CO2 ";
                             if (userType.equals("borger")) {
-                                txt=txt+" \n Du har modtaget " + gold + " guld for din aflevering";
+                                txt=txt+" \n Du har modtaget " + gold + " guld for din aflevering ";
                             }
                         } else {
-                            txt = "Du har i dag sparet miljøet for " + co2Sparet + "g CO2";
+                            txt = "Du har i dag sparet miljøet for " + co2Sparet + "g CO2 ";
                         }
 
                         co2TextBox.setText(txt);
