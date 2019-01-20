@@ -2,6 +2,8 @@ package erickkim.dtu.dk.affaldsprojekt;
 
 import org.junit.Test;
 
+import erickkim.dtu.dk.affaldsprojekt.utilities.GenerateFeedback;
+
 import static org.junit.Assert.*;
 
 /**

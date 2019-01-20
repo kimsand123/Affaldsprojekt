@@ -19,16 +19,19 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 
+import java.util.Map;
+
 import erickkim.dtu.dk.affaldsprojekt.fragments.screen0login;
 import erickkim.dtu.dk.affaldsprojekt.fragments.screen1main;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
+import erickkim.dtu.dk.affaldsprojekt.utilities.ScreenSize;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     FragmentManager fragmentManager = getSupportFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
+    private ScreenSize screenSize = new ScreenSize();
 
 
     @Override
@@ -48,8 +51,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //Virker ikke endnu. Dataopsamling virker som den skal, og onDataChange,
-        //Men jeg kan ikke sætte et badge på iconet. Kan ikke finde ud af at lave den rette context
+        Map<String,Integer> map = screenSize.deriveMetrics(this);
+        int density = map.get("screenDensity");
+        //Setting textsize på baggrund af screendensity
+        if (density < 480){
+            Data_Controller.getInstance().setTextSize(16f);
+        } else {
+            Data_Controller.getInstance().setTextSize(20f);
+        }
 
         Fragment startscreen;
         if (Data_Controller.getInstance().performDefaultLogin(getApplicationContext())) {

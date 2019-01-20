@@ -18,6 +18,8 @@ import erickkim.dtu.dk.affaldsprojekt.TEST_Data_Backend.TEST_Database;
 public class Data_Controller {
 
 
+    private float textSize;
+
     public void hideSoftKeyboard(Activity activity) {
         if (activity.getCurrentFocus() == null) {
             return;
@@ -192,6 +194,14 @@ public class Data_Controller {
         this.startdate = this.longDate - 7776000000l;
 
     }
+    public void setTextSize(float textSize)
+    {
+        this.textSize = textSize;
+    }
+    public float getTextSize (){
+        return this.textSize;
+    }
+
 
     public int getTodaysDeliveryCounter() {
         return todaysDeliveryCounter;

@@ -48,10 +48,10 @@ public class NotificationService extends Service {
                         }
 
                         //if(Data_Controller.getInstance().getNotificationSettings()==true) {
-                            if (ShortcutBadger.isBadgeCounterSupported(getApplicationContext())) {
-                                ShortcutBadger.applyCount(getApplicationContext(), numberOfMessages);
-                                makeToast("Du har " + numberOfMessages + " ulæste beskeder. Du kan læse dem ved at gå til notifikationer i menuen.");
-                            }
+                        if (ShortcutBadger.isBadgeCounterSupported(getApplicationContext())) {
+                            ShortcutBadger.applyCount(getApplicationContext(), numberOfMessages);
+                        }
+                        makeToast("Du har " + numberOfMessages + " ulæste beskeder. Du kan læse dem ved at gå til notifikationer i menuen.");
                         //}
 
                     }

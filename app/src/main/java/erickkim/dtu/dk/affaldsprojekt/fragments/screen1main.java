@@ -22,12 +22,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import erickkim.dtu.dk.affaldsprojekt.CoinShopActivity;
-import erickkim.dtu.dk.affaldsprojekt.MainActivity;
 import erickkim.dtu.dk.affaldsprojekt.MapsActivity;
 import erickkim.dtu.dk.affaldsprojekt.R;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
 import erickkim.dtu.dk.affaldsprojekt.services.NotificationService;
 import erickkim.dtu.dk.affaldsprojekt.utilities.GenerateFeedback;
+
 
 public class screen1main extends Fragment implements View.OnClickListener, Button.OnTouchListener{
 
@@ -41,6 +41,7 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
     private TextView txtInfoBox;
     private ImageView imgGoldBox;
     private Button coinBoxButton;
+
 
     private FirebaseDatabase mref;
 
@@ -68,7 +69,7 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
                              Bundle savedInstanceState) {
         GenerateFeedback feedback = new GenerateFeedback();
         getActivity().startService(new Intent(getActivity()   , NotificationService.class));
-        // Inflate the layout for this fragment
+
         root = inflater.inflate(R.layout.fragment_screen1main, container, false);
 
         // initialiser de forskellige views i fragmentet
@@ -91,7 +92,7 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
         // Hent data for TextViews
         txtInfoBox.setText(feedback.getTip());
         updateGoldBox();
-
+        txtInfoBox.setTextSize(1,Data_Controller.getInstance().getTextSize());
         return root;
     }
 

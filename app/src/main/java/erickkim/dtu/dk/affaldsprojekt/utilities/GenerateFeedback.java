@@ -210,10 +210,10 @@ public class GenerateFeedback implements I_GenerateFeedback {
 
     public String getTip(){
         int tipnr = getRandom(10);
-        return Data_Controller.getInstance().getTip(tipnr);
+        return Data_Controller.getInstance().getTip(tipnr-1);
     }
 
-    private int getRandom(int between1and){
+    public int getRandom(int between1and){
         Random rnd = new Random();
         int number = rnd.nextInt(between1and)+1;
         return number;

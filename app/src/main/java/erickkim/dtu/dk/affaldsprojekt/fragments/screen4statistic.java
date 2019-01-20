@@ -84,6 +84,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
             imgGoldBox.setVisibility(View.INVISIBLE);
 
         co2TextBox2 = root.findViewById(R.id.co2TextBox2);
+
         textAnalyseBox = root.findViewById(R.id.textAnalyseBox);
         statisticChart = root.findViewById(R.id.lineChart);
         statisticChart.setOnChartGestureListener(this);
@@ -91,6 +92,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
 
         coinBoxButton.setOnClickListener(this);
         coinBoxButton.setOnTouchListener(this);
+        textAnalyseBox.setTextSize(1,Data_Controller.getInstance().getTextSize());
 
         createLineChart();
 

@@ -89,6 +89,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         txtInfoBox3 = root.findViewById(R.id.txtInfoBox3);
         co2TextBox = root.findViewById(R.id.co2TextBox);
         coinBoxButton = root.findViewById(R.id.txtCoinButton3);
+        txtInfoBox3.setTextSize(1,Data_Controller.getInstance().getTextSize());
 
         updateGoldBox();
         coinBoxButton.setOnClickListener(this);
