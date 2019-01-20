@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.Vibrator;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -99,9 +100,14 @@ public class CoinShopActivity extends AppCompatActivity implements itemClickList
         // Ask if truly buy.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         lastPrice = adapter.getItem(position).price;
-        builder.setMessage("Vil du gerne købe " + adapter.getItem(position).title).setPositiveButton("Ja tak!", dialogClickListener)
-                .setNegativeButton("Nej tak.", dialogClickListener).show();
-        updateGoldBox();
+        if (lastPrice<=Data_Controller.getInstance().getGold()) {
+            builder.setMessage("Vil du gerne købe " + adapter.getItem(position).title).setPositiveButton("Ja tak!", dialogClickListener)
+                    .setNegativeButton("Nej tak.", dialogClickListener).show();
+            updateGoldBox();
+        }else{
+            Toast toast = Toast.makeText(this, "Du har desværre ikke råd", Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
     public class goldLiveData extends LiveData<Integer> implements Observer {

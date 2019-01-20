@@ -130,8 +130,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 case R.id.settings:
                     //Når ikke at blive implementeret.
                     /*intent = new Intent(MainActivity.this, SettingsActivity.class);
-                    startActivity(intent);
-                    break;*/
+                    startActivity(intent);*/
+                    break;
                 case R.id.about:
                     intent = new Intent(MainActivity.this, AboutActivity.class);
                     startActivity(intent);
