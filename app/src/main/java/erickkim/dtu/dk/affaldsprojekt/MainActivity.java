@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Map<String,Integer> map = screenSize.deriveMetrics(this);
         int density = map.get("screenDensity");
         //Setting textsize på baggrund af screendensity
-        if (density < 480){
+        if (density < 520){
             Data_Controller.getInstance().setTextSize(16f);
         } else {
             Data_Controller.getInstance().setTextSize(20f);
