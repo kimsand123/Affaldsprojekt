@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -39,6 +40,7 @@ import erickkim.dtu.dk.affaldsprojekt.interfaces.I_GenerateFeedback;
 import erickkim.dtu.dk.affaldsprojekt.R;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_DTO_delivery;
+import erickkim.dtu.dk.affaldsprojekt.utilities.MakeFeedbackScreen3;
 
 
 public class screen4statistic extends Fragment implements View.OnClickListener, Button.OnTouchListener, OnChartGestureListener, OnChartValueSelectedListener {
@@ -58,13 +60,6 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
 
     public screen4statistic() {
         // Required empty public constructor
-    }
-
-    public static screen4statistic newInstance(String param1, String param2) {
-        screen4statistic fragment = new screen4statistic();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -129,7 +124,6 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
     //https://www.studytutorial.in/android-line-chart-or-line-graph-using-mpandroid-library-tutorial
     @Override
     public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
-        Log.d("Gesture","Start, x: " + me.getX() + ", y: " + me.getY());
     }
 
     @Override
@@ -138,50 +132,34 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
         if(lastPerformedGesture != ChartTouchListener.ChartGesture.SINGLE_TAP){
             statisticChart.highlightValue(null);
         }
-
     }
 
     @Override
     public void onChartLongPressed(MotionEvent me) {
-        Log.d ("LongPress","Chart longpressed.");
-
     }
 
     @Override
     public void onChartDoubleTapped(MotionEvent me) {
-        Log.d("DoubleTap", "Chart double-tapped");
-
     }
 
     @Override
     public void onChartSingleTapped(MotionEvent me) {
-        Log.d("SingleTap","Chart single-tapped");
     }
 
     @Override
     public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
-        Log.d("Fling", "Chart flinged. VeloX: " + velocityX + ", VeloY: " + velocityY);
     }
 
     @Override
     public void onChartScale(MotionEvent me, float scaleX, float scaleY) {
-        Log.d("Scale / Zoom","ScaleX: " + scaleX + ", ScaleY: " + scaleX);
     }
 
     @Override
     public void onChartTranslate(MotionEvent me, float dX, float dY) {
-        Log.d("Translate / Move", "dX: " + dX + ", dY: " + dY);
     }
 
     @Override
     public void onValueSelected(Entry e, Highlight h) {
-        Log.d("Entry selected", e.toString());
-        Log.d("LowHigh", "low: " + statisticChart.getLowestVisibleX()+
-                                    ", high: " + statisticChart.getHighestVisibleX());
-        Log.d("MIN MAX", "xmin: " + statisticChart.getXChartMax()+
-                                    ", xmax: " + statisticChart.getXChartMax()+
-                                    ", ymin: " + statisticChart.getYChartMin()+
-                                    ", ymax: " + statisticChart.getYChartMax());
     }
 
     @Override
@@ -270,32 +248,14 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                         }
 
                         //Send det akkumulerede total tal for hver fraction til feedback
-                        feedback.setAmounts((int)yDataSetMetPlaGla.get(yDataSetMetPlaGla.size()-1).getY(),
+                        MakeFeedbackScreen3 feedback = new MakeFeedbackScreen3(
+                                            (int)yDataSetMetPlaGla.get(yDataSetMetPlaGla.size()-1).getY(),
                                             (int)yDataSetBio.get(yDataSetBio.size()-1).getY(),
                                             (int)yDataSetPapPapi.get(yDataSetPapPapi.size()-1).getY(),
-                                            (int)yDataSetRest.get(yDataSetRest.size()-1).getY());
-                        //Hent user type
-                        String userType = Data_Controller.getInstance().getUserType();
-                        String startText="";
-                        //Hent co2 besparelse
-                        float co2Sparet = Integer.parseInt(feedback.co2SaverCalc());
+                                            (int)yDataSetRest.get(yDataSetRest.size()-1).getY(), 0,"screen4");
 
-                        if(userType.equals("virksomhed")){
-                            startText = "I";
-                            textAnalyseBox.setText((Html.fromHtml(feedback.getAnalysis("<i><b>Jeres kvartalsaflevering har givet følgende indtjening</i></b>","virksomhed"))));
-                        }else {
-                            startText = "Du";
-                            textAnalyseBox.setText(Html.fromHtml(feedback.getAnalysis("<i><b>Din kvartalsaflevering har betydet</i></b>","borger")));
-                        }
-                        String txt;
-
-                        if(co2Sparet > 1000.0){
-                            txt = startText + " har i dag sparet miljøet for " + co2Sparet/1000.0 + "kg CO2 ";
-
-                        } else {
-                            txt = startText + " har i dag sparet miljøet for " + co2Sparet + "g CO2 ";
-                        }
-                        co2TextBox2.setText(txt);
+                        textAnalyseBox.setText(Html.fromHtml(feedback.createTxtBoxFeedbackText()));
+                        co2TextBox2.setText(feedback.createCO2FeedbackText());
                         drawChart(yDataSetMetPlaGla, yDataSetBio, yDataSetPapPapi, yDataSetRest);
                     }
 
@@ -367,7 +327,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
         }
 
         LineData data = new LineData(dataSets);
-
+        statisticChart.animateXY(1400, 1400);
         statisticChart.setData(data);
         statisticChart.invalidate();
 

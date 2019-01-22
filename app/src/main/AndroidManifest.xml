@@ -21,16 +21,19 @@
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/affalderguldicon"
-        android:label="@string/app_name"
+        android:label="gr20 Affald er Guld"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:label">
+
 
 
         <service
             android:name=".services.NotificationService"
-            android:enabled="true"></service>
+            android:enabled="true">
+        </service>
 
         <activity
             android:name=".MainActivity"

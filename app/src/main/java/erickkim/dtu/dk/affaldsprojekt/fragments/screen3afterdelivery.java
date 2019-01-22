@@ -25,6 +25,7 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -39,6 +40,7 @@ import erickkim.dtu.dk.affaldsprojekt.interfaces.I_GenerateFeedback;
 import erickkim.dtu.dk.affaldsprojekt.R;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_DTO_delivery;
+import erickkim.dtu.dk.affaldsprojekt.utilities.MakeFeedbackScreen3;
 import pl.bclogic.pulsator4droid.library.PulsatorLayout;
 
 public class screen3afterdelivery extends Fragment implements View.OnClickListener, Button.OnTouchListener {
@@ -50,7 +52,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     private TextView txtInfoBox3;
     private TextView co2TextBox;
     private PieChart chart;
-    private I_GenerateFeedback feedback = new GenerateFeedback();
+
     private ImageView imgGoldBox;
     private Button coinBoxButton;
 
@@ -203,29 +205,9 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                                     break;
                             }
                         }
-                        //make feedback and write txt to view.
-                        feedback.setAmounts(metPlaGlaAmount, bioAmount, papPapiAmount, restAmount);
-                        String userType = Data_Controller.getInstance().getUserType();
-                        String txt;
-
-                        float co2Sparet = Integer.parseInt(feedback.co2SaverCalc());
-
-                        if(userType.equals("virksomhed")){
-                            txtInfoBox3.setText((Html.fromHtml(feedback.getAnalysis("<i><b>Din aflevering i dag har givet følgende indtjening</i></b>","virksomhed"))));
-                        }else {
-                            txtInfoBox3.setText(Html.fromHtml(feedback.getAnalysis("<i><b>Din aflevering i dag har betydet</i></b>","borger")));
-                        }
-
-                        if(co2Sparet > 1000.0){
-                            txt = "Du har i dag sparet miljøet for " + co2Sparet/1000.0 + "kg CO2 ";
-                            if (userType.equals("borger")) {
-                                txt=txt+" \n Du har modtaget " + gold + " guld for din aflevering ";
-                            }
-                        } else {
-                            txt = "Du har i dag sparet miljøet for " + co2Sparet + "g CO2 ";
-                        }
-
-                        co2TextBox.setText(txt);
+                        MakeFeedbackScreen3 feedback = new MakeFeedbackScreen3(metPlaGlaAmount,bioAmount,papPapiAmount,restAmount, gold, "screen3");
+                        txtInfoBox3.setText(Html.fromHtml(feedback.createTxtBoxFeedbackText()));
+                        co2TextBox.setText(feedback.createCO2FeedbackText());
                         drawPieChart(values, colors);
                     }
 
@@ -239,7 +221,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     public void drawPieChart(ArrayList<PieEntry> values, ArrayList<Integer> colors){
 
         //initialize dataset and pass the data
-        PieDataSet dataSet = new PieDataSet(values, "Dagens aflevering" );
+        PieDataSet dataSet = new PieDataSet(values, "" );
 
         dataSet.setValueFormatter(new PercentFormatter());
         dataSet.setValueTextSize(11f);
@@ -262,7 +244,6 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         chart.animateXY(1400, 1400, Easing.EaseOutCubic);
         chart.setRotationEnabled(true);
         chart.setData(data);
-
         chart.highlightValues(null);
         chart.invalidate();
     }
