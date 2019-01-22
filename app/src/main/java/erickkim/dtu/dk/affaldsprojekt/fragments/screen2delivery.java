@@ -38,6 +38,7 @@ public class screen2delivery extends Fragment implements View.OnClickListener, V
     private TextView txtIdBox;
     private TextView goldBox;
     private ImageView imgGoldBox;
+    private TextView tabForGoldImage2;
     private Button auxiliaryButton;
     private Button coinBoxButton;
 
@@ -73,6 +74,8 @@ public class screen2delivery extends Fragment implements View.OnClickListener, V
         txtIdBox = root.findViewById(R.id.txtIdBox);
         auxiliaryButton = root.findViewById(R.id.button_auxiliary);
         coinBoxButton = root.findViewById(R.id.txtCoinButton2);
+        tabForGoldImage2 = root.findViewById(R.id.tabForGoldImage2);
+        tabForGoldImage2.setText(Data_Controller.getInstance().getGoldBoxContent());
 
         PulsatorLayout pulsar = root.findViewById(R.id.pulsator);
 
@@ -156,6 +159,7 @@ public class screen2delivery extends Fragment implements View.OnClickListener, V
                 }
                 Data_Controller.getInstance().setGold(goldInt);
                 goldBox.setText(goldBoxContent);
+                tabForGoldImage2.setText(goldBoxContent);
             }
 
             @Override

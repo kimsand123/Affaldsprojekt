@@ -39,6 +39,7 @@ public class CoinShopActivity extends AppCompatActivity implements itemClickList
     private DialogInterface.OnClickListener dialogClickListener;
     private TextView txtGoldBox;
     private ImageView imgGoldBox;
+    private TextView tabForGoldImage0;
     private int lastPrice;
     private Vibrator v;
 
@@ -71,6 +72,8 @@ public class CoinShopActivity extends AppCompatActivity implements itemClickList
         adapter.setClickListener(this);
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(adapter);
+        tabForGoldImage0 = findViewById(R.id.tabForGoldImage0);
+        tabForGoldImage0.setText(Data_Controller.getInstance().getGoldBoxContent());
 
         // Setup the dialog to purchase items.
         dialogClickListener = new DialogInterface.OnClickListener() {
@@ -142,6 +145,7 @@ public class CoinShopActivity extends AppCompatActivity implements itemClickList
                 }
                 Data_Controller.getInstance().setGold(goldInt);
                 txtGoldBox.setText(goldBoxContent);
+                tabForGoldImage0.setText(goldBoxContent);
             }
 
             @Override

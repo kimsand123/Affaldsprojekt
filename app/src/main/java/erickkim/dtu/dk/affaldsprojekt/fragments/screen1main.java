@@ -36,6 +36,7 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
     private ImageButton garbageButton;
     private Button hubstatusButton;
     private ImageButton hubplacementButton;
+    private TextView tabForGoldImage1;
     private Button depositButton;
     private ImageButton goldBox;
     private TextView txtInfoBox;
@@ -78,6 +79,8 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
         depositButton = root.findViewById(R.id.depositButton);
         txtInfoBox = root.findViewById(R.id.txtInfoBox1);
         coinBoxButton = root.findViewById(R.id.txtCoinButton1);
+        tabForGoldImage1 = root.findViewById(R.id.tabForGoldImage1);
+        tabForGoldImage1.setText(Data_Controller.getInstance().getGoldBoxContent());
 
         // setonclick and ontouch listeners for alle knapper.
         garbageButton.setOnClickListener(this);
@@ -168,6 +171,7 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
                  }
                  Data_Controller.getInstance().setGold(goldInt);
                  coinBoxButton.setText(goldBoxContent);
+                 tabForGoldImage1.setText(goldBoxContent);
              }
 
              @Override

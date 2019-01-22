@@ -50,6 +50,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
     private ImageButton statisticButton;
     private TextView goldBox;
     private TextView txtInfoBox3;
+    private TextView tabForGoldImage3;
     private TextView co2TextBox;
     private PieChart chart;
 
@@ -91,6 +92,8 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         txtInfoBox3 = root.findViewById(R.id.txtInfoBox3);
         co2TextBox = root.findViewById(R.id.co2TextBox);
         coinBoxButton = root.findViewById(R.id.txtCoinButton3);
+        tabForGoldImage3 = root.findViewById(R.id.tabForGoldImage3);
+        tabForGoldImage3.setText(Data_Controller.getInstance().getGoldBoxContent());
         txtInfoBox3.setTextSize(1,Data_Controller.getInstance().getTextSize());
 
         updateGoldBox();
@@ -265,6 +268,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
                 }
                 Data_Controller.getInstance().setGold(goldInt);
                 coinBoxButton.setText(goldBoxContent);
+                tabForGoldImage3.setText(goldBoxContent);
             }
 
             @Override

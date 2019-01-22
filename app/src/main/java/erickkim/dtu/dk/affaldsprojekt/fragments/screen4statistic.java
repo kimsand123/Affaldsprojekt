@@ -16,8 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
-
-import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -49,12 +47,14 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
 
     private TextView textAnalyseBox;
     private TextView co2TextBox2;
+    private TextView tabForGoldImage4;
     private LineChart statisticChart;
     private I_GenerateFeedback feedback = new GenerateFeedback();
     private ImageView imgGoldBox;
     private Button coinBoxButton;
     final DecelerateInterpolator sDecelerator = new DecelerateInterpolator();
     final OvershootInterpolator sOvershooter = new OvershootInterpolator(5f);
+
 
     private FirebaseDatabase mref;
 
@@ -74,6 +74,8 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
         // statistic = root.findViewById(R.id.statistic);
         coinBoxButton = root.findViewById(R.id.txtCoinButton4);
         coinBoxButton.setText(Data_Controller.getInstance().getGoldBoxContent());
+        tabForGoldImage4 = root.findViewById(R.id.tabForGoldImage4);
+        tabForGoldImage4.setText(Data_Controller.getInstance().getGoldBoxContent());
         imgGoldBox = root.findViewById(R.id.imgGoldBox);
         if (Data_Controller.getInstance().getUserType().equals("virksomhed"))
             imgGoldBox.setVisibility(View.INVISIBLE);
@@ -350,6 +352,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                 }
                 Data_Controller.getInstance().setGold(goldInt);
                 coinBoxButton.setText(goldBoxContent);
+                tabForGoldImage4.setText(goldBoxContent);
             }
 
             @Override

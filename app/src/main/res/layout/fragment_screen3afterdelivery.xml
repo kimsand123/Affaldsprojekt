@@ -58,7 +58,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="28dp"
             app:layout_constraintBottom_toBottomOf="@+id/txtCoinButton3"
-            app:layout_constraintStart_toStartOf="@+id/txtCoinButton3"
+            app:layout_constraintStart_toEndOf="@+id/tabForGoldImage3"
             app:layout_constraintTop_toTopOf="@+id/txtCoinButton3"
             app:layout_constraintVertical_bias="0.444"
             app:srcCompat="@drawable/guldbaricon2" />
@@ -136,6 +136,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tabForGoldImage3"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="TextView"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/txtCoinButton3"
+            app:layout_constraintEnd_toEndOf="@+id/txtCoinButton3"
+            app:layout_constraintStart_toStartOf="@+id/txtCoinButton3"
+            app:layout_constraintTop_toTopOf="@+id/txtCoinButton3" />
 
 
 

@@ -54,10 +54,10 @@
             android:id="@+id/imgGoldBox"
             android:layout_width="53dp"
             android:layout_height="0dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginStart="22dp"
             android:elevation="5dp"
             app:layout_constraintBottom_toBottomOf="@+id/txtCoinButton4"
-            app:layout_constraintEnd_toEndOf="@+id/txtCoinButton4"
+            app:layout_constraintStart_toEndOf="@+id/tabForGoldImage4"
             app:layout_constraintTop_toTopOf="@+id/txtCoinButton4"
             app:layout_constraintVertical_bias="0.444"
             app:srcCompat="@drawable/guldbaricon2" />
@@ -103,6 +103,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tabForGoldImage4"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="TextView"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/txtCoinButton4"
+            app:layout_constraintEnd_toEndOf="@+id/txtCoinButton4"
+            app:layout_constraintStart_toStartOf="@+id/txtCoinButton4"
+            app:layout_constraintTop_toTopOf="@+id/txtCoinButton4" />
 
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>
