@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_DTO_delivery;
-import erickkim.dtu.dk.affaldsprojekt.utilities.getTrashValue;
+import erickkim.dtu.dk.affaldsprojekt.utilities.GetTrashValue;
 
 public class Auxiliary extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener{
 
@@ -138,7 +138,7 @@ public class Auxiliary extends AppCompatActivity implements View.OnClickListener
     public class asyncDeliver extends AsyncTask {
         @Override
         protected Object doInBackground(Object[] objects) {
-            getTrashValue gettrashvalue = new getTrashValue();
+            GetTrashValue gettrashvalue = new GetTrashValue();
             int newGold = 0;
             newGold = Data_Controller.getInstance().getGold();
             Data_DTO_delivery dataBundle= new Data_DTO_delivery();

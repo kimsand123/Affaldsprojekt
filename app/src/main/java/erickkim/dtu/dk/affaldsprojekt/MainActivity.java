@@ -24,6 +24,7 @@ import java.util.Map;
 import erickkim.dtu.dk.affaldsprojekt.fragments.screen0login;
 import erickkim.dtu.dk.affaldsprojekt.fragments.screen1main;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
+import erickkim.dtu.dk.affaldsprojekt.utilities.DimensionHandling;
 import erickkim.dtu.dk.affaldsprojekt.utilities.ScreenSize;
 import io.fabric.sdk.android.Fabric;
 
@@ -55,9 +56,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int density = map.get("screenDensity");
         //Setting textsize på baggrund af screendensity
         if (density < 520){
-            Data_Controller.getInstance().setTextSize(16f);
+            DimensionHandling.getInstance().setSmall();
         } else {
-            Data_Controller.getInstance().setTextSize(20f);
+            DimensionHandling.getInstance().setLarge();
         }
 
         Fragment startscreen;

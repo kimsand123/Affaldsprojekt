@@ -26,6 +26,7 @@ import erickkim.dtu.dk.affaldsprojekt.MapsActivity;
 import erickkim.dtu.dk.affaldsprojekt.R;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
 import erickkim.dtu.dk.affaldsprojekt.services.NotificationService;
+import erickkim.dtu.dk.affaldsprojekt.utilities.DimensionHandling;
 import erickkim.dtu.dk.affaldsprojekt.utilities.GenerateFeedback;
 
 
@@ -70,12 +71,18 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
                              Bundle savedInstanceState) {
         GenerateFeedback feedback = new GenerateFeedback();
         getActivity().startService(new Intent(getActivity()   , NotificationService.class));
-
+        int padding;
         root = inflater.inflate(R.layout.fragment_screen1main, container, false);
 
         // initialiser de forskellige views i fragmentet
         garbageButton = root.findViewById(R.id.garbageButton);
+        padding = DimensionHandling.getInstance().getPaddingSizeGarbageHandlingButton();
+        garbageButton.setPadding(padding,padding,padding,padding);
+
         hubplacementButton = root.findViewById(R.id.hubplacementButton);
+        padding = DimensionHandling.getInstance().getIconPaddingHub();
+        hubplacementButton.setPadding(padding,padding,padding,padding);
+
         depositButton = root.findViewById(R.id.depositButton);
         txtInfoBox = root.findViewById(R.id.txtInfoBox1);
         coinBoxButton = root.findViewById(R.id.txtCoinButton1);
@@ -95,7 +102,7 @@ public class screen1main extends Fragment implements View.OnClickListener, Butto
         // Hent data for TextViews
         txtInfoBox.setText(feedback.getTip());
         updateGoldBox();
-        txtInfoBox.setTextSize(1,Data_Controller.getInstance().getTextSize());
+        txtInfoBox.setTextSize(1,DimensionHandling.getInstance().getTextSize());
         return root;
     }
 

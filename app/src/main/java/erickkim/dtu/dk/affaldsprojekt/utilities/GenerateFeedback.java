@@ -76,7 +76,7 @@ public class GenerateFeedback implements I_GenerateFeedback {
     @Override
     public String getFractionStoryCompany(String fraction, int FractionAmountInGrams){
         DecimalFormat format = new DecimalFormat("#.####");
-        getTrashValue getValue = new getTrashValue();
+        GetTrashValue getValue = new GetTrashValue();
         String text = "Virksomheden har indtjent " + format.format(Math.round(getValue.convertToValue(fraction, FractionAmountInGrams))) + " kr.";
         return text;
     }

@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 
 import erickkim.dtu.dk.affaldsprojekt.CoinShopActivity;
+import erickkim.dtu.dk.affaldsprojekt.utilities.DimensionHandling;
 import erickkim.dtu.dk.affaldsprojekt.utilities.GenerateFeedback;
 import erickkim.dtu.dk.affaldsprojekt.interfaces.I_GenerateFeedback;
 import erickkim.dtu.dk.affaldsprojekt.R;
@@ -94,7 +95,7 @@ public class screen3afterdelivery extends Fragment implements View.OnClickListen
         coinBoxButton = root.findViewById(R.id.txtCoinButton3);
         tabForGoldImage3 = root.findViewById(R.id.tabForGoldImage3);
         tabForGoldImage3.setText(Data_Controller.getInstance().getGoldBoxContent());
-        txtInfoBox3.setTextSize(1,Data_Controller.getInstance().getTextSize());
+        txtInfoBox3.setTextSize(1, DimensionHandling.getInstance().getTextSize());
 
         updateGoldBox();
         coinBoxButton.setOnClickListener(this);

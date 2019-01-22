@@ -1,6 +1,6 @@
 package erickkim.dtu.dk.affaldsprojekt.utilities;
 
-public class getTrashValue {
+public class GetTrashValue {
 
     public double convertToValue(String fraction, int amountInGrams){
         double faktor=0.0;

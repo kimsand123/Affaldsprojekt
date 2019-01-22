@@ -47,6 +47,7 @@ public class Data_Controller {
     Data_DAO_tips dao_tips;
     private boolean yesno;
 
+
     private Data_Controller() {
         dao_deliveryCode = new Data_DAO_deliveryCode();
         dao_gold = new Data_DAO_gold();
@@ -166,12 +167,6 @@ public class Data_Controller {
         return deliveryCode;
     }
 
-    public ArrayList<PieEntry> getPieData(){
-        ArrayList<PieEntry> pieData = new ArrayList<>();
-        pieData = TEST_Database.getInstance().getFraktionAmount(this.usedDataDeliveryCode, this.userId, ""+this.deliveredDate);
-        return pieData;
-    }
-
     public String getStringToday() {
         return this.date;
     }
@@ -191,17 +186,10 @@ public class Data_Controller {
         }
         this.date = sdf.format(today);
         this.longDate = todayWithoutTime.getTime();
+        //90 dage siden
         this.startdate = this.longDate - 7776000000l;
 
     }
-    public void setTextSize(float textSize)
-    {
-        this.textSize = textSize;
-    }
-    public float getTextSize (){
-        return this.textSize;
-    }
-
 
     public int getTodaysDeliveryCounter() {
         return todaysDeliveryCounter;

@@ -33,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import erickkim.dtu.dk.affaldsprojekt.CoinShopActivity;
+import erickkim.dtu.dk.affaldsprojekt.utilities.DimensionHandling;
 import erickkim.dtu.dk.affaldsprojekt.utilities.GenerateFeedback;
 import erickkim.dtu.dk.affaldsprojekt.interfaces.I_GenerateFeedback;
 import erickkim.dtu.dk.affaldsprojekt.R;
@@ -89,7 +90,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
 
         coinBoxButton.setOnClickListener(this);
         coinBoxButton.setOnTouchListener(this);
-        textAnalyseBox.setTextSize(1,Data_Controller.getInstance().getTextSize());
+        textAnalyseBox.setTextSize(1, DimensionHandling.getInstance().getTextSize());
 
         createLineChart();
 
