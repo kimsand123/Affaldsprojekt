@@ -50,7 +50,7 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
 
 
         //populer feedback type spinner
-        String[] feedbackArray = new String[]{"Send en go idé", "Fejlmeld affaldstårn", "en mere", "og en sidste"};
+        String[] feedbackArray = new String[]{"Send en go idé", "Fejlmeld affaldstårn", "Andet"};
         ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, feedbackArray);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         feedbackString="";
@@ -58,7 +58,7 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
         typeSpinner.setOnItemSelectedListener(this);
 
         fireData = FirebaseDatabase.getInstance();
-        dataRef = fireData.getReference("ideas");
+        dataRef = fireData.getReference("feedback");
     }
 
     @Override
@@ -108,7 +108,7 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
             String key = dataRef.push().getKey();
 
             //writing data
-            dataRef.child(key).child("idea").setValue("" + feedback.getText().toString());
+            dataRef.child(key).child("feedback").setValue("" + feedback.getText().toString());
             dataRef.child(key).child("userId").setValue("" + Data_Controller.getInstance().getUserId());
             return null;
         }
@@ -116,9 +116,8 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
         @Override
         protected void onPostExecute (Object o){
             super.onPostExecute(o);
-            makeToast("Tak for din idé. :)");
+            makeToast("Tak for dit feedback");
             finish();
-            //MessageCenter.getInstance().showMessage("Tak for din idé. :)");
         }
 
     }

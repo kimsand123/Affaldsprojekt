@@ -94,7 +94,6 @@ public class NotificationActivity extends AppCompatActivity implements itemClick
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(this, "Du klikkede på " + position, Toast.LENGTH_SHORT).show();
         if (notifications.get(position).getStatus() == 0) {
             if (Build.VERSION.SDK_INT>=26)
                 v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
