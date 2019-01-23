@@ -1,12 +1,17 @@
 package erickkim.dtu.dk.affaldsprojekt.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,15 +20,20 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import erickkim.dtu.dk.affaldsprojekt.CoinShopActivity;
 import erickkim.dtu.dk.affaldsprojekt.R;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
 
-public class screen7sortingguide extends Fragment {
+public class screen7sortingguide extends Fragment implements Button.OnClickListener, Button.OnTouchListener{
 
-    private TextView txtGoldBox;
     private ImageView imgGoldBox;
     private View root;
     private WebView web;
+    private TextView tabForGoldImage7;
+    private Button coinBoxButton7;
+    final DecelerateInterpolator sDecelerator = new DecelerateInterpolator();
+    final OvershootInterpolator sOvershooter = new OvershootInterpolator(5f);
+
 
     private FirebaseDatabase mref;
 
@@ -47,6 +57,12 @@ public class screen7sortingguide extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_screen7sortingguide, container, false);
         web = root.findViewById(R.id.sortguide_Webview);
+        tabForGoldImage7 = root.findViewById(R.id.tabForGoldImage7);
+        tabForGoldImage7.setText(Data_Controller.getInstance().getGoldBoxContent());
+        coinBoxButton7 = root.findViewById(R.id.txtCoinButton7);
+        coinBoxButton7.setOnClickListener(this);
+        coinBoxButton7.setOnTouchListener(this);
+
 
         updateGoldBox();
 
@@ -54,11 +70,35 @@ public class screen7sortingguide extends Fragment {
         return root;
     }
 
+    @Override
+    public void onClick(View v) {
+
+        //check view objektet, og skift til den tilhørende case
+        switch(v.getId()){
+            case R.id.txtCoinButton7:
+                Intent intent = new Intent(screen7sortingguide.this.getActivity(), CoinShopActivity.class);
+                startActivity(intent);
+                break;
+        }
+
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent me) {
+        v.animate().setDuration(200);
+        if (me.getAction() == MotionEvent.ACTION_DOWN) {
+            v.animate().setInterpolator(sDecelerator).scaleX(.7f).scaleY(.7f);
+        } else if (me.getAction() == MotionEvent.ACTION_UP) {
+            v.animate().setInterpolator(sOvershooter).scaleX(1f).scaleY(1f);
+        }
+        return false;
+    }
     public void updateGoldBox() {
         mref = FirebaseDatabase.getInstance();
-        txtGoldBox = root.findViewById(R.id.txtCoinBox1);
+        coinBoxButton7 = root.findViewById(R.id.txtCoinButton7);
         imgGoldBox = root.findViewById(R.id.imgGoldBox);
-        txtGoldBox.setText(String.valueOf(Data_Controller.getInstance().getGold()));
+        coinBoxButton7.setText(String.valueOf(Data_Controller.getInstance().getGold()));
+
         mref.getReference().child("users").child(Data_Controller.getInstance().getUserId()).child("gold").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -71,7 +111,8 @@ public class screen7sortingguide extends Fragment {
                     goldBoxContent = "Penge sparet: " + String.valueOf(gold) + " kr.";
                 }
                 Data_Controller.getInstance().setGold(goldInt);
-                txtGoldBox.setText(goldBoxContent);
+                coinBoxButton7.setText(goldBoxContent);
+                tabForGoldImage7.setText(goldBoxContent);
             }
 
             @Override

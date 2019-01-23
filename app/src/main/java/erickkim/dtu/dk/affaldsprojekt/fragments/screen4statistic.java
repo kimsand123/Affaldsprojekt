@@ -39,7 +39,7 @@ import erickkim.dtu.dk.affaldsprojekt.interfaces.I_GenerateFeedback;
 import erickkim.dtu.dk.affaldsprojekt.R;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_DTO_delivery;
-import erickkim.dtu.dk.affaldsprojekt.utilities.MakeFeedbackScreen3;
+import erickkim.dtu.dk.affaldsprojekt.utilities.MakeFeedbackForScreens;
 
 
 public class screen4statistic extends Fragment implements View.OnClickListener, Button.OnTouchListener, OnChartGestureListener, OnChartValueSelectedListener {
@@ -251,7 +251,7 @@ public class screen4statistic extends Fragment implements View.OnClickListener, 
                         }
 
                         //Send det akkumulerede total tal for hver fraction til feedback
-                        MakeFeedbackScreen3 feedback = new MakeFeedbackScreen3(
+                        MakeFeedbackForScreens feedback = new MakeFeedbackForScreens(
                                             (int)yDataSetMetPlaGla.get(yDataSetMetPlaGla.size()-1).getY(),
                                             (int)yDataSetBio.get(yDataSetBio.size()-1).getY(),
                                             (int)yDataSetPapPapi.get(yDataSetPapPapi.size()-1).getY(),

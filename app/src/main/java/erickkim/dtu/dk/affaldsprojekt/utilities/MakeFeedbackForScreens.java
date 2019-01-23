@@ -6,7 +6,7 @@ import erickkim.dtu.dk.affaldsprojekt.interfaces.I_GenerateFeedback;
 import erickkim.dtu.dk.affaldsprojekt.model.Data_Controller;
 
 
-public class MakeFeedbackScreen3 {
+public class MakeFeedbackForScreens {
     private I_GenerateFeedback feedback = new GenerateFeedback();
     int metPlaGlaAmount;
     int bioAmount;
@@ -17,7 +17,7 @@ public class MakeFeedbackScreen3 {
     String startText;
     String userType;
 
-    public MakeFeedbackScreen3(int metPlaGlaAmount, int bioAmount, int papPapiAmount,int restAmount, int gold, String screen){
+    public MakeFeedbackForScreens(int metPlaGlaAmount, int bioAmount, int papPapiAmount, int restAmount, int gold, String screen){
         this.metPlaGlaAmount = metPlaGlaAmount;
         this.bioAmount = bioAmount;
         this.papPapiAmount = papPapiAmount;
