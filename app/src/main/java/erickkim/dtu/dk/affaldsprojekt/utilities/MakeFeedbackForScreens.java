@@ -42,9 +42,6 @@ public class MakeFeedbackForScreens {
         if (screen.equals("screen3")) {
             if (co2Sparet > 1000.0) {
                 txt = "Du har i dag sparet miljøet for " + co2Sparet / 1000.0 + "kg CO2 ";
-                if (userType.equals("borger")) {
-                    txt = txt + " \n Du har modtaget " + gold + " guld for din aflevering ";
-                }
             } else {
                 txt = "Du har i dag sparet miljøet for " + co2Sparet + "g CO2 ";
             }
@@ -55,6 +52,9 @@ public class MakeFeedbackForScreens {
             } else {
                 txt = startText + " har i dag sparet miljøet for " + co2Sparet + "g CO2 ";
             }
+        }
+        if (userType.equals("borger")) {
+            txt = txt + " \n Du har modtaget " + gold + " guld for din aflevering ";
         }
 
 

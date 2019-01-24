@@ -28,6 +28,10 @@ import erickkim.dtu.dk.affaldsprojekt.utilities.DimensionHandling;
 import erickkim.dtu.dk.affaldsprojekt.utilities.ScreenSize;
 import io.fabric.sdk.android.Fabric;
 
+// Denne app er lavet af Grp 20 som består af.
+// Erick Lauridsen S175199
+// Kim Sandberg S163290
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     FragmentManager fragmentManager = getSupportFragmentManager();

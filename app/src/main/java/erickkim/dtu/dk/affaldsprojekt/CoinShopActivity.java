@@ -61,7 +61,7 @@ public class CoinShopActivity extends AppCompatActivity implements itemClickList
         shopEntries.add(new Data_DTO_shopEntry("2 stk Lysestage", "Lysestager i messing. Perfekt til når jordens energiforsyning er sluppet op.", R.drawable.shop_lys, 80));
         shopEntries.add(new Data_DTO_shopEntry("Sanghæfter", "Gamle sanghæfter fra dengang børn ikke brugte 24 timer foran computeren.", R.drawable.shop_sanghaefte, 30));
         shopEntries.add(new Data_DTO_shopEntry("En 80mm AT-Kanon", "Ja du læste rigtigt. Brug dit guld på at købe en kanon. Mon naboen endeligt tier stille.", R.drawable.shop_kanon, 200));
-
+        shopEntries.add(new Data_DTO_shopEntry("En test på continuity", "Her er noget tekst på continuity, det skal bare fylde noget blabla", R.drawable.shop_kanon, 200));
         // Set up the recyclerview
         RecyclerView recyclerView = findViewById(R.id.coinShop_RecycleView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
