@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screen1main"
+    tools:context=".fragments.screen3afterdelivery"
     android:background="#000000">
 
     <android.support.constraint.ConstraintLayout
@@ -14,67 +14,140 @@
         android:minWidth="383dp"
         android:minHeight="511dp">
 
-        <TextView
-            android:id="@+id/txtCoinBox3"
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChart"
             android:layout_width="0dp"
-            android:layout_height="42dp"
-            android:layout_marginStart="18dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="70dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="18dp"
-            android:background="@drawable/text_roundcorners_beige"
-            android:fontFamily="@font/roboto"
-            android:gravity="center"
-            android:text="GarbageCoins: "
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:layout_marginEnd="70dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/co2TextBox"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/txtInfoBox3" />
+
+        <Button
+            android:id="@+id/txtCoinButton3"
+            android:layout_width="0dp"
+            android:layout_height="42sp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:elevation="0dp"
+            android:background="@drawable/text_roundcorners_gold"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/gold"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/txtInfoBox3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/guldbaricon2"
+            />
+
+        <ImageView
+            android:id="@+id/imgGoldBox"
+            android:elevation="5dp"
+            android:layout_width="53dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="28dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtCoinButton3"
+            app:layout_constraintStart_toEndOf="@+id/tabForGoldImage3"
+            app:layout_constraintTop_toTopOf="@+id/txtCoinButton3"
+            app:layout_constraintVertical_bias="0.444"
+            app:srcCompat="@drawable/guldbaricon2" />
+
 
         <TextView
             android:id="@+id/txtInfoBox3"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="170sp"
             android:layout_marginStart="18dp"
             android:layout_marginTop="36dp"
             android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/text_roundcorners_darkgreen"
             android:fontFamily="@font/roboto"
-            android:gravity="center"
-            android:textAlignment="center"
+            android:gravity="center_vertical|center_horizontal|center"
+            android:paddingLeft="30dp"
+            android:paddingTop="10dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="10dp"
+
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="20dp"
             android:textStyle="italic"
-            app:layout_constraintBottom_toTopOf="@+id/statisticButton"
+            app:layout_constraintBottom_toTopOf="@+id/pieChart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtCoinBox3" />
+            app:layout_constraintTop_toBottomOf="@+id/txtCoinButton3" />
 
-        <Button
+        <pl.bclogic.pulsator4droid.library.PulsatorLayout
+            android:id="@+id/pulsator"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            app:layout_constraintBottom_toBottomOf="@+id/statisticButton"
+            app:layout_constraintEnd_toEndOf="@+id/statisticButton"
+            app:layout_constraintStart_toStartOf="@+id/statisticButton"
+            app:layout_constraintTop_toTopOf="@+id/statisticButton"
+            app:pulse_color="@color/colorPrimaryDark"
+            app:pulse_count="1"
+            app:pulse_duration="7000"
+            app:pulse_interpolator="Linear"
+            app:pulse_repeat="0"
+            app:pulse_startFromScratch="true">
+        </pl.bclogic.pulsator4droid.library.PulsatorLayout>
+
+        <ImageButton
             android:id="@+id/statisticButton"
             android:layout_width="wrap_content"
-
-            android:layout_height="92dp"
-
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="89dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="89dp"
+            android:layout_height="85dp"
             android:background="@drawable/button_roundcorners_dark"
-            android:backgroundTint="@color/colorPrimary"
+            android:elevation="12dp"
+            android:src="@drawable/graphs"
+            app:layout_constraintBottom_toBottomOf="@+id/pieChart"
+            app:layout_constraintEnd_toEndOf="@+id/pieChart"
+            app:layout_constraintStart_toStartOf="@+id/pieChart"
+            app:layout_constraintTop_toTopOf="@+id/pieChart" />
+
+
+
+        <TextView
+            android:id="@+id/co2TextBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/text_roundcorners_darkgreen"
             android:fontFamily="@font/roboto"
-            android:lineSpacingExtra="4sp"
-            android:text="Statistik"
-            android:textAlignment="center"
-            android:textColor="@color/hvid"
+            android:gravity="center"
+            android:padding="16dp"
+            android:textColor="@android:color/white"
+            android:textSize="16dp"
+            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtInfoBox3" />
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tabForGoldImage3"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="TextView"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/txtCoinButton3"
+            app:layout_constraintEnd_toEndOf="@+id/txtCoinButton3"
+            app:layout_constraintStart_toStartOf="@+id/txtCoinButton3"
+            app:layout_constraintTop_toTopOf="@+id/txtCoinButton3" />
+
 
 
     </android.support.constraint.ConstraintLayout>

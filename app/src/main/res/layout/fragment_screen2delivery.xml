@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screen2delivery"
+    tools:context=".fragments.screen2delivery"
     android:background="#000000">
 
     <android.support.constraint.ConstraintLayout
@@ -18,59 +18,82 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
-            android:layout_marginTop="69dp"
             android:layout_marginEnd="18dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="268dp"
             android:background="@drawable/text_roundcorners_lightgreen"
             android:fontFamily="@font/roboto"
             android:textAlignment="center"
             android:textColor="@android:color/background_light"
             android:textSize="50sp"
-            app:layout_constraintBottom_toTopOf="@+id/doneButton"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtCoinBox2" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/txtCoinBox2"
+        <Button
+            android:id="@+id/txtCoinButton2"
             android:layout_width="0dp"
-            android:layout_height="42dp"
+            android:layout_height="42sp"
             android:layout_marginStart="18dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="18dp"
-            android:background="@drawable/text_roundcorners_beige"
+            android:elevation="0dp"
+            android:background="@drawable/text_roundcorners_gold"
             android:fontFamily="@font/roboto"
-            android:text="GarbageCoins: "
             android:gravity="center"
-            android:textColor="@android:color/black"
+            android:textAlignment="center"
+            android:textColor="@color/gold"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/txtInfoBox3"
+            app:layout_constraintBottom_toTopOf="@+id/txtInfoBox1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/guldbaricon2"
+            />
 
-        <Button
+        <ImageView
+            android:id="@+id/imgGoldBox"
+            android:layout_width="53dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="28dp"
+            android:elevation="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtCoinButton2"
+            app:layout_constraintStart_toEndOf="@+id/tabForGoldImage2"
+            app:layout_constraintTop_toTopOf="@+id/txtCoinButton2"
+            app:layout_constraintVertical_bias="0.444"
+            app:srcCompat="@drawable/guldbaricon2" />
+
+        <pl.bclogic.pulsator4droid.library.PulsatorLayout
+            android:id="@+id/pulsator"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:layout_constraintBottom_toBottomOf="@+id/doneButton"
+            app:layout_constraintEnd_toEndOf="@+id/doneButton"
+            app:layout_constraintStart_toStartOf="@+id/doneButton"
+            app:layout_constraintTop_toTopOf="@+id/doneButton"
+            app:pulse_color="@color/colorPrimaryDark"
+            app:pulse_count="1"
+            app:pulse_duration="7000"
+            app:pulse_interpolator="Linear"
+            app:pulse_repeat="0"
+            app:pulse_startFromScratch="true">
+        </pl.bclogic.pulsator4droid.library.PulsatorLayout>
+
+        <ImageButton
             android:id="@+id/doneButton"
             android:layout_width="wrap_content"
-            android:layout_height="92dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="142dp"
-
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="58dp"
-
+            android:layout_marginEnd="13dp"
+            android:layout_marginBottom="140dp"
             android:background="@drawable/button_roundcorners_dark"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:fontFamily="@font/roboto"
-            android:lineSpacingExtra="4sp"
-            android:text="Tryk\nnår\nfærdig"
-            android:textAlignment="center"
-            android:textColor="@color/hvid"
-            app:layout_constraintBottom_toTopOf="@+id/newIdButton"
+            android:elevation="0dp"
+            android:src="@drawable/flueben"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtIdBox" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/newIdButton"
@@ -78,15 +101,44 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/button_roundcorners_light"
-            android:elevation="5dp"
+            android:layout_marginBottom="17dp"
+            android:background="@drawable/button_roundcorners_dark"
+            android:elevation="0dp"
             android:fontFamily="@font/roboto"
-            android:text="Få ny kode"
-            android:textColor="@android:color/background_light"
+            android:text="Ny kode"
+            android:textColor="@android:color/white"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/button_auxiliary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Auxiliary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.914"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.161" />
+
+        <TextView
+            android:id="@+id/tabForGoldImage2"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="TextView"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/txtCoinButton2"
+            app:layout_constraintEnd_toEndOf="@+id/txtCoinButton2"
+            app:layout_constraintStart_toStartOf="@+id/txtCoinButton2"
+            app:layout_constraintTop_toTopOf="@+id/txtCoinButton2" />
+
+
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

@@ -1,13 +1,28 @@
 package erickkim.dtu.dk.affaldsprojekt.TEST_Data_Backend;
 
+import com.github.mikephil.charting.data.PieEntry;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
-import erickkim.dtu.dk.affaldsprojekt.Data_DTO_deliveryCode;
+
+import erickkim.dtu.dk.affaldsprojekt.model.Data_DTO_delivery;
+import erickkim.dtu.dk.affaldsprojekt.model.Data_DTO_deliveryCode;
 
 public class TEST_Database {
+    static FirebaseDatabase mref;
+    static DatabaseReference myref;
+    public double coordinates[] = {0.0, 0.0};
 
     public static TEST_Database getInstance() {
+        mref = FirebaseDatabase.getInstance();
         if (testDatabaseInstance == null)
             testDatabaseInstance = new TEST_Database();
         return testDatabaseInstance;
@@ -15,10 +30,41 @@ public class TEST_Database {
 
     private static TEST_Database testDatabaseInstance = null;
 
-    public static String tips[] = {"Leverpostejen skal opdeles.", "Smid nu for filen din skrald ordentligt ud.", "Det er noget af en weekend du har haft!",
-            "Vi kan se at det blev en god første date igår!", "Bananer går i bio, plast går i plast. Lær det nu."};
+    public static String tips[] = {
+            "Danmark har EU-rekord i skrald - danskerne smider 802 " +
+            "kg skrald ud per indbygger om året.",
 
-    public static int personCoins[][] = { {123, 323, 252, 623, 555, 111, 112, 113, 999, 986},
+            "Ca. 30 plastflasker kan blive til en fleecetrøje og ca. 500 " +
+            "dåser kan blive til at cykelstel.",
+
+            "Et kilo aviser bliver til 32 æggebakker og i to konservesdåser " +
+            "er der materiale nok til at lave 1 ringeklokke til en cykel.",
+
+            "Stryhns laver 100.000 bakker leverpostej om dagen, i 106 foliebakker " +
+            "Er der materiale nok til rammen til en bærbar computer.",
+
+            "Et kg aluminium udvundet af bauxit skaber ca. 85 kg affald. Det skaber " +
+            "kun 3.5 kg affald at genbruge et kg aluminium.",
+
+            "Der bliver brugt cirka 1,5 tons råstoffer til at producere en computer og " +
+            "cirka 75 kilo til en mobiltelefon. Størstedelen af forbruget bliver til affald.",
+
+            "Mængden af ædelmetaller er ca. 3 gange større i elektronikskrot end i normal " +
+            "minedrift. Dermed spares der store mængder CO2 ved denne form for genvinding.",
+
+            "hvis alle levede som danskerne, ville det kræve 4 jordkloder for at dække " +
+            "vores forbrug.",
+
+            "For at lave en cykel skal der ikke samles mere end 200 dåser aluminium eller jern.",
+
+            "Et ton bioaffald kan gøde landbrugsjord, hvad der svarer til størrelsen på en " +
+            "parcelhusgrund. Der spares 37 kg CO2 pr ton, fordi kulstoffet føres tilbage til jorden.",
+
+    };
+
+
+
+    public static int personCoins[][] = { {1111111111, 323, 252, 623, 555, 111, 112, 113, 999, 986},
                             {15555, 55005, 252555, 236110, 0, 10, 623523, 161512, 696969696, 2336 }
     };
 
@@ -35,6 +81,7 @@ public class TEST_Database {
 
     public static Data_DTO_deliveryCode getDeliveryCode() {
         Data_DTO_deliveryCode newTempCode = new Data_DTO_deliveryCode();
+        /* Simplify the code process.
         Date dateSetter = new Date();
         do {
             newTempCode.setCode(fabricateNewCode());
@@ -42,7 +89,9 @@ public class TEST_Database {
         } while (!testCodeValid(newTempCode));
 
         insertCodeIntoData(newTempCode);
-
+        */
+        newTempCode.setDate(new Date().getTime());
+        newTempCode.setCode(fabricateNewCode());
         return newTempCode;
     }
 
@@ -77,19 +126,44 @@ public class TEST_Database {
             return false;
     }
 
-    public static int fabricateNewCode() {
-        int min = 1;
+    public static int getRandomNumber() {
+        int min = 1000;
         int max = 9999;
         int range = (max - min) + 1;
-        return (int) (Math.random() * range) + min;
+        int result = (int) (Math.random() * range) + min;
+        return result;
     }
 
-    public static String getTip() {
-        Random r = new Random();
-        int tipToGet = r.nextInt(tips.length);
+    public static int fabricateNewCode() {
+
+        int output = getRandomNumber();
+        return output;
+    }
+
+    public static String getTip(int tipToGet) {
+
         return tips[tipToGet];
     }
 
 
 
+    public ArrayList<PieEntry> getFraktionAmount(final int usedDataDeliveryCode, final String userId, final String date) {
+        final ArrayList<PieEntry> liste = new ArrayList<>();
+
+        FirebaseDatabase.getInstance().getReference("affaldsprojekt-ae236").child("delivery").child(userId).child(date)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Data_DTO_delivery data = snapshot.getValue(Data_DTO_delivery.class);
+                            ((ArrayList) liste).add(data.getAmount());
+                            ((ArrayList) liste).add(data.getType());
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+        return liste;
+        }
 }

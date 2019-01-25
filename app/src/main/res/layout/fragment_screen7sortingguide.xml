@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context=".fragments.screen7sortingguide">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/sortguide_constraint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <Button
+            android:id="@+id/txtCoinButton7"
+            android:layout_width="0dp"
+            android:layout_height="42sp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:elevation="0dp"
+            android:background="@drawable/text_roundcorners_gold"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/gold"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/textAnalyseBox"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/guldbaricon2"
+            />
+
+        <ImageView
+            android:id="@+id/imgGoldBox"
+            android:layout_width="53dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="28dp"
+            android:elevation="3dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtCoinButton7"
+            app:layout_constraintStart_toEndOf="@+id/tabForGoldImage7"
+            app:layout_constraintTop_toTopOf="@+id/txtCoinButton7"
+            app:layout_constraintVertical_bias="0.444"
+            app:srcCompat="@drawable/guldbaricon2" />
+
+        <TextView
+            android:id="@+id/tabForGoldImage7"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="TextView"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/txtCoinButton7"
+            app:layout_constraintEnd_toEndOf="@+id/txtCoinButton7"
+            app:layout_constraintStart_toStartOf="@+id/txtCoinButton7"
+            app:layout_constraintTop_toTopOf="@+id/txtCoinButton7" />
+
+
+        <WebView
+            android:id="@+id/sortguide_Webview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtCoinButton7" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</FrameLayout>

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screen1main"
+    tools:context=".fragments.screen1main"
     android:background="#000000">
 
     <android.support.constraint.ConstraintLayout
@@ -14,140 +14,137 @@
         android:minWidth="383dp"
         android:minHeight="511dp">
 
-        <Button
-            android:id="@+id/hubstatusButton"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginBottom="2dp"
-            android:background="@drawable/button_trround_dark"
-            android:elevation="0dp"
-            android:fontFamily="@font/roboto"
-            android:text="Hub\nStatus"
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/garbageButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/depositButton"
-            app:layout_constraintTop_toBottomOf="@+id/txtInfoBox3" />
-
-        <Button
+        <ImageButton
             android:id="@+id/hubplacementButton"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="18dp"
             android:layout_marginTop="2dp"
-            android:layout_marginEnd="4dp"
+            android:layout_marginEnd="2dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/button_blround_dark"
             android:elevation="0dp"
-            android:fontFamily="@font/roboto"
-            android:text="Hub\nplacering"
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:src="@drawable/marker"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/hubstatusButton"
+            app:layout_constraintEnd_toStartOf="@+id/garbageButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/depositButton" />
 
-        <TextView
-            android:id="@+id/txtCoinBox3"
+
+        <ImageView
+            android:elevation="5dp"
+            android:id="@+id/imgGoldBox"
+            android:layout_width="53dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="28dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtCoinButton1"
+            app:layout_constraintStart_toEndOf="@+id/tabForGoldImage1"
+            app:layout_constraintTop_toTopOf="@+id/txtCoinButton1"
+            app:layout_constraintVertical_bias="0.444"
+            app:srcCompat="@drawable/guldbaricon2" />
+
+        <Button
+            android:id="@+id/txtCoinButton1"
             android:layout_width="0dp"
-            android:layout_height="42dp"
+            android:layout_height="42sp"
             android:layout_marginStart="18dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="18dp"
-            android:background="@drawable/text_roundcorners_beige"
+            android:elevation="0dp"
+            android:background="@drawable/text_roundcorners_gold"
             android:fontFamily="@font/roboto"
             android:gravity="center"
-            android:text="GarbageCoins: "
             android:textAlignment="center"
-            android:textColor="@android:color/black"
+            android:textColor="@color/gold"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/txtInfoBox3"
+            app:layout_constraintBottom_toTopOf="@+id/txtInfoBox1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/guldbaricon2"
+         />
 
         <TextView
-            android:id="@+id/txtInfoBox3"
+            android:id="@+id/txtInfoBox1"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="170sp"
             android:layout_marginStart="18dp"
             android:layout_marginTop="36dp"
             android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/text_roundcorners_darkgreen"
             android:fontFamily="@font/roboto"
-            android:gravity="center"
+            android:gravity="fill"
+            android:padding="8dp"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="20dp"
             android:textStyle="italic"
-            app:layout_constraintBottom_toTopOf="@+id/hubstatusButton"
+            app:layout_constraintBottom_toTopOf="@+id/depositButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtCoinBox3" />
+            app:layout_constraintTop_toBottomOf="@+id/txtCoinButton1" />
 
         <ImageButton
             android:id="@+id/garbageButton"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="8dp"
-            android:adjustViewBounds="true"
             android:background="@drawable/button_brround_dark"
             android:elevation="0dp"
-            android:padding="30dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/hubplacementButton"
-            app:layout_constraintTop_toBottomOf="@+id/hubstatusButton"
-            app:srcCompat="@drawable/fraktionbutton2" />
+            app:layout_constraintTop_toBottomOf="@+id/depositButton"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/sorteringsguide" />
 
         <Button
 
             android:id="@+id/depositButton"
-
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="18dp"
             android:layout_marginTop="40dp"
-
-            android:layout_marginEnd="2dp"
+            android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
-            android:background="@drawable/button_tlround_dark"
+            android:background="@drawable/button_topround_dark"
             android:bottomLeftRadius="30dp"
-
             android:bottomRightRadius="1dp"
             android:elevation="0dp"
             android:fontFamily="@font/roboto"
             android:text="Start\nAflevering"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
-            android:textSize="24sp"
-
-
+            android:textSize="34sp"
             android:textStyle="bold"
             android:topLeftRadius="1dp"
             android:topRightRadius="30dp"
             app:layout_constraintBottom_toTopOf="@+id/hubplacementButton"
-            app:layout_constraintEnd_toStartOf="@+id/hubstatusButton"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtInfoBox3" />
+            app:layout_constraintTop_toBottomOf="@+id/txtInfoBox1" />
 
+        <TextView
+            android:id="@+id/tabForGoldImage1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="TextView"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/txtCoinButton1"
+            app:layout_constraintEnd_toEndOf="@+id/txtCoinButton1"
+            app:layout_constraintStart_toStartOf="@+id/txtCoinButton1"
+            app:layout_constraintTop_toTopOf="@+id/txtCoinButton1" />
 
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

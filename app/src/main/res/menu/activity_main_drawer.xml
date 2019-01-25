@@ -5,33 +5,38 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/my_profile"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:title="Min Profil" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/notifications"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="Notifikationer" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/coinshop"
+            android:icon="@drawable/guldbaricon"
+            android:title="Guldbutikken" />
+        <item
+            android:id="@+id/feedback"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Feedback" />
+
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="App Info">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/settings"
+                android:title="Indstillinger"
+                />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/about"
+                android:title="Om"
+                />
+            <item
+                android:id="@+id/logout"
+                android:title="Log Ud"
+                />
         </menu>
     </item>
 
